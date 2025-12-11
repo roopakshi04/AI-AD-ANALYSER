@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AdPro+ - AI Ad Intelligence Platform</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body { 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+      background: #f8f9fa;
+      color: #1a1a1a;
+      line-height: 1.6;
+    }
+    
+    header { 
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 1.5rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+    
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+    }
+    
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .logo-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #ffffff;
+      font-size: 1.5rem;
+      letter-spacing: -1px;
+    }
+    
+    .logo-text h1 { 
+      font-family: 'Playfair Display', serif;
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.125rem;
+    }
+    
+    .logo-text p {
+      color: #6b7280;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+    
+    .header-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    
+    .filter-select {
+      padding: 0.625rem 1rem;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      background: #ffffff;
+      color: #374151;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    
+    .filter-select:hover {
+      border-color: #9ca3af;
+    }
+    
+    .btn-refresh { 
+      background: #1a1a1a;
+      color: #ffffff;
+      border: none;
+      padding: 0.625rem 1.5rem;
+      font-weight: 500;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-size: 0.875rem;
+    }
+    
+    .btn-refresh:hover {
+      background: #2d2d2d;
+    }
+    
+    .container { 
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem;
+    }
+    
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    
+    .metric-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 1.75rem;
+      transition: box-shadow 0.2s;
+    }
+    
+    .metric-card:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    
+    .metric-label {
+      color: #6b7280;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 0.75rem;
+    }
+    
+    .metric-value {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 0.5rem;
+    }
+    
+    .metric-trend {
+      font-size: 0.8125rem;
+      color: #10b981;
+      font-weight: 500;
+    }
+    
+    .section-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+    
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    
+    .section-header h2 {
+      font-size: 1.5rem;
+      color: #1a1a1a;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+    }
+    
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .tab-btn {
+      padding: 0.5rem 1rem;
+      border: 1px solid #e5e7eb;
+      background: #ffffff;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #6b7280;
+      transition: all 0.2s;
+    }
+    
+    .tab-btn.active {
+      background: #1a1a1a;
+      color: #ffffff;
+      border-color: #1a1a1a;
+    }
+    
+    .tab-btn:hover:not(.active) {
+      border-color: #9ca3af;
+    }
+    
+    .ads-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 2rem;
+    }
+    
+    .ad-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+    
+    .ad-card:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+    
+    .ad-image {
+      width: 100%;
+      height: 220px;
+      background: #f3f4f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #9ca3af;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    
+    .ad-content {
+      padding: 1.5rem;
+    }
+    
+    .ad-brand {
+      display: inline-block;
+      background: #1a1a1a;
+      color: #ffffff;
+      padding: 0.375rem 0.875rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 1rem;
+    }
+    
+    .ad-text {
+      font-size: 0.9375rem;
+      color: #374151;
+      margin-bottom: 1.25rem;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+    
+    .ad-meta {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    
+    .ad-meta-item {
+      font-size: 0.8125rem;
+    }
+    
+    .ad-meta-label {
+      color: #9ca3af;
+      display: block;
+      margin-bottom: 0.25rem;
+      font-weight: 500;
+    }
+    
+    .ad-meta-value {
+      color: #1a1a1a;
+      font-weight: 600;
+    }
+    
+    .ad-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      padding: 1.25rem;
+      background: #f9fafb;
+      border-radius: 6px;
+      margin-bottom: 1.25rem;
+    }
+    
+    .ad-metrics-extended {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    
+    .metric-small {
+      text-align: center;
+    }
+    
+    .metric-small-label {
+      font-size: 0.6875rem;
+      color: #9ca3af;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.25rem;
+    }
+    
+    .metric-small-value {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+    
+    .ad-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+    
+    .tag {
+      padding: 0.375rem 0.75rem;
+      background: #f3f4f6;
+      color: #4b5563;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    
+    .ad-insight {
+      padding: 1rem;
+      background: #f9fafb;
+      border-left: 3px solid #1a1a1a;
+      border-radius: 4px;
+    }
+    
+    .ad-insight-label {
+      font-size: 0.75rem;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    
+    .ad-insight-text {
+      font-size: 0.875rem;
+      color: #374151;
+      line-height: 1.6;
+    }
+    
+    .insight-box {
+      background: #f9fafb;
+      padding: 2rem;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+      margin-bottom: 2rem;
+    }
+    
+    .insight-box h3 {
+      color: #1a1a1a;
+      margin-bottom: 1rem;
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+    
+    .insight-box p {
+      color: #4b5563;
+      line-height: 1.7;
+      font-size: 0.9375rem;
+    }
+    
+    .stats-row {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 2rem;
+      padding: 2rem;
+      background: #f9fafb;
+      border-radius: 8px;
+    }
+    
+    .stat-item {
+      text-align: center;
+      flex: 1;
+      min-width: 140px;
+    }
+    
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+      color: #6b7280;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    
+    .comparison-section {
+      margin-top: 2rem;
+    }
+    
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+    
+    .comparison-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 2rem;
+    }
+    
+    .comparison-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    
+    .comparison-brand {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+    
+    .comparison-badge {
+      padding: 0.375rem 0.75rem;
+      background: #f3f4f6;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #6b7280;
+    }
+    
+    .comparison-badge.your-brand {
+      background: #1a1a1a;
+      color: #ffffff;
+    }
+    
+    .comparison-metrics {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .comparison-metric {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem;
+      background: #f9fafb;
+      border-radius: 6px;
+    }
+    
+    .comparison-metric-label {
+      font-size: 0.875rem;
+      color: #6b7280;
+      font-weight: 500;
+    }
+    
+    .comparison-metric-value {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+    
+    .comparison-metric-value.positive {
+      color: #10b981;
+    }
+    
+    .comparison-metric-value.negative {
+      color: #ef4444;
+    }
+    
+    .action-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .action-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 1.75rem;
+      transition: box-shadow 0.2s;
+    }
+    
+    .action-card:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    
+    .action-number {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      background: #1a1a1a;
+      color: #ffffff;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 32px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+    
+    .action-card h4 {
+      color: #1a1a1a;
+      margin-bottom: 0.75rem;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    
+    .action-card p {
+      color: #6b7280;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+    
+    .report-download {
+      margin-top: 2rem;
+      padding: 2rem;
+      background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+      border-radius: 8px;
+      text-align: center;
+      border: 1px solid #e5e7eb;
+    }
+    
+    .report-download h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 0.5rem;
+    }
+    
+    .report-download p {
+      color: #6b7280;
+      font-size: 0.9375rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .btn-download {
+      background: #1a1a1a;
+      color: #ffffff;
+      border: none;
+      padding: 0.875rem 2rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-size: 0.9375rem;
+    }
+    
+    .btn-download:hover {
+      background: #2d2d2d;
+    }
+    
+    .ai-chat-section {
+      margin-top: 2.5rem;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .chat-header {
+      background: #1a1a1a;
+      color: #ffffff;
+      padding: 1.5rem 2rem;
+    }
+    
+    .chat-header h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .chat-header p {
+      font-size: 0.875rem;
+      color: #d1d5db;
+    }
+    
+    .chat-messages {
+      padding: 2rem;
+      max-height: 400px;
+      overflow-y: auto;
+      background: #f9fafb;
+    }
+    
+    .chat-message {
+      margin-bottom: 1.5rem;
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .message-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #1a1a1a;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.875rem;
+      flex-shrink: 0;
+    }
+    
+    .message-avatar.user {
+      background: #6b7280;
+    }
+    
+    .message-content {
+      flex: 1;
+    }
+    
+    .message-text {
+      background: #ffffff;
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+      font-size: 0.9375rem;
+      color: #374151;
+      line-height: 1.6;
+    }
+    
+    .chat-input-container {
+      padding: 1.5rem 2rem;
+      background: #ffffff;
+      border-top: 1px solid #e5e7eb;
+    }
+    
+    .chat-input-wrapper {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .chat-input {
+      flex: 1;
+      padding: 0.875rem 1.25rem;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 0.9375rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    
+    .chat-input:focus {
+      outline: none;
+      border-color: #1a1a1a;
+    }
+    
+    .btn-send {
+      background: #1a1a1a;
+      color: #ffffff;
+      border: none;
+      padding: 0.875rem 2rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-size: 0.9375rem;
+    }
+    
+    .btn-send:hover {
+      background: #2d2d2d;
+    }
+    
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .logo-section {
+        width: 100%;
+      }
+      
+      .header-actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .ads-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .ad-metrics {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .stats-row {
+        gap: 1rem;
+      }
+      
+      .stat-number {
+        font-size: 2rem;
+      }
+      
+      .chat-input-wrapper {
+        flex-direction: column;
+      }
+      
+      .btn-send {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <div class="logo-section">
+        <div class="logo-icon">A+</div>
+        <div class="logo-text">
+          <h1>AdPro+</h1>
+          <p>CREATIVE INTELLIGENCE</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <select class="filter-select" id="timeFilter">
+          <option>Last 7 Days</option>
+          <option>Last 30 Days</option>
+          <option>Last Quarter</option>
+        </select>
+        <button class="btn-refresh" onclick="refreshAds()">Refresh Data</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Key Metrics -->
+    <div class="metrics-grid" id="metrics-grid"></div>
+
+    <!-- Performance Overview -->
+    <div class="section-card">
+      <div class="section-header">
+        <h2>Performance Overview</h2>
+      </div>
+      <div class="stats-row">
+        <div class="stat-item">
+          <div class="stat-number">4.35</div>
+          <div class="stat-label">Average ROAS</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">₹135</div>
+          <div class="stat-label">Cost Per Purchase</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">4.65%</div>
+          <div class="stat-label">Click-Through Rate</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">₹3,050</div>
+          <div class="stat-label">Average Order Value</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top Performing Ads -->
+    <div class="section-card">
+      <div class="section-header">
+        <h2>Competitor Ad Analysis</h2>
+        <div class="tabs">
+          <button class="tab-btn active">All Formats</button>
+          <button class="tab-btn">Carousel</button>
+          <button class="tab-btn">Static</button>
+          <button class="tab-btn">Video</button>
+        </div>
+      </div>
+      <div class="ads-grid" id="ads-grid"></div>
+    </div>
+
+    <!-- Market Insights -->
+    <div class="section-card">
+      <div class="section-header">
+        <h2>Market Intelligence</h2>
+      </div>
+      <div class="insight-box">
+        <h3>Key Trend Analysis</h3>
+        <p id="trend-insight"></p>
+      </div>
+      <div class="stats-row">
+        <div class="stat-item">
+          <div class="stat-number">45%</div>
+          <div class="stat-label">Carousel Ads</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">35%</div>
+          <div class="stat-label">Static Ads</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">20%</div>
+          <div class="stat-label">Video Ads</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Competitive Comparison -->
+    <div class="section-card">
+      <div class="section-header">
+        <h2>Competitive Benchmarking</h2>
+      </div>
+      <div class="comparison-section">
+        <div class="comparison-grid" id="comparison-grid"></div>
+      </div>
+    </div>
+
+    <!-- Strategic Recommendations -->
+    <div class="section-card">
+      <div class="section-header">
+        <h2>Performance Enhancement Strategy</h2>
+      </div>
+      <div class="action-items" id="recommendations"></div>
+      
+      <!-- Report Download -->
+      <div class="report-download">
+        <h3>Comprehensive Performance Report</h3>
+        <p>Download a detailed summary of all competitor insights, performance metrics, and strategic recommendations</p>
+        <button class="btn-download" onclick="downloadReport()">Download Summary Report</button>
+      </div>
+    </div>
+
+    <!-- AI Chat Assistant -->
+    <div class="ai-chat-section">
+      <div class="chat-header">
+        <h3>AI Strategy Assistant</h3>
+        <p>Get personalized recommendations based on trending ad performance</p>
+      </div>
+      <div class="chat-messages" id="chat-messages">
+        <div class="chat-message">
+          <div class="message-avatar">AI</div>
+          <div class="message-content">
+            <div class="message-text">
+              Hello! I'm your AI strategy assistant. I can help you analyze competitor ad performance and suggest improvements for your campaigns. What would you like to know?
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="chat-input-container">
+        <div class="chat-input-wrapper">
+          <input type="text" class="chat-input" id="chat-input" placeholder="Ask about ad strategies, trends, or recommendations..." onkeypress="handleChatKeypress(event)">
+          <button class="btn-send" onclick="sendMessage()">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const demoData = {
+      "metrics": [
+        { 
+          "name": "Total Ads Analyzed", 
+          "value": "350+",
+          "trend": "+12% vs last week"
+        },
+        { 
+          "name": "Brands Monitored", 
+          "value": "5",
+          "trend": "Active tracking"
+        },
+        { 
+          "name": "Total Impressions", 
+          "value": "2.4M",
+          "trend": "+18% growth"
+        },
+        { 
+          "name": "Total Spend", 
+          "value": "₹48L",
+          "trend": "Last 30 days"
+        },
+        { 
+          "name": "Avg CPC", 
+          "value": "₹12.50",
+          "trend": "-8% optimized"
+        },
+        { 
+          "name": "Total Conversions", 
+          "value": "3,850",
+          "trend": "+22% increase"
+        }
+      ],
+      "top_ads": [
+        {
+          "brand": "Jaypore",
+          "text": "Elegant handcrafted silk sarees that tell a story of Indian heritage",
+          "product": "Silk Saree",
+          "format": "Promotional Offer",
+          "ad_type": "Carousel",
+          "roas": "4.2",
+          "cost_per_purchase": "₹130",
+          "aov": "₹3,200",
+          "ctr": "4.3%",
+          "cpc": "₹11.80",
+          "reach": "98K",
+          "impressions": "385K",
+          "clicks": "16,555",
+          "views": "342K",
+          "conversions": "127",
+          "landing_page": "product-collection.html",
+          "technique": ["Storytelling", "Ethnic Appeal", "Limited Offer"],
+          "insight": "Carousel ads with cultural storytelling engage premium buyers effectively. Landing page with high-quality imagery converts 35% better."
+        },
+        {
+          "brand": "Manyavar",
+          "text": "Festive kurta collection - Modern tradition redefined for celebrations",
+          "product": "Kurta",
+          "format": "Product Spotlight",
+          "ad_type": "Static",
+          "roas": "4.5",
+          "cost_per_purchase": "₹140",
+          "aov": "₹2,900",
+          "ctr": "5.0%",
+          "cpc": "₹10.20",
+          "reach": "120K",
+          "impressions": "450K",
+          "clicks": "22,500",
+          "views": "420K",
+          "conversions": "161",
+          "landing_page": "festival-special.html",
+          "technique": ["Festive Theme", "Local Influencers", "Urgency"],
+          "insight": "Static ads with seasonal themes show 30% higher engagement during festivals. Optimized landing page reduces bounce rate by 25%."
+        },
+        {
+          "brand": "Biba",
+          "text": "Contemporary ethnic wear for the modern woman. Up to 40% off!",
+          "product": "Kurti Set",
