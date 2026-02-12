@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { TrendingUp, Target, Eye, MousePointer, DollarSign, Award, Clock, Sparkles, BarChart3, Users, Video, ImageIcon, Calendar, ArrowUpRight, ArrowDownRight, Filter, Download, MessageSquare, Send } from 'lucide-react';
+import { TrendingUp, Target, Eye, MousePointer, DollarSign, Award, Clock, Sparkles, BarChart3, Users, Video, ImageIcon, Calendar, ArrowUpRight, ArrowDownRight, Filter, Download, MessageSquare, Send, RefreshCw, Plus, X, Search, ChevronDown, Edit, Copy, Trash2 } from 'lucide-react';
 
 const AdIntelligencePlatform = () => {
-  const [activeTab, setActiveTab] = useState('all');
-  const [timeFilter, setTimeFilter] = useState('7days');
+  const [activeTab, setActiveTab] = useState('campaigns');
+  const [timeFilter, setTimeFilter] = useState('last7days');
   const [selectedMetric, setSelectedMetric] = useState('roas');
   const [chatInput, setChatInput] = useState('');
+  const [showFilters, setShowFilters] = useState(false);
   const [chatMessages, setChatMessages] = useState([
     {
       type: 'ai',
@@ -15,13 +16,13 @@ const AdIntelligencePlatform = () => {
 
   // Your brand data
   const yourBrand = {
-    name: "Your Brand",
-    totalSpent: "₹48,000",
+    name: "Adders - Apple News 3 - SC",
+    totalSpent: "$862.47K",
     totalImpressions: "2.4M",
     totalConversions: 3850,
     avgROAS: 4.35,
-    avgCPC: "₹12.50",
-    campaignsActive: 12
+    avgCPC: "$12.50",
+    campaignsActive: 44
   };
 
   // Competitor best performing ads with detailed analysis
@@ -34,11 +35,11 @@ const AdIntelligencePlatform = () => {
       format: "Carousel Ad",
       adType: "Product Showcase",
       thumbnail: "High-quality model shots with cultural backdrop",
-      deliveryStatus: "Active - Peak Performance",
+      deliveryStatus: "Running",
       
       // Performance Metrics
-      spent: "₹85,000",
-      budget: "₹150,000",
+      spent: "$85,000",
+      budget: "$150,000",
       impressions: "385K",
       clicks: 16555,
       conversions: 127,
@@ -48,11 +49,11 @@ const AdIntelligencePlatform = () => {
       // Calculated Metrics
       roas: 4.2,
       ctr: 4.3,
-      cpc: "₹11.80",
-      costPerPurchase: "₹130",
+      cpc: "$11.80",
+      costPerPurchase: "$130",
       conversionRate: 0.77,
-      aov: "₹3,200",
-      cpm: "₹220",
+      aov: "$3,200",
+      cpm: "$220",
       
       // Engagement Metrics
       videoWatchTime: "45s avg",
@@ -112,10 +113,10 @@ const AdIntelligencePlatform = () => {
       format: "Static Image",
       adType: "Seasonal Campaign",
       thumbnail: "Bold festive colors with influencer model",
-      deliveryStatus: "Active - Trending",
+      deliveryStatus: "Running",
       
-      spent: "₹92,000",
-      budget: "₹180,000",
+      spent: "$92,000",
+      budget: "$180,000",
       impressions: "450K",
       clicks: 22500,
       conversions: 161,
@@ -124,11 +125,11 @@ const AdIntelligencePlatform = () => {
       
       roas: 4.5,
       ctr: 5.0,
-      cpc: "₹10.20",
-      costPerPurchase: "₹140",
+      cpc: "$10.20",
+      costPerPurchase: "$140",
       conversionRate: 0.72,
-      aov: "₹2,900",
-      cpm: "₹204",
+      aov: "$2,900",
+      cpm: "$204",
       
       videoWatchTime: "N/A",
       videoCompletionRate: "N/A",
@@ -184,10 +185,10 @@ const AdIntelligencePlatform = () => {
       format: "Video Ad",
       adType: "Promotional Campaign",
       thumbnail: "Dynamic product showcase with discount badge",
-      deliveryStatus: "Active - High Engagement",
+      deliveryStatus: "Running",
       
-      spent: "₹78,000",
-      budget: "₹140,000",
+      spent: "$78,000",
+      budget: "$140,000",
       impressions: "520K",
       clicks: 26000,
       conversions: 208,
@@ -196,11 +197,11 @@ const AdIntelligencePlatform = () => {
       
       roas: 4.8,
       ctr: 5.0,
-      cpc: "₹9.50",
-      costPerPurchase: "₹125",
+      cpc: "$9.50",
+      costPerPurchase: "$125",
       conversionRate: 0.80,
-      aov: "₹2,750",
-      cpm: "₹150",
+      aov: "$2,750",
+      cpm: "$150",
       
       videoWatchTime: "38s avg",
       videoCompletionRate: "72%",
@@ -247,150 +248,6 @@ const AdIntelligencePlatform = () => {
       mobileOptimization: "Good",
       
       aiInsight: "Biba's video ad format showcases product variety effectively, with 72% completion rate indicating strong content quality. The 40% discount messaging creates immediate value perception. Weekend afternoon targeting captures relaxed browsing sessions, resulting in 80% higher engagement than weekday campaigns."
-    },
-    {
-      brand: "FabIndia",
-      campaignName: "Sustainable Fashion Campaign",
-      adText: "Embrace sustainable fashion with our eco-friendly ethnic collection. Handwoven fabrics, timeless designs.",
-      product: "Sustainable Ethnic Wear",
-      format: "Carousel Ad",
-      adType: "Brand Building",
-      thumbnail: "Artisan story with product close-ups",
-      deliveryStatus: "Active - Growing",
-      
-      spent: "₹68,000",
-      budget: "₹120,000",
-      impressions: "295K",
-      clicks: 13275,
-      conversions: 98,
-      reach: "82K",
-      views: "267K",
-      
-      roas: 3.9,
-      ctr: 4.5,
-      cpc: "₹13.20",
-      costPerPurchase: "₹148",
-      conversionRate: 0.74,
-      aov: "₹3,450",
-      cpm: "₹230",
-      
-      videoWatchTime: "N/A",
-      videoCompletionRate: "N/A",
-      engagementRate: "5.4%",
-      saveRate: "3.5%",
-      shareRate: "1.9%",
-      
-      bestDayPerformance: "Thursday",
-      bestTimeSlot: "7 PM - 10 PM",
-      campaignDuration: "28 days",
-      peakPerformanceDay: "Day 18",
-      
-      keywordStrategy: ["sustainable fashion", "eco-friendly", "handwoven", "ethical wear", "artisan craft"],
-      thumbnailStrategy: "Artisan storytelling with authentic craftsmanship",
-      copyStrategy: "Values-driven messaging for conscious consumers",
-      ctaStrategy: "Discover Collection - Exploratory approach",
-      targetAudience: "Women 28-45, Eco-conscious premium",
-      
-      winningFactors: [
-        {
-          factor: "Sustainability Narrative",
-          impact: "Very High",
-          description: "Eco-conscious messaging resonates with premium segment, 42% higher engagement"
-        },
-        {
-          factor: "Artisan Storytelling",
-          impact: "High",
-          description: "Behind-the-scenes content builds emotional connection, 35% save rate"
-        },
-        {
-          factor: "Premium Positioning",
-          impact: "Medium",
-          description: "Higher AOV indicates successful premium brand perception"
-        },
-        {
-          factor: "Longer Campaign Duration",
-          impact: "Medium",
-          description: "Extended run builds brand familiarity and consideration"
-        }
-      ],
-      
-      landingPageQuality: 90,
-      landingPageSpeed: "1.9s",
-      mobileOptimization: "Excellent",
-      
-      aiInsight: "FabIndia successfully targets eco-conscious premium buyers through authentic artisan storytelling. The carousel format allows detailed craft narrative. Higher AOV and save rate indicate strong brand loyalty building. Longer campaign duration pays off in sustained engagement growth."
-    },
-    {
-      brand: "W for Woman",
-      campaignName: "Workwear Fusion Collection",
-      adText: "Elevate your work wardrobe. Indo-western fusion wear that transitions seamlessly from office to evening.",
-      product: "Fusion Workwear",
-      format: "Video Ad",
-      adType: "Lifestyle Campaign",
-      thumbnail: "Professional setting with versatile styling",
-      deliveryStatus: "Active - Consistent",
-      
-      spent: "₹72,000",
-      budget: "₹130,000",
-      impressions: "380K",
-      clicks: 18240,
-      conversions: 142,
-      reach: "105K",
-      views: "342K",
-      
-      roas: 4.1,
-      ctr: 4.8,
-      cpc: "₹11.50",
-      costPerPurchase: "₹135",
-      conversionRate: 0.78,
-      aov: "₹2,850",
-      cpm: "₹189",
-      
-      videoWatchTime: "42s avg",
-      videoCompletionRate: "65%",
-      engagementRate: "5.9%",
-      saveRate: "2.6%",
-      shareRate: "1.4%",
-      
-      bestDayPerformance: "Monday",
-      bestTimeSlot: "9 AM - 11 AM",
-      campaignDuration: "18 days",
-      peakPerformanceDay: "Day 11",
-      
-      keywordStrategy: ["workwear", "indo-western", "office fashion", "versatile clothing", "professional style"],
-      thumbnailStrategy: "Day-to-night transformation showcasing versatility",
-      copyStrategy: "Convenience and versatility messaging",
-      ctaStrategy: "Explore Range - Consideration focused",
-      targetAudience: "Working women 25-40, Urban professionals",
-      
-      winningFactors: [
-        {
-          factor: "Versatility Appeal",
-          impact: "High",
-          description: "Office-to-evening positioning addresses key pain point, 38% higher interest"
-        },
-        {
-          factor: "Morning Time Targeting",
-          impact: "Very High",
-          description: "Monday morning slots capture work preparation mindset, 48% better CTR"
-        },
-        {
-          factor: "Lifestyle Positioning",
-          impact: "High",
-          description: "Professional context creates aspirational appeal"
-        },
-        {
-          factor: "Video Storytelling",
-          impact: "Medium",
-          description: "Transformation narrative demonstrates product benefit clearly"
-        }
-      ],
-      
-      landingPageQuality: 87,
-      landingPageSpeed: "2.0s",
-      mobileOptimization: "Very Good",
-      
-      aiInsight: "W for Woman uniquely targets working professionals with Monday morning ad placement, capturing work preparation mindset. The versatility narrative solves real wardrobe challenges for busy professionals. Video format effectively demonstrates day-to-night transition, reducing product uncertainty."
     }
   ];
 
@@ -423,50 +280,36 @@ const AdIntelligencePlatform = () => {
 
   const metrics = [
     { 
-      label: "Your Total Spend", 
+      label: "Total Spend", 
       value: yourBrand.totalSpent,
-      change: "+8% vs last period",
+      change: "+8%",
       positive: true,
-      icon: <DollarSign className="w-5 h-5" />
+      icon: <DollarSign className="w-4 h-4" />
     },
     { 
-      label: "Competitor Avg Spend", 
-      value: "₹79K",
-      change: "Per top campaign",
+      label: "Competitor Avg", 
+      value: "$79K",
+      change: "per campaign",
       positive: false,
-      icon: <BarChart3 className="w-5 h-5" />
+      icon: <BarChart3 className="w-4 h-4" />
     },
     { 
       label: "Your ROAS", 
       value: yourBrand.avgROAS.toFixed(2),
-      change: "-3% vs competitors",
+      change: "-3%",
       positive: false,
-      icon: <Target className="w-5 h-5" />
+      icon: <Target className="w-4 h-4" />
     },
     { 
-      label: "Competitor Avg ROAS", 
+      label: "Avg ROAS", 
       value: "4.30",
-      change: "+12% industry avg",
+      change: "+12%",
       positive: true,
-      icon: <TrendingUp className="w-5 h-5" />
-    },
-    { 
-      label: "Your Conversions", 
-      value: yourBrand.totalConversions.toLocaleString(),
-      change: "+22% growth",
-      positive: true,
-      icon: <Award className="w-5 h-5" />
-    },
-    { 
-      label: "Top Competitor Conv.", 
-      value: "208",
-      change: "Single campaign (Biba)",
-      positive: false,
-      icon: <Users className="w-5 h-5" />
+      icon: <TrendingUp className="w-4 h-4" />
     }
   ];
 
-  const filteredAds = activeTab === 'all' 
+  const filteredAds = activeTab === 'campaigns' 
     ? competitorAds 
     : competitorAds.filter(ad => {
         if (activeTab === 'carousel') return ad.format === 'Carousel Ad';
@@ -507,127 +350,265 @@ const AdIntelligencePlatform = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-gray-900 to-gray-700 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">A+</span>
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold text-gray-900">AdPro+</h1>
-                <p className="text-xs text-gray-500 font-semibold tracking-wider">COMPETITIVE INTELLIGENCE</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <select 
-                className="px-4 py-2 border border-gray-300 rounded-lg text-sm bg-white hover:border-gray-400 transition-colors"
-                value={timeFilter}
-                onChange={(e) => setTimeFilter(e.target.value)}
-              >
-                <option value="7days">Last 7 Days</option>
-                <option value="30days">Last 30 Days</option>
-                <option value="quarter">Last Quarter</option>
-              </select>
-              <button className="px-5 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors font-medium text-sm">
-                Refresh Data
-              </button>
-            </div>
+      {/* Header - Apple Search Ads Style */}
+      <header className="bg-white border-b border-gray-200">
+        <div className="px-6 py-3">
+          {/* Breadcrumb Navigation */}
+          <div className="flex items-center gap-2 text-sm text-gray-600 mb-3">
+            <span className="hover:text-gray-900 cursor-pointer">Network</span>
+            <ChevronDown className="w-4 h-4 rotate-[-90deg]" />
+            <span className="hover:text-gray-900 cursor-pointer">Account <span className="text-gray-900 font-medium">{yourBrand.totalSpent}</span></span>
+            <ChevronDown className="w-4 h-4 rotate-[-90deg]" />
+            <span className="hover:text-gray-900 cursor-pointer">Campaign</span>
+          </div>
+          
+          {/* Account Selector */}
+          <div className="flex items-center gap-2 mb-3">
+            <button className="px-3 py-1.5 text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded hover:bg-gray-50 flex items-center gap-2">
+              Adders - Network
+              <ChevronDown className="w-4 h-4" />
+            </button>
+            <ChevronDown className="w-4 h-4 rotate-[-90deg] text-gray-400" />
+            <button className="px-3 py-1.5 text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded hover:bg-gray-50 flex items-center gap-2">
+              Adders - Apple News 3 - SC
+              <ChevronDown className="w-4 h-4" />
+            </button>
+            <ChevronDown className="w-4 h-4 rotate-[-90deg] text-gray-400" />
+            <button className="px-3 py-1.5 text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded hover:bg-gray-50 flex items-center gap-2">
+              All Campaigns (44)
+              <ChevronDown className="w-4 h-4" />
+            </button>
           </div>
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        {/* Key Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {metrics.map((metric, idx) => (
-            <div key={idx} className="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-shadow">
-              <div className="flex items-start justify-between mb-3">
-                <div className="text-gray-600 text-sm font-medium">{metric.label}</div>
-                <div className="text-gray-400">{metric.icon}</div>
-              </div>
-              <div className="text-3xl font-bold text-gray-900 mb-2">{metric.value}</div>
-              <div className={`text-sm font-medium flex items-center gap-1 ${metric.positive ? 'text-green-600' : 'text-gray-500'}`}>
-                {metric.positive ? <ArrowUpRight className="w-4 h-4" /> : <ArrowDownRight className="w-4 h-4" />}
-                {metric.change}
-              </div>
-            </div>
-          ))}
+      {/* Main Content */}
+      <div className="px-6 py-6">
+        {/* Page Title and Date Range */}
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-2xl font-semibold text-gray-900">All Campaigns</h1>
+          <div className="flex items-center gap-3">
+            <span className="text-sm text-gray-600">Last 7 Days</span>
+            <button className="px-4 py-1.5 text-sm bg-white border border-gray-300 rounded hover:bg-gray-50 flex items-center gap-2">
+              Feb 5 - Feb 11, 2026
+              <ChevronDown className="w-4 h-4" />
+            </button>
+          </div>
         </div>
 
-        {/* Your Performance Overview */}
-        <div className="bg-white rounded-xl p-8 border border-gray-200 mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Your Account Overview</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="text-center">
-              <div className="text-4xl font-bold text-gray-900 mb-2">{yourBrand.avgROAS}</div>
-              <div className="text-sm text-gray-600">Your Avg ROAS</div>
+        {/* Tabs */}
+        <div className="border-b border-gray-200 mb-6">
+          <div className="flex items-center gap-6">
+            <button 
+              onClick={() => setActiveTab('campaigns')}
+              className={`pb-3 text-sm font-medium border-b-2 transition-colors ${
+                activeTab === 'campaigns' 
+                  ? 'border-teal-600 text-teal-700' 
+                  : 'border-transparent text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              Campaigns
+            </button>
+            <button 
+              onClick={() => setActiveTab('ads')}
+              className={`pb-3 text-sm font-medium border-b-2 transition-colors ${
+                activeTab === 'ads' 
+                  ? 'border-teal-600 text-teal-700' 
+                  : 'border-transparent text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              Ads
+            </button>
+            <button className="pb-3 text-sm font-medium border-b-2 border-transparent text-gray-600 hover:text-gray-900">
+              Sites
+            </button>
+            <button className="pb-3 text-sm font-medium border-b-2 border-transparent text-gray-600 hover:text-gray-900 flex items-center gap-1">
+              Countries
+              <ChevronDown className="w-3 h-3" />
+            </button>
+            <button className="pb-3 text-sm font-medium border-b-2 border-transparent text-gray-600 hover:text-gray-900 flex items-center gap-1">
+              Platforms
+              <ChevronDown className="w-3 h-3" />
+            </button>
+            <button className="pb-3 text-sm font-medium border-b-2 border-transparent text-gray-600 hover:text-gray-900 flex items-center gap-1">
+              More
+              <ChevronDown className="w-3 h-3" />
+            </button>
+          </div>
+        </div>
+
+        {/* Toolbar */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <span className="text-sm text-gray-600">FILTERS</span>
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-teal-700 text-white rounded-full text-sm font-medium">
+              Campaign Status: Recent
+              <button className="hover:bg-teal-800 rounded-full p-0.5">
+                <X className="w-3 h-3" />
+              </button>
             </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-gray-900 mb-2">{yourBrand.avgCPC}</div>
-              <div className="text-sm text-gray-600">Your Avg CPC</div>
+            <button className="w-8 h-8 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-50">
+              <Plus className="w-4 h-4 text-gray-600" />
+            </button>
+          </div>
+          
+          <div className="flex items-center gap-2">
+            <button className="w-9 h-9 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-50">
+              <RefreshCw className="w-4 h-4 text-gray-600" />
+            </button>
+            <button className="w-9 h-9 flex items-center justify-center bg-teal-700 text-white rounded hover:bg-teal-800">
+              <BarChart3 className="w-4 h-4" />
+            </button>
+            <button className="w-9 h-9 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-50">
+              <Edit className="w-4 h-4 text-gray-600" />
+            </button>
+            <button className="w-9 h-9 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-50">
+              <Search className="w-4 h-4 text-gray-600" />
+            </button>
+            <button className="w-9 h-9 flex items-center justify-center bg-teal-700 text-white rounded hover:bg-teal-800">
+              <Filter className="w-4 h-4" />
+            </button>
+            <button className="w-9 h-9 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-50">
+              <Download className="w-4 h-4 text-gray-600" />
+            </button>
+            <button className="px-3 py-1.5 text-sm border border-gray-300 rounded hover:bg-gray-50 flex items-center gap-2">
+              <BarChart3 className="w-4 h-4 text-gray-600" />
+              COLUMNS | Default
+              <ChevronDown className="w-3 h-3" />
+            </button>
+            <button className="px-4 py-1.5 text-sm bg-teal-700 text-white rounded hover:bg-teal-800 flex items-center gap-2">
+              <Plus className="w-4 h-4" />
+              New
+              <ChevronDown className="w-3 h-3" />
+            </button>
+          </div>
+        </div>
+
+        {/* Clear All Link */}
+        <div className="flex justify-end mb-4">
+          <button className="text-sm text-teal-700 hover:text-teal-800 font-medium">Clear all</button>
+        </div>
+
+        {/* Main Table */}
+        <div className="bg-white border border-gray-200 rounded-lg overflow-hidden mb-8">
+          {/* Table Header */}
+          <div className="border-b border-gray-200 bg-gray-50">
+            <div className="grid grid-cols-12 gap-4 px-4 py-3 text-xs font-medium text-gray-600">
+              <div className="col-span-1 flex items-center">
+                <input type="checkbox" className="w-4 h-4 border-gray-300 rounded" />
+              </div>
+              <div className="col-span-3">Campaign Name</div>
+              <div className="col-span-1 text-center">Delivery Status</div>
+              <div className="col-span-1 text-center">Type</div>
+              <div className="col-span-1 text-center">Camp. ID</div>
+              <div className="col-span-1 text-right">Spent</div>
+              <div className="col-span-1 text-right">Budget</div>
+              <div className="col-span-1 text-right">Estim. Daily Cap</div>
+              <div className="col-span-1 text-right">Bid Strategy</div>
+              <div className="col-span-1 text-right">Bid</div>
             </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-gray-900 mb-2">{yourBrand.campaignsActive}</div>
-              <div className="text-sm text-gray-600">Active Campaigns</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-gray-900 mb-2">2.4M</div>
-              <div className="text-sm text-gray-600">Total Impressions</div>
+          </div>
+
+          {/* Expandable Section Toggle */}
+          <button className="w-full py-2 flex items-center justify-center border-b border-gray-200 hover:bg-gray-50">
+            <ChevronDown className="w-4 h-4 text-gray-500" />
+          </button>
+
+          {/* Table Rows */}
+          <div className="divide-y divide-gray-200">
+            {[
+              { name: "IN | TB | Home Care | CA 05/02", status: "Running", id: "48212764", spent: "$0.00", budget: "$20.00 Daily", cap: "$20.00", strategy: "Max Conversio...", bid: "Auto", active: true },
+              { name: "IN | TB | Home Care | US 05/02", status: "Running", id: "48212887", spent: "$0.00", budget: "$20.00 Daily", cap: "$20.00", strategy: "Max Conversio...", bid: "Auto", active: true },
+              { name: "IN | TB | Retirement Villages | US 27/01 apple", status: "Paused", id: "48104818", spent: "$0.00", budget: "$20.00 Daily", cap: "$0.00", strategy: "Max Conversio...", bid: "Auto", active: false }
+            ].map((campaign, idx) => (
+              <div key={idx} className="grid grid-cols-12 gap-4 px-4 py-3 hover:bg-gray-50 text-sm">
+                <div className="col-span-1 flex items-center">
+                  <input type="checkbox" className="w-4 h-4 border-gray-300 rounded" />
+                </div>
+                <div className="col-span-3 flex items-center gap-2">
+                  <div className={`w-10 h-6 rounded-full transition-colors ${campaign.active ? 'bg-teal-700' : 'bg-gray-300'} relative cursor-pointer`}>
+                    <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${campaign.active ? 'right-1' : 'left-1'}`}></div>
+                  </div>
+                  <span className="text-gray-900">{campaign.name}</span>
+                  <button className="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-gray-600">
+                    <BarChart3 className="w-3 h-3" />
+                  </button>
+                </div>
+                <div className="col-span-1 flex items-center justify-center">
+                  <span className={`flex items-center gap-1.5 text-xs ${campaign.status === 'Running' ? 'text-green-600' : 'text-gray-500'}`}>
+                    <div className={`w-2 h-2 rounded-full ${campaign.status === 'Running' ? 'bg-green-600' : 'bg-gray-400'}`}></div>
+                    {campaign.status}
+                  </span>
+                </div>
+                <div className="col-span-1 flex items-center justify-center text-gray-600">Native</div>
+                <div className="col-span-1 flex items-center justify-center text-gray-600">{campaign.id}</div>
+                <div className="col-span-1 flex items-center justify-end text-gray-900">{campaign.spent}</div>
+                <div className="col-span-1 flex items-center justify-end text-gray-600">{campaign.budget}</div>
+                <div className="col-span-1 flex items-center justify-end text-gray-600">{campaign.cap}</div>
+                <div className="col-span-1 flex items-center justify-end text-gray-600">{campaign.strategy}</div>
+                <div className="col-span-1 flex items-center justify-end gap-2">
+                  <span className="text-gray-900">{campaign.bid}</span>
+                  <button className="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-gray-600">
+                    <Edit className="w-3 h-3" />
+                  </button>
+                  <button className="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-gray-600">
+                    <Copy className="w-3 h-3" />
+                  </button>
+                  <button className="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-gray-600">
+                    <BarChart3 className="w-3 h-3" />
+                  </button>
+                  <button className="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-gray-600">
+                    <Trash2 className="w-3 h-3" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Table Footer */}
+          <div className="border-t border-gray-200 px-4 py-3 bg-gray-50">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <Filter className="w-4 h-4" />
+                <span className="font-medium">$0.00</span>
+              </div>
+              <div className="flex items-center gap-4 text-sm text-gray-600">
+                <button className="hover:text-gray-900">
+                  <ChevronDown className="w-4 h-4 rotate-90" />
+                </button>
+                <span>1 - 3 of 3</span>
+                <button className="hover:text-gray-900">
+                  <ChevronDown className="w-4 h-4 rotate-[-90deg]" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Competitor Top Performers */}
-        <div className="bg-white rounded-xl p-8 border border-gray-200 mb-8">
-          <div className="flex items-center justify-between mb-6 pb-6 border-b border-gray-200">
-            <h2 className="text-2xl font-bold text-gray-900">Competitor Best Performing Campaigns</h2>
-            <div className="flex gap-2">
-              <button 
-                onClick={() => setActiveTab('all')}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${activeTab === 'all' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
-              >
-                All Formats
-              </button>
-              <button 
-                onClick={() => setActiveTab('carousel')}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${activeTab === 'carousel' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
-              >
-                Carousel
-              </button>
-              <button 
-                onClick={() => setActiveTab('static')}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${activeTab === 'static' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
-              >
-                Static
-              </button>
-              <button 
-                onClick={() => setActiveTab('video')}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${activeTab === 'video' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
-              >
-                Video
-              </button>
-            </div>
-          </div>
+        {/* Disclaimer */}
+        <p className="text-xs text-gray-500 mb-8">All the amounts above are estimates that can be readjusted according to monthly data verification we conduct.</p>
 
+        {/* Competitor Performance Section */}
+        <div className="bg-white border border-gray-200 rounded-lg p-6 mb-8">
+          <h2 className="text-lg font-semibold text-gray-900 mb-6">Competitor Best Performing Campaigns</h2>
+          
           <div className="space-y-6">
             {filteredAds.map((ad, idx) => (
-              <div key={idx} className="border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
+              <div key={idx} className="border border-gray-200 rounded-lg p-5 hover:bg-gray-50 transition-colors">
                 {/* Campaign Header */}
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <span className="px-3 py-1 bg-gray-900 text-white text-xs font-bold rounded">{ad.brand}</span>
-                      <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded">{ad.format}</span>
-                      <span className="text-green-600 text-xs font-medium flex items-center gap-1">
-                        <div className="w-2 h-2 bg-green-600 rounded-full"></div>
+                      <span className="px-2.5 py-1 bg-gray-900 text-white text-xs font-semibold rounded">{ad.brand}</span>
+                      <span className="px-2.5 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded">{ad.format}</span>
+                      <span className="text-green-600 text-xs font-medium flex items-center gap-1.5">
+                        <div className="w-1.5 h-1.5 bg-green-600 rounded-full"></div>
                         {ad.deliveryStatus}
                       </span>
                     </div>
-                    <h3 className="text-lg font-bold text-gray-900 mb-1">{ad.campaignName}</h3>
-                    <p className="text-gray-600 text-sm mb-3">{ad.adText}</p>
-                    <div className="flex items-center gap-4 text-xs text-gray-500">
+                    <h3 className="text-base font-semibold text-gray-900 mb-1">{ad.campaignName}</h3>
+                    <p className="text-sm text-gray-600 mb-2">{ad.adText}</p>
+                    <div className="flex items-center gap-3 text-xs text-gray-500">
                       <span>Product: {ad.product}</span>
                       <span>•</span>
                       <span>Type: {ad.adType}</span>
@@ -638,311 +619,73 @@ const AdIntelligencePlatform = () => {
                 </div>
 
                 {/* Key Performance Metrics */}
-                <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mb-6 p-4 bg-gray-50 rounded-lg">
+                <div className="grid grid-cols-6 gap-4 mb-5 p-4 bg-gray-50 rounded-lg border border-gray-200">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-gray-900">{ad.roas}</div>
-                    <div className="text-xs text-gray-500 uppercase tracking-wide">ROAS</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-gray-900">{ad.ctr}%</div>
-                    <div className="text-xs text-gray-500 uppercase tracking-wide">CTR</div>
+                    <div className="text-xl font-bold text-gray-900">{ad.roas}</div>
+                    <div className="text-xs text-gray-500 uppercase mt-1">ROAS</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-gray-900">{ad.cpc}</div>
-                    <div className="text-xs text-gray-500 uppercase tracking-wide">CPC</div>
+                    <div className="text-xl font-bold text-gray-900">{ad.ctr}%</div>
+                    <div className="text-xs text-gray-500 uppercase mt-1">CTR</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-gray-900">{ad.conversionRate}%</div>
-                    <div className="text-xs text-gray-500 uppercase tracking-wide">Conv. Rate</div>
+                    <div className="text-xl font-bold text-gray-900">{ad.cpc}</div>
+                    <div className="text-xs text-gray-500 uppercase mt-1">CPC</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-gray-900">{ad.conversions}</div>
-                    <div className="text-xs text-gray-500 uppercase tracking-wide">Conversions</div>
+                    <div className="text-xl font-bold text-gray-900">{ad.conversionRate}%</div>
+                    <div className="text-xs text-gray-500 uppercase mt-1">Conv. Rate</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-gray-900">{ad.engagementRate}%</div>
-                    <div className="text-xs text-gray-500 uppercase tracking-wide">Engagement</div>
+                    <div className="text-xl font-bold text-gray-900">{ad.conversions}</div>
+                    <div className="text-xs text-gray-500 uppercase mt-1">Conversions</div>
                   </div>
-                </div>
-
-                {/* Detailed Metrics Grid */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-                  <div className="bg-white border border-gray-200 rounded-lg p-3">
-                    <div className="text-xs text-gray-500 mb-1">Spent / Budget</div>
-                    <div className="text-sm font-semibold text-gray-900">{ad.spent} / {ad.budget}</div>
-                  </div>
-                  <div className="bg-white border border-gray-200 rounded-lg p-3">
-                    <div className="text-xs text-gray-500 mb-1">Impressions</div>
-                    <div className="text-sm font-semibold text-gray-900">{ad.impressions}</div>
-                  </div>
-                  <div className="bg-white border border-gray-200 rounded-lg p-3">
-                    <div className="text-xs text-gray-500 mb-1">Clicks / Reach</div>
-                    <div className="text-sm font-semibold text-gray-900">{ad.clicks.toLocaleString()} / {ad.reach}</div>
-                  </div>
-                  <div className="bg-white border border-gray-200 rounded-lg p-3">
-                    <div className="text-xs text-gray-500 mb-1">Cost Per Purchase</div>
-                    <div className="text-sm font-semibold text-gray-900">{ad.costPerPurchase}</div>
-                  </div>
-                  <div className="bg-white border border-gray-200 rounded-lg p-3">
-                    <div className="text-xs text-gray-500 mb-1">AOV</div>
-                    <div className="text-sm font-semibold text-gray-900">{ad.aov}</div>
-                  </div>
-                  <div className="bg-white border border-gray-200 rounded-lg p-3">
-                    <div className="text-xs text-gray-500 mb-1">CPM</div>
-                    <div className="text-sm font-semibold text-gray-900">{ad.cpm}</div>
-                  </div>
-                  <div className="bg-white border border-gray-200 rounded-lg p-3">
-                    <div className="text-xs text-gray-500 mb-1">Save / Share Rate</div>
-                    <div className="text-sm font-semibold text-gray-900">{ad.saveRate} / {ad.shareRate}</div>
-                  </div>
-                  <div className="bg-white border border-gray-200 rounded-lg p-3">
-                    <div className="text-xs text-gray-500 mb-1">Landing Page Score</div>
-                    <div className="text-sm font-semibold text-green-600">{ad.landingPageQuality}/100</div>
-                  </div>
-                </div>
-
-                {/* Video Metrics (if applicable) */}
-                {ad.format === 'Video Ad' && (
-                  <div className="grid grid-cols-2 gap-3 mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                    <div className="flex items-center gap-2">
-                      <Video className="w-4 h-4 text-blue-600" />
-                      <div>
-                        <div className="text-xs text-gray-600">Avg Watch Time</div>
-                        <div className="text-sm font-semibold text-gray-900">{ad.videoWatchTime}</div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Eye className="w-4 h-4 text-blue-600" />
-                      <div>
-                        <div className="text-xs text-gray-600">Completion Rate</div>
-                        <div className="text-sm font-semibold text-gray-900">{ad.videoCompletionRate}</div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* Timing Analysis */}
-                <div className="mb-6 p-4 bg-purple-50 border border-purple-200 rounded-lg">
-                  <div className="flex items-center gap-2 mb-3">
-                    <Clock className="w-4 h-4 text-purple-600" />
-                    <h4 className="text-sm font-bold text-gray-900">Optimal Timing Strategy</h4>
-                  </div>
-                  <div className="grid grid-cols-3 gap-3">
-                    <div>
-                      <div className="text-xs text-gray-600 mb-1">Best Day</div>
-                      <div className="text-sm font-semibold text-gray-900">{ad.bestDayPerformance}</div>
-                    </div>
-                    <div>
-                      <div className="text-xs text-gray-600 mb-1">Best Time Slot</div>
-                      <div className="text-sm font-semibold text-gray-900">{ad.bestTimeSlot}</div>
-                    </div>
-                    <div>
-                      <div className="text-xs text-gray-600 mb-1">Peak Performance</div>
-                      <div className="text-sm font-semibold text-gray-900">{ad.peakPerformanceDay}</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Keyword Strategy */}
-                <div className="mb-6">
-                  <h4 className="text-sm font-bold text-gray-900 mb-3 flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-amber-500" />
-                    Winning Keyword Strategy
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {ad.keywordStrategy.map((keyword, i) => (
-                      <span key={i} className="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-medium rounded-full border border-amber-200">
-                        {keyword}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Creative Strategy */}
-                <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-                  <h4 className="text-sm font-bold text-gray-900 mb-3">Creative & Targeting Strategy</h4>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex items-start gap-2">
-                      <ImageIcon className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                      <div>
-                        <span className="font-medium text-gray-700">Thumbnail:</span>
-                        <span className="text-gray-600 ml-2">{ad.thumbnailStrategy}</span>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <Target className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                      <div>
-                        <span className="font-medium text-gray-700">Copy:</span>
-                        <span className="text-gray-600 ml-2">{ad.copyStrategy}</span>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <MousePointer className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                      <div>
-                        <span className="font-medium text-gray-700">CTA:</span>
-                        <span className="text-gray-600 ml-2">{ad.ctaStrategy}</span>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <Users className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                      <div>
-                        <span className="font-medium text-gray-700">Audience:</span>
-                        <span className="text-gray-600 ml-2">{ad.targetAudience}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Winning Factors */}
-                <div className="mb-6">
-                  <h4 className="text-sm font-bold text-gray-900 mb-3 flex items-center gap-2">
-                    <Award className="w-4 h-4 text-rose-500" />
-                    Why This Campaign Succeeded
-                  </h4>
-                  <div className="space-y-3">
-                    {ad.winningFactors.map((factor, i) => (
-                      <div key={i} className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
-                        <div className={`px-2 py-1 rounded text-xs font-bold ${
-                          factor.impact === 'Very High' ? 'bg-rose-100 text-rose-700' :
-                          factor.impact === 'High' ? 'bg-orange-100 text-orange-700' :
-                          'bg-yellow-100 text-yellow-700'
-                        }`}>
-                          {factor.impact}
-                        </div>
-                        <div className="flex-1">
-                          <div className="font-semibold text-gray-900 text-sm mb-1">{factor.factor}</div>
-                          <div className="text-xs text-gray-600">{factor.description}</div>
-                        </div>
-                      </div>
-                    ))}
+                  <div className="text-center">
+                    <div className="text-xl font-bold text-gray-900">{ad.engagementRate}%</div>
+                    <div className="text-xs text-gray-500 uppercase mt-1">Engagement</div>
                   </div>
                 </div>
 
                 {/* AI Insight */}
-                <div className="p-4 bg-gradient-to-r from-gray-900 to-gray-700 text-white rounded-lg">
+                <div className="p-4 bg-gradient-to-r from-teal-700 to-teal-600 text-white rounded-lg">
                   <div className="flex items-center gap-2 mb-2">
                     <Sparkles className="w-4 h-4" />
-                    <h4 className="text-sm font-bold">AI Strategic Insight</h4>
+                    <h4 className="text-sm font-semibold">AI Strategic Insight</h4>
                   </div>
-                  <p className="text-sm leading-relaxed opacity-90">{ad.aiInsight}</p>
+                  <p className="text-sm leading-relaxed opacity-95">{ad.aiInsight}</p>
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-
-        {/* Market Intelligence */}
-        <div className="bg-white rounded-xl p-8 border border-gray-200 mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Market Intelligence & Trends</h2>
-          
-          {/* Format Distribution */}
-          <div className="mb-8">
-            <h3 className="text-lg font-bold text-gray-900 mb-4">Top Performing Ad Formats</h3>
-            <div className="space-y-4">
-              {marketInsights.dominantFormats.map((format, idx) => (
-                <div key={idx} className="flex items-center gap-4">
-                  <div className="w-32 text-sm font-medium text-gray-700">{format.format}</div>
-                  <div className="flex-1">
-                    <div className="bg-gray-200 rounded-full h-8 relative overflow-hidden">
-                      <div 
-                        className="bg-gradient-to-r from-gray-900 to-gray-700 h-full rounded-full flex items-center justify-end px-3"
-                        style={{ width: `${format.percentage}%` }}
-                      >
-                        <span className="text-white text-xs font-bold">{format.percentage}%</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="w-48 text-sm text-gray-600">{format.performance}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Top Keywords */}
-          <div className="mb-8">
-            <h3 className="text-lg font-bold text-gray-900 mb-4">Highest Converting Keywords</h3>
-            <div className="grid grid-cols-2 gap-4">
-              {marketInsights.topKeywords.map((keyword, idx) => (
-                <div key={idx} className="p-4 border border-gray-200 rounded-lg hover:border-gray-400 transition-colors">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="font-semibold text-gray-900">{keyword.keyword}</span>
-                    <span className="text-sm text-gray-500">{keyword.usage}% usage</span>
-                  </div>
-                  <div className="text-sm text-gray-600">{keyword.impact}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Best Timings */}
-          <div>
-            <h3 className="text-lg font-bold text-gray-900 mb-4">Optimal Time Slots</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {marketInsights.bestTimings.map((timing, idx) => (
-                <div key={idx} className="p-4 bg-purple-50 border border-purple-200 rounded-lg">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Clock className="w-5 h-5 text-purple-600" />
-                    <span className="font-bold text-gray-900">{timing.time}</span>
-                  </div>
-                  <div className="text-sm text-gray-600">{timing.performance}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Strategic Recommendations */}
-        <div className="bg-white rounded-xl p-8 border border-gray-200 mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Key Strategic Insights</h2>
-          <div className="space-y-4">
-            {marketInsights.winningStrategies.map((strategy, idx) => (
-              <div key={idx} className="flex items-start gap-4 p-4 bg-gradient-to-r from-gray-50 to-white border border-gray-200 rounded-lg">
-                <div className="w-8 h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
-                  {idx + 1}
-                </div>
-                <p className="text-gray-700 leading-relaxed pt-1">{strategy}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Download Report */}
-          <div className="mt-8 p-6 bg-gradient-to-r from-gray-100 to-gray-50 rounded-lg text-center border border-gray-200">
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Complete Intelligence Report</h3>
-            <p className="text-gray-600 mb-4">Download comprehensive competitor analysis with all metrics and insights</p>
-            <button className="px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors font-semibold flex items-center gap-2 mx-auto">
-              <Download className="w-5 h-5" />
-              Download Full Report
-            </button>
           </div>
         </div>
 
         {/* AI Chat Assistant */}
-        <div className="bg-white rounded-xl overflow-hidden border border-gray-200">
-          <div className="bg-gray-900 text-white p-6">
+        <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+          <div className="bg-teal-700 text-white p-5">
             <div className="flex items-center gap-3 mb-2">
-              <MessageSquare className="w-6 h-6" />
-              <h3 className="text-xl font-bold">AI Strategy Assistant</h3>
+              <MessageSquare className="w-5 h-5" />
+              <h3 className="text-lg font-semibold">AI Strategy Assistant</h3>
             </div>
-            <p className="text-gray-300 text-sm">Ask me anything about competitor strategies, performance optimization, or market trends</p>
+            <p className="text-teal-100 text-sm">Ask me anything about competitor strategies, performance optimization, or market trends</p>
           </div>
 
-          <div className="p-6 bg-gray-50 max-h-96 overflow-y-auto space-y-4">
+          <div className="p-5 bg-gray-50 max-h-96 overflow-y-auto space-y-4">
             {chatMessages.map((msg, idx) => (
               <div key={idx} className={`flex gap-3 ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}>
                 {msg.type === 'ai' && (
-                  <div className="w-8 h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
+                  <div className="w-8 h-8 bg-teal-700 text-white rounded-full flex items-center justify-center font-semibold text-sm flex-shrink-0">
                     AI
                   </div>
                 )}
-                <div className={`max-w-2xl p-4 rounded-lg ${
+                <div className={`max-w-2xl p-4 rounded-lg text-sm leading-relaxed ${
                   msg.type === 'ai' 
                     ? 'bg-white border border-gray-200' 
-                    : 'bg-gray-900 text-white'
+                    : 'bg-teal-700 text-white'
                 }`}>
-                  <p className="text-sm leading-relaxed">{msg.text}</p>
+                  {msg.text}
                 </div>
                 {msg.type === 'user' && (
-                  <div className="w-8 h-8 bg-gray-600 text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
+                  <div className="w-8 h-8 bg-gray-600 text-white rounded-full flex items-center justify-center font-semibold text-sm flex-shrink-0">
                     U
                   </div>
                 )}
@@ -950,7 +693,7 @@ const AdIntelligencePlatform = () => {
             ))}
           </div>
 
-          <div className="p-6 bg-white border-t border-gray-200">
+          <div className="p-5 bg-white border-t border-gray-200">
             <div className="flex gap-3">
               <input
                 type="text"
@@ -958,11 +701,731 @@ const AdIntelligencePlatform = () => {
                 onChange={(e) => setChatInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && sendChatMessage()}
                 placeholder="Ask about strategies, timings, keywords, or specific campaigns..."
-                className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-900 transition-colors"
+                className="flex-1 px-4 py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600"
               />
               <button 
                 onClick={sendChatMessage}
-                className="px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors font-semibold flex items-center gap-2"
+                className="px-5 py-2.5 bg-teal-700 text-white rounded hover:bg-teal-800 transition-colors font-medium text-sm flex items-center gap-2"
+              >
+                <Send className="w-4 h-4" />
+                Send
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AdIntelligencePlatform;import React, { useState, useEffect } from 'react';
+import { TrendingUp, Target, Eye, MousePointer, DollarSign, Award, Clock, Sparkles, BarChart3, Users, Video, ImageIcon, Calendar, ArrowUpRight, ArrowDownRight, Filter, Download, MessageSquare, Send, RefreshCw, Plus, X, Search, ChevronDown, Edit, Copy, Trash2 } from 'lucide-react';
+
+const AdIntelligencePlatform = () => {
+  const [activeTab, setActiveTab] = useState('campaigns');
+  const [timeFilter, setTimeFilter] = useState('last7days');
+  const [selectedMetric, setSelectedMetric] = useState('roas');
+  const [chatInput, setChatInput] = useState('');
+  const [showFilters, setShowFilters] = useState(false);
+  const [chatMessages, setChatMessages] = useState([
+    {
+      type: 'ai',
+      text: "Hello! I'm your AI strategy assistant. I can help you analyze competitor ad performance and suggest improvements for your campaigns. What would you like to know?"
+    }
+  ]);
+
+  // Your brand data
+  const yourBrand = {
+    name: "Adders - Apple News 3 - SC",
+    totalSpent: "$862.47K",
+    totalImpressions: "2.4M",
+    totalConversions: 3850,
+    avgROAS: 4.35,
+    avgCPC: "$12.50",
+    campaignsActive: 44
+  };
+
+  // Competitor best performing ads with detailed analysis
+  const competitorAds = [
+    {
+      brand: "Jaypore",
+      campaignName: "Heritage Silk Collection",
+      adText: "Elegant handcrafted silk sarees that tell a story of Indian heritage. Premium quality, timeless designs.",
+      product: "Silk Saree Collection",
+      format: "Carousel Ad",
+      adType: "Product Showcase",
+      thumbnail: "High-quality model shots with cultural backdrop",
+      deliveryStatus: "Running",
+      
+      // Performance Metrics
+      spent: "$85,000",
+      budget: "$150,000",
+      impressions: "385K",
+      clicks: 16555,
+      conversions: 127,
+      reach: "98K",
+      views: "342K",
+      
+      // Calculated Metrics
+      roas: 4.2,
+      ctr: 4.3,
+      cpc: "$11.80",
+      costPerPurchase: "$130",
+      conversionRate: 0.77,
+      aov: "$3,200",
+      cpm: "$220",
+      
+      // Engagement Metrics
+      videoWatchTime: "45s avg",
+      videoCompletionRate: "68%",
+      engagementRate: "5.8%",
+      saveRate: "2.3%",
+      shareRate: "1.1%",
+      
+      // Timing Analysis
+      bestDayPerformance: "Saturday",
+      bestTimeSlot: "8 PM - 10 PM",
+      campaignDuration: "21 days",
+      peakPerformanceDay: "Day 14",
+      
+      // Creative Strategy
+      keywordStrategy: ["handcrafted", "silk sarees", "heritage", "ethnic wear", "premium quality"],
+      thumbnailStrategy: "Cultural storytelling with model in traditional setting",
+      copyStrategy: "Emotional appeal to tradition and quality",
+      ctaStrategy: "Shop Collection - Direct product focus",
+      targetAudience: "Women 25-45, Premium segment",
+      
+      // Standout Factors
+      winningFactors: [
+        {
+          factor: "Storytelling Approach",
+          impact: "High",
+          description: "Cultural narrative resonates with premium buyers, 35% higher engagement"
+        },
+        {
+          factor: "High-Quality Imagery",
+          impact: "High",
+          description: "Professional photography increases trust and conversion by 28%"
+        },
+        {
+          factor: "Prime Time Targeting",
+          impact: "Medium",
+          description: "Evening slots capture leisure browsing, 22% better CTR"
+        },
+        {
+          factor: "Carousel Format",
+          impact: "High",
+          description: "Multiple product views increase consideration time by 40%"
+        }
+      ],
+      
+      landingPageQuality: 92,
+      landingPageSpeed: "1.8s",
+      mobileOptimization: "Excellent",
+      
+      aiInsight: "Jaypore's carousel ads excel through authentic cultural storytelling paired with premium photography. The evening time slot captures high-intent buyers during leisure browsing. Landing page with seamless mobile experience converts 35% better than industry average."
+    },
+    {
+      brand: "Manyavar",
+      campaignName: "Festive Kurta Special",
+      adText: "Modern tradition redefined. Exclusive festive kurta collection for celebrations. Limited period offer!",
+      product: "Designer Kurta Collection",
+      format: "Static Image",
+      adType: "Seasonal Campaign",
+      thumbnail: "Bold festive colors with influencer model",
+      deliveryStatus: "Running",
+      
+      spent: "$92,000",
+      budget: "$180,000",
+      impressions: "450K",
+      clicks: 22500,
+      conversions: 161,
+      reach: "120K",
+      views: "420K",
+      
+      roas: 4.5,
+      ctr: 5.0,
+      cpc: "$10.20",
+      costPerPurchase: "$140",
+      conversionRate: 0.72,
+      aov: "$2,900",
+      cpm: "$204",
+      
+      videoWatchTime: "N/A",
+      videoCompletionRate: "N/A",
+      engagementRate: "6.2%",
+      saveRate: "3.1%",
+      shareRate: "1.8%",
+      
+      bestDayPerformance: "Friday",
+      bestTimeSlot: "6 PM - 9 PM",
+      campaignDuration: "15 days",
+      peakPerformanceDay: "Day 8",
+      
+      keywordStrategy: ["festive kurta", "designer wear", "celebration outfit", "ethnic fashion", "limited offer"],
+      thumbnailStrategy: "Vibrant festive colors with urgency messaging",
+      copyStrategy: "FOMO with limited time offer",
+      ctaStrategy: "Shop Now - Urgency driven",
+      targetAudience: "Men 25-40, Festival shoppers",
+      
+      winningFactors: [
+        {
+          factor: "Seasonal Relevance",
+          impact: "Very High",
+          description: "Festival timing drives 45% higher conversion rates"
+        },
+        {
+          factor: "Influencer Appeal",
+          impact: "High",
+          description: "Celebrity model increases brand trust by 38%"
+        },
+        {
+          factor: "Urgency Messaging",
+          impact: "High",
+          description: "Limited offer creates FOMO, reducing decision time by 30%"
+        },
+        {
+          factor: "Color Psychology",
+          impact: "Medium",
+          description: "Bold festive colors improve ad recall by 25%"
+        }
+      ],
+      
+      landingPageQuality: 88,
+      landingPageSpeed: "2.1s",
+      mobileOptimization: "Very Good",
+      
+      aiInsight: "Manyavar capitalizes on festival season with urgency-driven messaging. Static format with bold colors captures attention quickly. Influencer credibility combined with time-sensitive offers reduces purchase hesitation by 30%. Pre-festival timing maximizes shopping intent."
+    },
+    {
+      brand: "Biba",
+      campaignName: "Contemporary Ethnic Flash Sale",
+      adText: "Contemporary ethnic wear for the modern woman. Up to 40% off on entire collection! Shop now.",
+      product: "Kurti & Suit Sets",
+      format: "Video Ad",
+      adType: "Promotional Campaign",
+      thumbnail: "Dynamic product showcase with discount badge",
+      deliveryStatus: "Running",
+      
+      spent: "$78,000",
+      budget: "$140,000",
+      impressions: "520K",
+      clicks: 26000,
+      conversions: 208,
+      reach: "145K",
+      views: "468K",
+      
+      roas: 4.8,
+      ctr: 5.0,
+      cpc: "$9.50",
+      costPerPurchase: "$125",
+      conversionRate: 0.80,
+      aov: "$2,750",
+      cpm: "$150",
+      
+      videoWatchTime: "38s avg",
+      videoCompletionRate: "72%",
+      engagementRate: "7.1%",
+      saveRate: "2.8%",
+      shareRate: "2.2%",
+      
+      bestDayPerformance: "Sunday",
+      bestTimeSlot: "2 PM - 5 PM",
+      campaignDuration: "10 days",
+      peakPerformanceDay: "Day 5",
+      
+      keywordStrategy: ["contemporary ethnic", "kurti sets", "flash sale", "discount offer", "modern wear"],
+      thumbnailStrategy: "Fast-paced product transitions with discount highlight",
+      copyStrategy: "Value proposition with percentage discount",
+      ctaStrategy: "Limited Time - Creating urgency",
+      targetAudience: "Women 22-38, Value conscious",
+      
+      winningFactors: [
+        {
+          factor: "High Discount Visibility",
+          impact: "Very High",
+          description: "40% off messaging drives 52% higher click-through rates"
+        },
+        {
+          factor: "Video Format Engagement",
+          impact: "High",
+          description: "Product showcase video increases consideration by 45%"
+        },
+        {
+          factor: "Price Point Optimization",
+          impact: "High",
+          description: "Mid-range pricing attracts broader audience segment"
+        },
+        {
+          factor: "Weekend Targeting",
+          impact: "Medium",
+          description: "Sunday afternoon captures leisure shoppers effectively"
+        }
+      ],
+      
+      landingPageQuality: 85,
+      landingPageSpeed: "2.3s",
+      mobileOptimization: "Good",
+      
+      aiInsight: "Biba's video ad format showcases product variety effectively, with 72% completion rate indicating strong content quality. The 40% discount messaging creates immediate value perception. Weekend afternoon targeting captures relaxed browsing sessions, resulting in 80% higher engagement than weekday campaigns."
+    }
+  ];
+
+  // Aggregate competitor insights
+  const marketInsights = {
+    dominantFormats: [
+      { format: "Carousel Ads", percentage: 45, performance: "+28% better engagement" },
+      { format: "Static Image", percentage: 35, performance: "Best for quick awareness" },
+      { format: "Video Ads", percentage: 20, performance: "+35% completion rate" }
+    ],
+    topKeywords: [
+      { keyword: "handcrafted", usage: 85, impact: "High conversion intent" },
+      { keyword: "festive collection", usage: 78, impact: "Seasonal spike" },
+      { keyword: "sustainable", usage: 72, impact: "Premium segment appeal" },
+      { keyword: "limited offer", usage: 88, impact: "Creates urgency" }
+    ],
+    bestTimings: [
+      { time: "8 PM - 10 PM", performance: "Peak engagement, 45% higher CTR" },
+      { time: "6 PM - 9 PM", performance: "After-work browsing, strong conversions" },
+      { time: "2 PM - 5 PM", performance: "Weekend leisure time, high consideration" }
+    ],
+    winningStrategies: [
+      "Cultural storytelling with premium imagery drives 35% higher engagement",
+      "Festival and seasonal timing increases conversions by 45%",
+      "Video content with 38s+ watch time shows 72% completion rates",
+      "Discount messaging above 30% generates 52% higher CTRs",
+      "Evening time slots (6 PM - 10 PM) capture 60% of total conversions"
+    ]
+  };
+
+  const metrics = [
+    { 
+      label: "Total Spend", 
+      value: yourBrand.totalSpent,
+      change: "+8%",
+      positive: true,
+      icon: <DollarSign className="w-4 h-4" />
+    },
+    { 
+      label: "Competitor Avg", 
+      value: "$79K",
+      change: "per campaign",
+      positive: false,
+      icon: <BarChart3 className="w-4 h-4" />
+    },
+    { 
+      label: "Your ROAS", 
+      value: yourBrand.avgROAS.toFixed(2),
+      change: "-3%",
+      positive: false,
+      icon: <Target className="w-4 h-4" />
+    },
+    { 
+      label: "Avg ROAS", 
+      value: "4.30",
+      change: "+12%",
+      positive: true,
+      icon: <TrendingUp className="w-4 h-4" />
+    }
+  ];
+
+  const filteredAds = activeTab === 'campaigns' 
+    ? competitorAds 
+    : competitorAds.filter(ad => {
+        if (activeTab === 'carousel') return ad.format === 'Carousel Ad';
+        if (activeTab === 'static') return ad.format === 'Static Image';
+        if (activeTab === 'video') return ad.format === 'Video Ad';
+        return true;
+      });
+
+  const sendChatMessage = () => {
+    if (!chatInput.trim()) return;
+    
+    const userMessage = { type: 'user', text: chatInput };
+    setChatMessages([...chatMessages, userMessage]);
+    
+    setTimeout(() => {
+      const aiResponse = generateAIResponse(chatInput);
+      setChatMessages(prev => [...prev, { type: 'ai', text: aiResponse }]);
+    }, 1000);
+    
+    setChatInput('');
+  };
+
+  const generateAIResponse = (query) => {
+    const q = query.toLowerCase();
+    
+    if (q.includes('roas') || q.includes('return')) {
+      return "Based on competitor analysis, top ROAS performers use: 1) Cultural storytelling (Jaypore: 4.2 ROAS), 2) Festival timing (Manyavar: 4.5 ROAS), 3) High discount visibility (Biba: 4.8 ROAS). I recommend testing carousel formats with cultural narratives and timing campaigns around festivals.";
+    } else if (q.includes('timing') || q.includes('when')) {
+      return "Peak performance windows: 8 PM - 10 PM for premium products (35% higher CTR), 6 PM - 9 PM for festive wear (45% conversion boost), and Monday 9 AM - 11 AM for workwear (48% better CTR). Weekend afternoons work best for discount campaigns.";
+    } else if (q.includes('video') || q.includes('format')) {
+      return "Video ads show 72% completion rate when length is 38-45s. Biba's video format achieved 4.8 ROAS. Key factors: fast-paced product transitions, clear discount messaging, and mobile-first vertical format. Carousel ads work better for storytelling (Jaypore: 35% higher engagement).";
+    } else if (q.includes('improve') || q.includes('strategy')) {
+      return "Top 3 recommendations: 1) Shift 40% budget to evening slots (8-10 PM) for +35% engagement, 2) Adopt carousel format with cultural storytelling for premium products, 3) Test 30%+ discount messaging in video format. Expected improvement: +25% ROAS, +40% CTR.";
+    } else {
+      return "I can help you analyze specific metrics, ad formats, timing strategies, or competitor tactics. Try asking about ROAS improvements, best performing ad formats, optimal timing windows, or specific competitor strategies you'd like to understand better.";
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header - Apple Search Ads Style */}
+      <header className="bg-white border-b border-gray-200">
+        <div className="px-6 py-3">
+          {/* Breadcrumb Navigation */}
+          <div className="flex items-center gap-2 text-sm text-gray-600 mb-3">
+            <span className="hover:text-gray-900 cursor-pointer">Network</span>
+            <ChevronDown className="w-4 h-4 rotate-[-90deg]" />
+            <span className="hover:text-gray-900 cursor-pointer">Account <span className="text-gray-900 font-medium">{yourBrand.totalSpent}</span></span>
+            <ChevronDown className="w-4 h-4 rotate-[-90deg]" />
+            <span className="hover:text-gray-900 cursor-pointer">Campaign</span>
+          </div>
+          
+          {/* Account Selector */}
+          <div className="flex items-center gap-2 mb-3">
+            <button className="px-3 py-1.5 text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded hover:bg-gray-50 flex items-center gap-2">
+              Adders - Network
+              <ChevronDown className="w-4 h-4" />
+            </button>
+            <ChevronDown className="w-4 h-4 rotate-[-90deg] text-gray-400" />
+            <button className="px-3 py-1.5 text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded hover:bg-gray-50 flex items-center gap-2">
+              Adders - Apple News 3 - SC
+              <ChevronDown className="w-4 h-4" />
+            </button>
+            <ChevronDown className="w-4 h-4 rotate-[-90deg] text-gray-400" />
+            <button className="px-3 py-1.5 text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded hover:bg-gray-50 flex items-center gap-2">
+              All Campaigns (44)
+              <ChevronDown className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <div className="px-6 py-6">
+        {/* Page Title and Date Range */}
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-2xl font-semibold text-gray-900">All Campaigns</h1>
+          <div className="flex items-center gap-3">
+            <span className="text-sm text-gray-600">Last 7 Days</span>
+            <button className="px-4 py-1.5 text-sm bg-white border border-gray-300 rounded hover:bg-gray-50 flex items-center gap-2">
+              Feb 5 - Feb 11, 2026
+              <ChevronDown className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+
+        {/* Tabs */}
+        <div className="border-b border-gray-200 mb-6">
+          <div className="flex items-center gap-6">
+            <button 
+              onClick={() => setActiveTab('campaigns')}
+              className={`pb-3 text-sm font-medium border-b-2 transition-colors ${
+                activeTab === 'campaigns' 
+                  ? 'border-teal-600 text-teal-700' 
+                  : 'border-transparent text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              Campaigns
+            </button>
+            <button 
+              onClick={() => setActiveTab('ads')}
+              className={`pb-3 text-sm font-medium border-b-2 transition-colors ${
+                activeTab === 'ads' 
+                  ? 'border-teal-600 text-teal-700' 
+                  : 'border-transparent text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              Ads
+            </button>
+            <button className="pb-3 text-sm font-medium border-b-2 border-transparent text-gray-600 hover:text-gray-900">
+              Sites
+            </button>
+            <button className="pb-3 text-sm font-medium border-b-2 border-transparent text-gray-600 hover:text-gray-900 flex items-center gap-1">
+              Countries
+              <ChevronDown className="w-3 h-3" />
+            </button>
+            <button className="pb-3 text-sm font-medium border-b-2 border-transparent text-gray-600 hover:text-gray-900 flex items-center gap-1">
+              Platforms
+              <ChevronDown className="w-3 h-3" />
+            </button>
+            <button className="pb-3 text-sm font-medium border-b-2 border-transparent text-gray-600 hover:text-gray-900 flex items-center gap-1">
+              More
+              <ChevronDown className="w-3 h-3" />
+            </button>
+          </div>
+        </div>
+
+        {/* Toolbar */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <span className="text-sm text-gray-600">FILTERS</span>
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-teal-700 text-white rounded-full text-sm font-medium">
+              Campaign Status: Recent
+              <button className="hover:bg-teal-800 rounded-full p-0.5">
+                <X className="w-3 h-3" />
+              </button>
+            </div>
+            <button className="w-8 h-8 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-50">
+              <Plus className="w-4 h-4 text-gray-600" />
+            </button>
+          </div>
+          
+          <div className="flex items-center gap-2">
+            <button className="w-9 h-9 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-50">
+              <RefreshCw className="w-4 h-4 text-gray-600" />
+            </button>
+            <button className="w-9 h-9 flex items-center justify-center bg-teal-700 text-white rounded hover:bg-teal-800">
+              <BarChart3 className="w-4 h-4" />
+            </button>
+            <button className="w-9 h-9 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-50">
+              <Edit className="w-4 h-4 text-gray-600" />
+            </button>
+            <button className="w-9 h-9 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-50">
+              <Search className="w-4 h-4 text-gray-600" />
+            </button>
+            <button className="w-9 h-9 flex items-center justify-center bg-teal-700 text-white rounded hover:bg-teal-800">
+              <Filter className="w-4 h-4" />
+            </button>
+            <button className="w-9 h-9 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-50">
+              <Download className="w-4 h-4 text-gray-600" />
+            </button>
+            <button className="px-3 py-1.5 text-sm border border-gray-300 rounded hover:bg-gray-50 flex items-center gap-2">
+              <BarChart3 className="w-4 h-4 text-gray-600" />
+              COLUMNS | Default
+              <ChevronDown className="w-3 h-3" />
+            </button>
+            <button className="px-4 py-1.5 text-sm bg-teal-700 text-white rounded hover:bg-teal-800 flex items-center gap-2">
+              <Plus className="w-4 h-4" />
+              New
+              <ChevronDown className="w-3 h-3" />
+            </button>
+          </div>
+        </div>
+
+        {/* Clear All Link */}
+        <div className="flex justify-end mb-4">
+          <button className="text-sm text-teal-700 hover:text-teal-800 font-medium">Clear all</button>
+        </div>
+
+        {/* Main Table */}
+        <div className="bg-white border border-gray-200 rounded-lg overflow-hidden mb-8">
+          {/* Table Header */}
+          <div className="border-b border-gray-200 bg-gray-50">
+            <div className="grid grid-cols-12 gap-4 px-4 py-3 text-xs font-medium text-gray-600">
+              <div className="col-span-1 flex items-center">
+                <input type="checkbox" className="w-4 h-4 border-gray-300 rounded" />
+              </div>
+              <div className="col-span-3">Campaign Name</div>
+              <div className="col-span-1 text-center">Delivery Status</div>
+              <div className="col-span-1 text-center">Type</div>
+              <div className="col-span-1 text-center">Camp. ID</div>
+              <div className="col-span-1 text-right">Spent</div>
+              <div className="col-span-1 text-right">Budget</div>
+              <div className="col-span-1 text-right">Estim. Daily Cap</div>
+              <div className="col-span-1 text-right">Bid Strategy</div>
+              <div className="col-span-1 text-right">Bid</div>
+            </div>
+          </div>
+
+          {/* Expandable Section Toggle */}
+          <button className="w-full py-2 flex items-center justify-center border-b border-gray-200 hover:bg-gray-50">
+            <ChevronDown className="w-4 h-4 text-gray-500" />
+          </button>
+
+          {/* Table Rows */}
+          <div className="divide-y divide-gray-200">
+            {[
+              { name: "IN | TB | Home Care | CA 05/02", status: "Running", id: "48212764", spent: "$0.00", budget: "$20.00 Daily", cap: "$20.00", strategy: "Max Conversio...", bid: "Auto", active: true },
+              { name: "IN | TB | Home Care | US 05/02", status: "Running", id: "48212887", spent: "$0.00", budget: "$20.00 Daily", cap: "$20.00", strategy: "Max Conversio...", bid: "Auto", active: true },
+              { name: "IN | TB | Retirement Villages | US 27/01 apple", status: "Paused", id: "48104818", spent: "$0.00", budget: "$20.00 Daily", cap: "$0.00", strategy: "Max Conversio...", bid: "Auto", active: false }
+            ].map((campaign, idx) => (
+              <div key={idx} className="grid grid-cols-12 gap-4 px-4 py-3 hover:bg-gray-50 text-sm">
+                <div className="col-span-1 flex items-center">
+                  <input type="checkbox" className="w-4 h-4 border-gray-300 rounded" />
+                </div>
+                <div className="col-span-3 flex items-center gap-2">
+                  <div className={`w-10 h-6 rounded-full transition-colors ${campaign.active ? 'bg-teal-700' : 'bg-gray-300'} relative cursor-pointer`}>
+                    <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${campaign.active ? 'right-1' : 'left-1'}`}></div>
+                  </div>
+                  <span className="text-gray-900">{campaign.name}</span>
+                  <button className="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-gray-600">
+                    <BarChart3 className="w-3 h-3" />
+                  </button>
+                </div>
+                <div className="col-span-1 flex items-center justify-center">
+                  <span className={`flex items-center gap-1.5 text-xs ${campaign.status === 'Running' ? 'text-green-600' : 'text-gray-500'}`}>
+                    <div className={`w-2 h-2 rounded-full ${campaign.status === 'Running' ? 'bg-green-600' : 'bg-gray-400'}`}></div>
+                    {campaign.status}
+                  </span>
+                </div>
+                <div className="col-span-1 flex items-center justify-center text-gray-600">Native</div>
+                <div className="col-span-1 flex items-center justify-center text-gray-600">{campaign.id}</div>
+                <div className="col-span-1 flex items-center justify-end text-gray-900">{campaign.spent}</div>
+                <div className="col-span-1 flex items-center justify-end text-gray-600">{campaign.budget}</div>
+                <div className="col-span-1 flex items-center justify-end text-gray-600">{campaign.cap}</div>
+                <div className="col-span-1 flex items-center justify-end text-gray-600">{campaign.strategy}</div>
+                <div className="col-span-1 flex items-center justify-end gap-2">
+                  <span className="text-gray-900">{campaign.bid}</span>
+                  <button className="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-gray-600">
+                    <Edit className="w-3 h-3" />
+                  </button>
+                  <button className="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-gray-600">
+                    <Copy className="w-3 h-3" />
+                  </button>
+                  <button className="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-gray-600">
+                    <BarChart3 className="w-3 h-3" />
+                  </button>
+                  <button className="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-gray-600">
+                    <Trash2 className="w-3 h-3" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Table Footer */}
+          <div className="border-t border-gray-200 px-4 py-3 bg-gray-50">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <Filter className="w-4 h-4" />
+                <span className="font-medium">$0.00</span>
+              </div>
+              <div className="flex items-center gap-4 text-sm text-gray-600">
+                <button className="hover:text-gray-900">
+                  <ChevronDown className="w-4 h-4 rotate-90" />
+                </button>
+                <span>1 - 3 of 3</span>
+                <button className="hover:text-gray-900">
+                  <ChevronDown className="w-4 h-4 rotate-[-90deg]" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Disclaimer */}
+        <p className="text-xs text-gray-500 mb-8">All the amounts above are estimates that can be readjusted according to monthly data verification we conduct.</p>
+
+        {/* Competitor Performance Section */}
+        <div className="bg-white border border-gray-200 rounded-lg p-6 mb-8">
+          <h2 className="text-lg font-semibold text-gray-900 mb-6">Competitor Best Performing Campaigns</h2>
+          
+          <div className="space-y-6">
+            {filteredAds.map((ad, idx) => (
+              <div key={idx} className="border border-gray-200 rounded-lg p-5 hover:bg-gray-50 transition-colors">
+                {/* Campaign Header */}
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="px-2.5 py-1 bg-gray-900 text-white text-xs font-semibold rounded">{ad.brand}</span>
+                      <span className="px-2.5 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded">{ad.format}</span>
+                      <span className="text-green-600 text-xs font-medium flex items-center gap-1.5">
+                        <div className="w-1.5 h-1.5 bg-green-600 rounded-full"></div>
+                        {ad.deliveryStatus}
+                      </span>
+                    </div>
+                    <h3 className="text-base font-semibold text-gray-900 mb-1">{ad.campaignName}</h3>
+                    <p className="text-sm text-gray-600 mb-2">{ad.adText}</p>
+                    <div className="flex items-center gap-3 text-xs text-gray-500">
+                      <span>Product: {ad.product}</span>
+                      <span>•</span>
+                      <span>Type: {ad.adType}</span>
+                      <span>•</span>
+                      <span>Duration: {ad.campaignDuration}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Key Performance Metrics */}
+                <div className="grid grid-cols-6 gap-4 mb-5 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                  <div className="text-center">
+                    <div className="text-xl font-bold text-gray-900">{ad.roas}</div>
+                    <div className="text-xs text-gray-500 uppercase mt-1">ROAS</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-xl font-bold text-gray-900">{ad.ctr}%</div>
+                    <div className="text-xs text-gray-500 uppercase mt-1">CTR</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-xl font-bold text-gray-900">{ad.cpc}</div>
+                    <div className="text-xs text-gray-500 uppercase mt-1">CPC</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-xl font-bold text-gray-900">{ad.conversionRate}%</div>
+                    <div className="text-xs text-gray-500 uppercase mt-1">Conv. Rate</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-xl font-bold text-gray-900">{ad.conversions}</div>
+                    <div className="text-xs text-gray-500 uppercase mt-1">Conversions</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-xl font-bold text-gray-900">{ad.engagementRate}%</div>
+                    <div className="text-xs text-gray-500 uppercase mt-1">Engagement</div>
+                  </div>
+                </div>
+
+                {/* AI Insight */}
+                <div className="p-4 bg-gradient-to-r from-teal-700 to-teal-600 text-white rounded-lg">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Sparkles className="w-4 h-4" />
+                    <h4 className="text-sm font-semibold">AI Strategic Insight</h4>
+                  </div>
+                  <p className="text-sm leading-relaxed opacity-95">{ad.aiInsight}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* AI Chat Assistant */}
+        <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+          <div className="bg-teal-700 text-white p-5">
+            <div className="flex items-center gap-3 mb-2">
+              <MessageSquare className="w-5 h-5" />
+              <h3 className="text-lg font-semibold">AI Strategy Assistant</h3>
+            </div>
+            <p className="text-teal-100 text-sm">Ask me anything about competitor strategies, performance optimization, or market trends</p>
+          </div>
+
+          <div className="p-5 bg-gray-50 max-h-96 overflow-y-auto space-y-4">
+            {chatMessages.map((msg, idx) => (
+              <div key={idx} className={`flex gap-3 ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}>
+                {msg.type === 'ai' && (
+                  <div className="w-8 h-8 bg-teal-700 text-white rounded-full flex items-center justify-center font-semibold text-sm flex-shrink-0">
+                    AI
+                  </div>
+                )}
+                <div className={`max-w-2xl p-4 rounded-lg text-sm leading-relaxed ${
+                  msg.type === 'ai' 
+                    ? 'bg-white border border-gray-200' 
+                    : 'bg-teal-700 text-white'
+                }`}>
+                  {msg.text}
+                </div>
+                {msg.type === 'user' && (
+                  <div className="w-8 h-8 bg-gray-600 text-white rounded-full flex items-center justify-center font-semibold text-sm flex-shrink-0">
+                    U
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className="p-5 bg-white border-t border-gray-200">
+            <div className="flex gap-3">
+              <input
+                type="text"
+                value={chatInput}
+                onChange={(e) => setChatInput(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && sendChatMessage()}
+                placeholder="Ask about strategies, timings, keywords, or specific campaigns..."
+                className="flex-1 px-4 py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600"
+              />
+              <button 
+                onClick={sendChatMessage}
+                className="px-5 py-2.5 bg-teal-700 text-white rounded hover:bg-teal-800 transition-colors font-medium text-sm flex items-center gap-2"
               >
                 <Send className="w-4 h-4" />
                 Send
