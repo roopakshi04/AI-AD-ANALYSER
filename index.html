@@ -7,649 +7,444 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --bg: #f0f0f2;
-  --surface: #ffffff;
-  --surface2: #f7f7f8;
-  --border: #e0e0e4;
-  --border2: #c8c8ce;
-  --teal: #1f1f1f;
-  --teal-light: #f0f0f0;
-  --teal-mid: #c0c0c0;
-  --teal-dark: #000000;
-  --accent: #444444;
-  --accent-light: #f4f4f4;
-  --gold: #555555;
-  --gold-light: #ebebeb;
-  --text: #111111;
-  --text2: #333333;
-  --text3: #666666;
-  --text4: #999999;
-  --green: #2a7a2a;
-  --green-light: #e6f4e6;
-  --red: #c0392b;
-  --red-light: #fcecea;
-  --orange: #7a4a00;
-  --font: 'IBM Plex Sans', sans-serif;
-  --mono: 'IBM Plex Mono', monospace;
-  --radius: 6px;
-  --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.05);
-  --shadow-md: 0 4px 12px rgba(0,0,0,.1), 0 2px 4px rgba(0,0,0,.06);
-  --shadow-lg: 0 20px 40px rgba(0,0,0,.12), 0 8px 16px rgba(0,0,0,.08);
+  --bg: #f0f0f2; --surface: #ffffff; --surface2: #f7f7f8;
+  --border: #e0e0e4; --border2: #c8c8ce;
+  --teal: #1f1f1f; --teal-light: #f0f0f0; --teal-mid: #c0c0c0; --teal-dark: #000000;
+  --accent: #444444; --accent-light: #f4f4f4; --gold: #555555; --gold-light: #ebebeb;
+  --text: #111111; --text2: #333333; --text3: #666666; --text4: #999999;
+  --green: #2a7a2a; --green-light: #e6f4e6; --red: #c0392b; --red-light: #fcecea;
+  --orange: #7a4a00; --font: 'IBM Plex Sans', sans-serif; --mono: 'IBM Plex Mono', monospace;
+  --radius: 6px; --shadow: 0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.05);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.1),0 2px 4px rgba(0,0,0,.06);
+  --shadow-lg: 0 20px 40px rgba(0,0,0,.12),0 8px 16px rgba(0,0,0,.08);
 }
-
 body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; font-size: 13px; line-height: 1.5; }
-
-/* ─── ANIMATIONS ─── */
 @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
 @keyframes fadeIn { from{opacity:0} to{opacity:1} }
 @keyframes spin { to{transform:rotate(360deg)} }
 @keyframes shimmer { 0%{background-position:-400px 0} 100%{background-position:400px 0} }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
-@keyframes slideRight { from{width:0} to{width:var(--w)} }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+@keyframes typewriter { from{width:0} to{width:100%} }
+@keyframes gradFlow { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 
-/* ══════════════════════════
-   LOGIN
-══════════════════════════ */
-#loginPage {
-  position: fixed; inset: 0; z-index: 1000;
-  display: flex; background: var(--bg);
-  animation: fadeIn .3s ease;
-}
+/* LOGIN */
+#loginPage { position:fixed;inset:0;z-index:1000;display:flex;background:var(--bg);animation:fadeIn .3s ease; }
+.login-left { width:420px;flex-shrink:0;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:0;box-shadow:var(--shadow-md); }
+.login-left-top { padding:36px 40px 24px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border); }
+.login-logo-mark { width:32px;height:32px;background:var(--teal);border-radius:8px;display:flex;align-items:center;justify-content:center; }
+.login-logo-mark svg { width:18px;height:18px;color:#fff; }
+.login-brand { font-size:16px;font-weight:700;color:var(--text);letter-spacing:-.3px; }
+.login-form-area { flex:1;display:flex;flex-direction:column;justify-content:center;padding:40px; }
+.login-title { font-size:22px;font-weight:700;color:var(--text);margin-bottom:6px;letter-spacing:-.4px; }
+.login-sub { font-size:13px;color:var(--text3);margin-bottom:32px; }
+.form-group { margin-bottom:16px; }
+.form-label { font-size:11.5px;font-weight:600;color:var(--text2);margin-bottom:6px;display:block;text-transform:uppercase;letter-spacing:.04em; }
+.form-input { width:100%;padding:10px 12px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius);font-size:13px;color:var(--text);font-family:var(--font);outline:none;transition:border-color .15s,box-shadow .15s; }
+.form-input:focus { border-color:var(--teal);box-shadow:0 0 0 3px rgba(26,127,90,.12);background:#fff; }
+.form-input.error { border-color:var(--red); }
+.password-row { position:relative; }
+.eye-toggle { position:absolute;right:10px;top:50%;transform:translateY(-50%);cursor:pointer;color:var(--text4);background:none;border:none;padding:2px; }
+.eye-toggle svg { width:16px;height:16px; }
+.error-msg { font-size:11.5px;color:var(--red);margin-top:5px;display:none; }
+.error-msg.show { display:block; }
+.login-hint { display:flex;align-items:center;gap:8px;background:var(--teal-light);border:1px solid var(--teal-mid);border-radius:var(--radius);padding:10px 12px;margin-bottom:20px;font-size:12px;color:var(--teal-dark); }
+.login-hint svg { width:14px;height:14px;flex-shrink:0; }
+.btn-login { width:100%;padding:11px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius);font-size:13.5px;font-weight:600;cursor:pointer;font-family:var(--font);transition:background .15s,transform .1s;display:flex;align-items:center;justify-content:center;gap:8px; }
+.btn-login:hover { background:var(--teal-dark); }
+.login-footer-note { text-align:center;margin-top:20px;font-size:12px;color:var(--text4); }
+.login-footer-note a { color:var(--teal);text-decoration:none;font-weight:500; }
+.login-right { flex:1;background:linear-gradient(135deg,#111111 0%,#2a2a2a 50%,#0a0a0a 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px;position:relative;overflow:hidden; }
+.login-right::before { content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 30% 20%,rgba(255,255,255,.04) 0%,transparent 50%),radial-gradient(circle at 70% 80%,rgba(255,255,255,.03) 0%,transparent 40%); }
+.login-right-grid { position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:48px 48px; }
+.login-right-content { position:relative;z-index:1;text-align:center;max-width:420px; }
+.login-right-badge { display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:5px 14px;font-size:12px;color:rgba(255,255,255,.9);margin-bottom:28px;font-weight:500; }
+.login-right-badge-dot { width:6px;height:6px;background:#4ade80;border-radius:50%;animation:pulse 2s infinite; }
+.login-right h2 { font-size:30px;font-weight:700;color:#fff;margin-bottom:14px;letter-spacing:-.6px;line-height:1.2; }
+.login-right p { font-size:14px;color:rgba(255,255,255,.65);line-height:1.7;margin-bottom:40px; }
+.feature-pills { display:flex;flex-wrap:wrap;gap:8px;justify-content:center; }
+.feature-pill { display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:6px 14px;font-size:12px;color:rgba(255,255,255,.85); }
+.feature-pill svg { width:12px;height:12px;color:#4ade80; }
+.spinner { width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite; }
 
-.login-left {
-  width: 420px; flex-shrink: 0;
-  background: var(--surface);
-  border-right: 1px solid var(--border);
-  display: flex; flex-direction: column;
-  padding: 0;
-  box-shadow: var(--shadow-md);
-}
+/* APP SHELL */
+#appShell { display:none;min-height:100vh; }
+.topnav { background:var(--surface);border-bottom:1px solid var(--border);height:44px;display:flex;align-items:center;padding:0 20px;gap:0;position:sticky;top:0;z-index:200;box-shadow:var(--shadow); }
+.topnav-crumb { display:flex;align-items:center;gap:0; }
+.crumb-item { display:flex;align-items:center;gap:4px;padding:4px 10px;font-size:12px;color:var(--text3);cursor:pointer;border-right:1px solid var(--border);position:relative;white-space:nowrap; }
+.crumb-item:hover { color:var(--text);background:var(--bg); }
+.crumb-item:first-child { padding-left:0; }
+.crumb-item.active { color:var(--text);font-weight:600; }
+.crumb-label { font-weight:600; }
+.crumb-sub { font-size:11px;color:var(--text3);font-family:var(--mono); }
+.crumb-arrow { color:var(--border2);margin:0 2px; }
+.crumb-arrow svg { width:12px;height:12px; }
+.crumb-dropdown svg { width:12px;height:12px;color:var(--text4); }
+.topnav-right { margin-left:auto;display:flex;align-items:center;gap:10px; }
+.topnav-date { display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text3);padding:4px 10px;border:1px solid var(--border2);border-radius:var(--radius);cursor:pointer;transition:all .15s;background:var(--surface2); }
+.topnav-date:hover { border-color:var(--teal);color:var(--teal); }
+.topnav-date svg { width:13px;height:13px; }
+.user-chip { display:flex;align-items:center;gap:7px;padding:4px 10px;border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:all .15s;background:var(--surface2);font-size:12px;color:var(--text2); }
+.user-avatar-sm { width:22px;height:22px;border-radius:4px;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;font-family:var(--mono); }
+.main-header { background:var(--surface);border-bottom:1px solid var(--border);padding:0 20px;height:52px;display:flex;align-items:center;gap:12px;position:sticky;top:44px;z-index:100; }
+.mh-tabs { display:flex;align-items:center;gap:0;border-right:1px solid var(--border);padding-right:12px;margin-right:4px; }
+.mh-tab { padding:6px 14px;font-size:13px;font-weight:500;cursor:pointer;color:var(--text3);border-bottom:2px solid transparent;transition:all .15s;border-radius:4px 4px 0 0;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;font-family:var(--font); }
+.mh-tab:hover { color:var(--text);background:var(--bg); }
+.mh-tab.active { color:var(--teal);border-bottom-color:var(--teal);font-weight:600; }
+.mh-actions { margin-left:auto;display:flex;align-items:center;gap:6px; }
+.icon-btn { width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:var(--radius);color:var(--text3);cursor:pointer;transition:all .15s;background:var(--surface2);flex-shrink:0;font-family:var(--font); }
+.icon-btn:hover { border-color:var(--border2);color:var(--text);background:var(--surface); }
+.icon-btn.active { background:var(--teal);border-color:var(--teal);color:#fff; }
+.icon-btn svg { width:14px;height:14px; }
+.filter-active-chip { display:flex;align-items:center;gap:5px;padding:4px 10px;background:var(--teal);border-radius:20px;font-size:11.5px;color:#fff;font-weight:600;white-space:nowrap; }
+.filter-active-chip button { background:none;border:none;color:rgba(255,255,255,.8);cursor:pointer;padding:0;display:flex;font-size:12px; }
+.btn-new { display:flex;align-items:center;gap:0;background:var(--teal);color:#fff;border:none;border-radius:var(--radius);cursor:pointer;font-family:var(--font);font-size:13px;font-weight:600;transition:background .15s; }
+.btn-new:hover { background:var(--teal-dark); }
+.btn-new-main { padding:6px 14px;border-right:1px solid rgba(255,255,255,.2); }
+.btn-new-arrow { padding:6px 8px; }
+.btn-new-arrow svg { width:13px;height:13px; }
+.columns-btn { display:flex;align-items:center;gap:5px;padding:6px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:12px;color:var(--text3);cursor:pointer;background:var(--surface2);font-family:var(--font);transition:all .15s;white-space:nowrap; }
+.columns-btn:hover { border-color:var(--border2);color:var(--text); }
+.columns-btn svg { width:13px;height:13px; }
+.columns-sep { color:var(--border2);font-size:12px; }
 
-.login-left-top {
-  padding: 36px 40px 0;
-  display: flex; align-items: center; gap: 10px;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 24px;
-}
-
-.login-logo-mark {
-  width: 32px; height: 32px; background: var(--teal); border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-}
-.login-logo-mark svg { width: 18px; height: 18px; color: #fff; }
-.login-brand { font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: -.3px; }
-.login-brand span { color: var(--teal); }
-
-.login-form-area {
-  flex: 1; display: flex; flex-direction: column; justify-content: center;
-  padding: 40px;
-}
-
-.login-title { font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 6px; letter-spacing: -.4px; }
-.login-sub { font-size: 13px; color: var(--text3); margin-bottom: 32px; }
-
-.form-group { margin-bottom: 16px; }
-.form-label { font-size: 11.5px; font-weight: 600; color: var(--text2); margin-bottom: 6px; display: block; text-transform: uppercase; letter-spacing: .04em; }
-
-.form-input {
-  width: 100%; padding: 10px 12px;
-  background: var(--surface2); border: 1px solid var(--border2);
-  border-radius: var(--radius); font-size: 13px; color: var(--text);
-  font-family: var(--font); outline: none;
-  transition: border-color .15s, box-shadow .15s;
-}
-.form-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(26,127,90,.12); background: #fff; }
-.form-input.error { border-color: var(--red); box-shadow: 0 0 0 3px rgba(220,38,38,.1); }
-
-.password-row { position: relative; }
-.eye-toggle {
-  position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
-  cursor: pointer; color: var(--text4); background: none; border: none; padding: 2px;
-}
-.eye-toggle svg { width: 16px; height: 16px; }
-
-.error-msg { font-size: 11.5px; color: var(--red); margin-top: 5px; display: none; }
-.error-msg.show { display: block; }
-
-.login-hint {
-  display: flex; align-items: center; gap: 8px;
-  background: var(--teal-light); border: 1px solid var(--teal-mid);
-  border-radius: var(--radius); padding: 10px 12px;
-  margin-bottom: 20px; font-size: 12px; color: var(--teal-dark);
-}
-.login-hint svg { width: 14px; height: 14px; flex-shrink: 0; }
-
-.btn-login {
-  width: 100%; padding: 11px;
-  background: var(--teal); color: #fff;
-  border: none; border-radius: var(--radius);
-  font-size: 13.5px; font-weight: 600;
-  cursor: pointer; font-family: var(--font);
-  transition: background .15s, transform .1s, box-shadow .15s;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-}
-.btn-login:hover { background: var(--teal-dark); box-shadow: 0 4px 12px rgba(26,127,90,.3); }
-.btn-login:active { transform: scale(.99); }
-
-.login-footer-note { text-align: center; margin-top: 20px; font-size: 12px; color: var(--text4); }
-.login-footer-note a { color: var(--teal); text-decoration: none; font-weight: 500; }
-
-.login-right {
-  flex: 1;
-  background: linear-gradient(135deg, #111111 0%, #2a2a2a 50%, #0a0a0a 100%);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  padding: 60px; position: relative; overflow: hidden;
-}
-.login-right::before {
-  content: '';
-  position: absolute; inset: 0;
-  background-image: radial-gradient(circle at 30% 20%, rgba(255,255,255,.04) 0%, transparent 50%),
-    radial-gradient(circle at 70% 80%, rgba(255,255,255,.03) 0%, transparent 40%);
-}
-.login-right-grid {
-  position: absolute; inset: 0;
-  background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
-  background-size: 48px 48px;
-}
-.login-right-content { position: relative; z-index: 1; text-align: center; max-width: 420px; }
-.login-right-badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
-  border-radius: 20px; padding: 5px 14px; font-size: 12px; color: rgba(255,255,255,.9);
-  margin-bottom: 28px; font-weight: 500;
-}
-.login-right-badge-dot { width: 6px; height: 6px; background: #4ade80; border-radius: 50%; animation: pulse 2s infinite; }
-.login-right h2 { font-size: 30px; font-weight: 700; color: #fff; margin-bottom: 14px; letter-spacing: -.6px; line-height: 1.2; }
-.login-right p { font-size: 14px; color: rgba(255,255,255,.65); line-height: 1.7; margin-bottom: 40px; }
-
-.feature-pills { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
-.feature-pill {
-  display: flex; align-items: center; gap: 6px;
-  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.15);
-  border-radius: 20px; padding: 6px 14px; font-size: 12px; color: rgba(255,255,255,.85);
-}
-.feature-pill svg { width: 12px; height: 12px; color: #4ade80; }
-
-.spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.3); border-top-color: #fff; border-radius: 50%; animation: spin .6s linear infinite; }
-
-/* ══════════════════════════
-   APP SHELL
-══════════════════════════ */
-#appShell { display: none; min-height: 100vh; }
-#appShell.visible { display: block; animation: fadeIn .3s ease; }
-
-/* TOP NAV (breadcrumb bar) */
-.topnav {
-  background: var(--surface); border-bottom: 1px solid var(--border);
-  height: 44px; display: flex; align-items: center; padding: 0 20px;
-  gap: 0; position: sticky; top: 0; z-index: 200; box-shadow: var(--shadow);
-}
-.topnav-crumb {
-  display: flex; align-items: center; gap: 0;
-}
-.crumb-item {
-  display: flex; align-items: center; gap: 4px;
-  padding: 4px 10px; font-size: 12px; color: var(--text3); cursor: pointer;
-  border-right: 1px solid var(--border); position: relative;
-  white-space: nowrap;
-}
-.crumb-item:hover { color: var(--text); background: var(--bg); }
-.crumb-item:first-child { padding-left: 0; }
-.crumb-item.active { color: var(--text); font-weight: 600; }
-.crumb-label { font-weight: 600; }
-.crumb-sub { font-size: 11px; color: var(--text3); font-family: var(--mono); }
-.crumb-arrow { color: var(--border2); margin: 0 2px; }
-.crumb-arrow svg { width: 12px; height: 12px; }
-.crumb-dropdown { margin-left: 2px; }
-.crumb-dropdown svg { width: 12px; height: 12px; color: var(--text4); }
-
-.topnav-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
-.topnav-date {
-  display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text3);
-  padding: 4px 10px; border: 1px solid var(--border2); border-radius: var(--radius);
-  cursor: pointer; transition: all .15s; background: var(--surface2);
-}
-.topnav-date:hover { border-color: var(--teal); color: var(--teal); }
-.topnav-date svg { width: 13px; height: 13px; }
-.user-chip {
-  display: flex; align-items: center; gap: 7px;
-  padding: 4px 10px; border: 1px solid var(--border);
-  border-radius: var(--radius); cursor: pointer; transition: all .15s;
-  background: var(--surface2); font-size: 12px; color: var(--text2);
-}
-.user-chip:hover { border-color: var(--border2); }
-.user-avatar-sm {
-  width: 22px; height: 22px; border-radius: 4px;
-  background: var(--teal); color: #fff;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 10px; font-weight: 700; font-family: var(--mono);
-}
-
-/* MAIN HEADER (toolbar row) */
-.main-header {
-  background: var(--surface); border-bottom: 1px solid var(--border);
-  padding: 0 20px; height: 52px; display: flex; align-items: center; gap: 12px;
-  position: sticky; top: 44px; z-index: 100;
-}
-.mh-tabs { display: flex; align-items: center; gap: 0; border-right: 1px solid var(--border); padding-right: 12px; margin-right: 4px; }
-.mh-tab {
-  padding: 6px 14px; font-size: 13px; font-weight: 500; cursor: pointer;
-  color: var(--text3); border-bottom: 2px solid transparent;
-  transition: all .15s; border-radius: 4px 4px 0 0; white-space: nowrap;
-  background: none; border-top: none; border-left: none; border-right: none;
-  font-family: var(--font);
-}
-.mh-tab:hover { color: var(--text); background: var(--bg); }
-.mh-tab.active { color: var(--teal); border-bottom-color: var(--teal); font-weight: 600; }
-
-.mh-period {
-  display: flex; align-items: center; gap: 4px; padding: 4px 8px;
-  border: 1px solid var(--border2); border-radius: var(--radius);
-  font-size: 12px; color: var(--text3); cursor: pointer; background: var(--surface2);
-  transition: all .15s; white-space: nowrap;
-}
-.mh-period:hover { border-color: var(--border); }
-.mh-period svg { width: 12px; height: 12px; }
-
-.mh-actions { margin-left: auto; display: flex; align-items: center; gap: 6px; }
-.icon-btn {
-  width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
-  border: 1px solid var(--border); border-radius: var(--radius); color: var(--text3);
-  cursor: pointer; transition: all .15s; background: var(--surface2); flex-shrink: 0;
-  font-family: var(--font);
-}
-.icon-btn:hover { border-color: var(--border2); color: var(--text); background: var(--surface); }
-.icon-btn.active { background: var(--teal); border-color: var(--teal); color: #fff; }
-.icon-btn svg { width: 14px; height: 14px; }
-
-.filter-active-chip {
-  display: flex; align-items: center; gap: 5px; padding: 4px 10px;
-  background: var(--teal); border-radius: 20px; font-size: 11.5px;
-  color: #fff; font-weight: 600; white-space: nowrap;
-}
-.filter-active-chip button { background: none; border: none; color: rgba(255,255,255,.8); cursor: pointer; padding: 0; display: flex; font-size: 12px; }
-
-.btn-new {
-  display: flex; align-items: center; gap: 0;
-  background: var(--teal); color: #fff; border: none;
-  border-radius: var(--radius); cursor: pointer; font-family: var(--font);
-  font-size: 13px; font-weight: 600; transition: background .15s;
-}
-.btn-new:hover { background: var(--teal-dark); }
-.btn-new-main { padding: 6px 14px; border-right: 1px solid rgba(255,255,255,.2); }
-.btn-new-arrow { padding: 6px 8px; }
-.btn-new-arrow svg { width: 13px; height: 13px; }
-
-.columns-btn {
-  display: flex; align-items: center; gap: 5px; padding: 6px 10px;
-  border: 1px solid var(--border); border-radius: var(--radius);
-  font-size: 12px; color: var(--text3); cursor: pointer; background: var(--surface2);
-  font-family: var(--font); transition: all .15s; white-space: nowrap;
-}
-.columns-btn:hover { border-color: var(--border2); color: var(--text); }
-.columns-btn svg { width: 13px; height: 13px; }
-.columns-sep { color: var(--border2); font-size: 12px; }
-
-/* CONTENT AREA */
-.content-wrap { padding: 20px; }
-
-/* ONBOARDING PANEL */
-.onboarding-panel {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 8px; margin-bottom: 20px; overflow: hidden;
-  box-shadow: var(--shadow);
-}
-.onboarding-grid { display: grid; grid-template-columns: 240px 1fr 380px; }
-.onboarding-score {
-  padding: 24px; border-right: 1px solid var(--border);
-  display: flex; flex-direction: column; align-items: flex-start; gap: 12px;
-}
-.score-label { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: .06em; }
-.score-value { font-size: 20px; font-weight: 700; color: var(--text); }
-.score-ring { position: relative; width: 90px; height: 90px; margin: 4px 0; }
-.score-ring svg { width: 90px; height: 90px; transform: rotate(-90deg); }
-.score-ring-track { fill: none; stroke: var(--border); stroke-width: 6; }
-.score-ring-fill { fill: none; stroke: var(--teal); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 220; stroke-dashoffset: 44; transition: stroke-dashoffset 1s ease; }
-.score-pct { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 19px; font-weight: 700; color: var(--text); font-family: var(--mono); }
-
-.onboarding-steps { padding: 20px 24px; display: flex; flex-direction: column; gap: 8px; border-right: 1px solid var(--border); }
-.ob-step {
-  display: flex; align-items: center; gap: 10px; padding: 8px 10px;
-  border-radius: var(--radius); cursor: pointer; transition: background .15s;
-}
-.ob-step:hover { background: var(--bg); }
-.ob-step.active { background: var(--bg); border: 1px solid var(--border); }
-.ob-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.ob-icon.done { background: var(--green); }
-.ob-icon.active { background: var(--teal-light); border: 2px solid var(--teal); }
-.ob-icon.pending { background: var(--bg); border: 2px solid var(--border2); }
-.ob-icon svg { width: 11px; height: 11px; }
-.ob-icon.done svg { color: #fff; }
-.ob-icon.active svg { color: var(--teal); }
-.ob-icon.pending svg { color: var(--text4); }
-.ob-name { flex: 1; font-size: 13px; color: var(--text2); }
-.ob-step.active .ob-name { font-weight: 600; color: var(--text); }
-.ob-count { font-size: 11.5px; color: var(--text4); font-family: var(--mono); }
-
-.onboarding-detail { padding: 20px 24px; display: flex; flex-direction: column; gap: 12px; }
-.od-head { display: flex; align-items: center; justify-content: space-between; }
-.od-title { display: flex; align-items: center; gap: 8px; }
-.od-title-icon { width: 20px; height: 20px; background: var(--teal-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-.od-title-icon svg { width: 11px; height: 11px; color: var(--teal); }
-.od-title-text { font-size: 14px; font-weight: 700; color: var(--text); }
-.od-learn { display: flex; align-items: center; gap: 4px; font-size: 11.5px; color: var(--teal); cursor: pointer; }
-.od-learn svg { width: 12px; height: 12px; }
-.od-desc { font-size: 13px; color: var(--text3); line-height: 1.6; }
-.od-progress { font-size: 11.5px; color: var(--text4); font-family: var(--mono); }
-.od-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 8px; border-top: 1px solid var(--border); }
-.od-nav { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--teal); cursor: pointer; }
-.od-nav span:hover { text-decoration: underline; }
-.od-nav-sep { color: var(--border2); }
-.btn-review {
-  padding: 7px 16px; background: var(--teal); color: #fff;
-  border: none; border-radius: var(--radius); font-size: 12.5px; font-weight: 600;
-  cursor: pointer; font-family: var(--font); transition: background .15s;
-}
-.btn-review:hover { background: var(--teal-dark); }
+/* LAYOUT */
+.content-wrap { padding:20px; }
+.app-body { display:grid;grid-template-columns:200px 1fr;min-height:calc(100vh - 96px); }
+.sidebar { background:var(--surface);border-right:1px solid var(--border);padding:16px 0;position:sticky;top:96px;height:calc(100vh - 96px);overflow-y:auto; }
+.sidebar-section { margin-bottom:20px; }
+.sidebar-label { font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text4);padding:0 16px;margin-bottom:4px; }
+.sidebar-item { display:flex;align-items:center;gap:9px;padding:7px 16px;font-size:12.5px;color:var(--text3);cursor:pointer;transition:all .12s;border-left:2px solid transparent; }
+.sidebar-item:hover { color:var(--text);background:var(--bg); }
+.sidebar-item.active { color:var(--teal);background:var(--teal-light);border-left-color:var(--teal);font-weight:600; }
+.sidebar-item svg { width:14px;height:14px;flex-shrink:0; }
+.sidebar-badge { margin-left:auto;font-size:10.5px;font-family:var(--mono);color:var(--text4);background:var(--bg);padding:1px 6px;border-radius:4px;border:1px solid var(--border); }
+.sidebar-item.active .sidebar-badge { background:#fff;color:var(--teal);border-color:var(--teal-mid); }
+.content { padding:20px; }
+.page-section { display:none;animation:fadeUp .3s ease; }
+.page-section.active { display:block; }
+.section-head { margin-bottom:16px; }
+.section-title { font-size:18px;font-weight:700;color:var(--text);letter-spacing:-.3px; }
+.section-sub { font-size:12.5px;color:var(--text3);margin-top:3px; }
 
 /* TABLE */
-.table-panel {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 8px; overflow: hidden; box-shadow: var(--shadow);
-}
-.table-scroll { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; font-size: 12.5px; min-width: 900px; }
-thead th {
-  padding: 9px 14px; background: var(--bg); border-bottom: 1px solid var(--border);
-  font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em;
-  color: var(--text3); white-space: nowrap; text-align: left; cursor: pointer;
-  user-select: none;
-}
-thead th:hover { color: var(--text); }
-thead th.sorted { color: var(--teal); }
-thead th svg { width: 11px; height: 11px; vertical-align: middle; margin-left: 3px; }
-tbody tr { border-bottom: 1px solid var(--border); transition: background .1s; cursor: pointer; }
-tbody tr:hover { background: var(--surface2); }
-tbody tr:last-child { border-bottom: none; }
-tbody td { padding: 10px 14px; color: var(--text2); white-space: nowrap; }
-.td-check { width: 36px; }
-.td-toggle { width: 44px; }
-
-.toggle { width: 32px; height: 17px; border-radius: 9px; position: relative; cursor: pointer; flex-shrink: 0; transition: background .2s; display: inline-block; }
-.toggle.on { background: var(--teal); }
-.toggle.off { background: var(--border2); }
-.toggle::after { content: ''; position: absolute; top: 2px; width: 13px; height: 13px; background: white; border-radius: 50%; transition: left .15s; box-shadow: 0 1px 3px rgba(0,0,0,.2); }
-.toggle.on::after { left: calc(100% - 15px); }
-.toggle.off::after { left: 2px; }
-
-.campaign-name-cell { max-width: 260px; }
-.campaign-name-link { font-weight: 500; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; }
-.campaign-name-link:hover { color: var(--teal); }
-
-.status-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 500; padding: 2px 8px; border-radius: 20px; white-space: nowrap; }
-.status-badge.running { background: var(--green-light); color: var(--green); }
-.status-badge.paused { background: var(--bg); color: var(--text3); border: 1px solid var(--border); }
-.status-badge.pending { background: var(--gold-light); color: var(--gold); }
-.status-badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
-
-.type-badge { display: inline-flex; font-size: 11px; padding: 2px 8px; border-radius: 4px; background: var(--bg); color: var(--text3); border: 1px solid var(--border); font-weight: 500; }
-
-.mono-val { font-family: var(--mono); font-size: 12px; }
-.text-right { text-align: right; }
-.text-center { text-align: center; }
-
-.sparkline-cell { width: 60px; }
-.sparkline-cell svg { display: block; }
-
-.row-actions { display: flex; align-items: center; gap: 2px; justify-content: flex-end; opacity: 0; transition: opacity .15s; }
-tr:hover .row-actions { opacity: 1; }
-.ra-btn { width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; border-radius: 4px; border: 1px solid transparent; color: var(--text4); cursor: pointer; transition: all .15s; background: none; }
-.ra-btn:hover { background: var(--bg); border-color: var(--border); color: var(--text2); }
-.ra-btn.danger:hover { background: var(--red-light); border-color: #fca5a5; color: var(--red); }
-.ra-btn svg { width: 13px; height: 13px; }
-
-.table-footer {
-  padding: 10px 16px; background: var(--bg); border-top: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: var(--text3);
-}
-.table-footer-sum { font-family: var(--mono); font-weight: 600; color: var(--text2); }
-.pagination { display: flex; align-items: center; gap: 6px; }
-.page-btn { width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); border-radius: 4px; cursor: pointer; color: var(--text3); background: var(--surface); font-size: 11px; transition: all .15s; }
-.page-btn:hover { border-color: var(--border2); color: var(--text); }
-.page-info { font-family: var(--mono); font-size: 11.5px; color: var(--text4); padding: 0 4px; }
-
-input[type="checkbox"] { accent-color: var(--teal); width: 13px; height: 13px; cursor: pointer; }
+.table-panel { background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;box-shadow:var(--shadow); }
+.table-scroll { overflow-x:auto; }
+table { width:100%;border-collapse:collapse;font-size:12.5px;min-width:900px; }
+thead th { padding:9px 14px;background:var(--bg);border-bottom:1px solid var(--border);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);white-space:nowrap;text-align:left;cursor:pointer;user-select:none; }
+thead th:hover { color:var(--text); }
+thead th.sorted { color:var(--teal); }
+thead th svg { width:11px;height:11px;vertical-align:middle;margin-left:3px; }
+tbody tr { border-bottom:1px solid var(--border);transition:background .1s;cursor:pointer; }
+tbody tr:hover { background:var(--surface2); }
+tbody tr:last-child { border-bottom:none; }
+tbody td { padding:10px 14px;color:var(--text2);white-space:nowrap; }
+.td-check { width:36px; }
+.td-toggle { width:44px; }
+.toggle { width:32px;height:17px;border-radius:9px;position:relative;cursor:pointer;flex-shrink:0;transition:background .2s;display:inline-block; }
+.toggle.on { background:var(--teal); }
+.toggle.off { background:var(--border2); }
+.toggle::after { content:'';position:absolute;top:2px;width:13px;height:13px;background:white;border-radius:50%;transition:left .15s;box-shadow:0 1px 3px rgba(0,0,0,.2); }
+.toggle.on::after { left:calc(100% - 15px); }
+.toggle.off::after { left:2px; }
+.campaign-name-cell { max-width:260px; }
+.campaign-name-link { font-weight:500;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block; }
+.campaign-name-link:hover { color:var(--teal); }
+.status-badge { display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:500;padding:2px 8px;border-radius:20px;white-space:nowrap; }
+.status-badge.running { background:var(--green-light);color:var(--green); }
+.status-badge.paused { background:var(--bg);color:var(--text3);border:1px solid var(--border); }
+.status-badge.pending { background:var(--gold-light);color:var(--gold); }
+.status-badge::before { content:'';width:5px;height:5px;border-radius:50%;background:currentColor; }
+.type-badge { display:inline-flex;font-size:11px;padding:2px 8px;border-radius:4px;background:var(--bg);color:var(--text3);border:1px solid var(--border);font-weight:500; }
+.mono-val { font-family:var(--mono);font-size:12px; }
+.text-right { text-align:right; }
+.text-center { text-align:center; }
+.row-actions { display:flex;align-items:center;gap:2px;justify-content:flex-end;opacity:0;transition:opacity .15s; }
+tr:hover .row-actions { opacity:1; }
+.ra-btn { width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:4px;border:1px solid transparent;color:var(--text4);cursor:pointer;transition:all .15s;background:none; }
+.ra-btn:hover { background:var(--bg);border-color:var(--border);color:var(--text2); }
+.ra-btn.danger:hover { background:var(--red-light);border-color:#fca5a5;color:var(--red); }
+.ra-btn svg { width:13px;height:13px; }
+.table-footer { padding:10px 16px;background:var(--bg);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text3); }
+.table-footer-sum { font-family:var(--mono);font-weight:600;color:var(--text2); }
+.pagination { display:flex;align-items:center;gap:6px; }
+.page-btn { width:26px;height:26px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:4px;cursor:pointer;color:var(--text3);background:var(--surface);font-size:11px;transition:all .15s; }
+.page-btn:hover { border-color:var(--border2);color:var(--text); }
+.page-info { font-family:var(--mono);font-size:11.5px;color:var(--text4);padding:0 4px; }
+input[type="checkbox"] { accent-color:var(--teal);width:13px;height:13px;cursor:pointer; }
 
 /* METRICS */
-.metrics-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
-.metric-card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 8px; padding: 16px 18px; box-shadow: var(--shadow);
-  transition: box-shadow .15s, transform .15s;
-}
-.metric-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
-.mc-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-.mc-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--text3); }
-.mc-icon { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; }
-.mc-icon.teal { background: var(--teal-light); color: var(--teal); }
-.mc-icon.blue { background: var(--accent-light); color: var(--accent); }
-.mc-icon.gold { background: var(--gold-light); color: var(--gold); }
-.mc-icon svg { width: 14px; height: 14px; }
-.mc-value { font-size: 24px; font-weight: 700; color: var(--text); font-family: var(--mono); letter-spacing: -.5px; margin-bottom: 4px; }
-.mc-change { display: inline-flex; align-items: center; gap: 4px; font-size: 11.5px; padding: 2px 7px; border-radius: 4px; font-weight: 500; }
-.mc-change.up { background: var(--green-light); color: var(--green); }
-.mc-change.down { background: var(--red-light); color: var(--red); }
-.mc-change.neutral { background: var(--bg); color: var(--text3); }
+.metrics-row { display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px; }
+.metric-card { background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 18px;box-shadow:var(--shadow);transition:box-shadow .15s,transform .15s; }
+.metric-card:hover { box-shadow:var(--shadow-md);transform:translateY(-1px); }
+.mc-top { display:flex;align-items:center;justify-content:space-between;margin-bottom:10px; }
+.mc-label { font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text3); }
+.mc-icon { width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center; }
+.mc-icon.teal { background:var(--teal-light);color:var(--teal); }
+.mc-icon svg { width:14px;height:14px; }
+.mc-value { font-size:24px;font-weight:700;color:var(--text);font-family:var(--mono);letter-spacing:-.5px;margin-bottom:4px; }
+.mc-change { display:inline-flex;align-items:center;gap:4px;font-size:11.5px;padding:2px 7px;border-radius:4px;font-weight:500; }
+.mc-change.up { background:var(--green-light);color:var(--green); }
+.mc-change.down { background:var(--red-light);color:var(--red); }
+.mc-change.neutral { background:var(--bg);color:var(--text3); }
 
-/* SIDEBAR for inner pages */
-.app-body { display: grid; grid-template-columns: 200px 1fr; min-height: calc(100vh - 96px); }
-.sidebar {
-  background: var(--surface); border-right: 1px solid var(--border);
-  padding: 16px 0; position: sticky; top: 96px; height: calc(100vh - 96px); overflow-y: auto;
-}
-.sidebar-section { margin-bottom: 20px; }
-.sidebar-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--text4); padding: 0 16px; margin-bottom: 4px; }
-.sidebar-item {
-  display: flex; align-items: center; gap: 9px; padding: 7px 16px;
-  font-size: 12.5px; color: var(--text3); cursor: pointer; transition: all .12s;
-  border-left: 2px solid transparent;
-}
-.sidebar-item:hover { color: var(--text); background: var(--bg); }
-.sidebar-item.active { color: var(--teal); background: var(--teal-light); border-left-color: var(--teal); font-weight: 600; }
-.sidebar-item svg { width: 14px; height: 14px; flex-shrink: 0; }
-.sidebar-badge { margin-left: auto; font-size: 10.5px; font-family: var(--mono); color: var(--text4); background: var(--bg); padding: 1px 6px; border-radius: 4px; border: 1px solid var(--border); }
-.sidebar-item.active .sidebar-badge { background: #fff; color: var(--teal); border-color: var(--teal-mid); }
-
-/* SECTIONS */
-.content { padding: 20px; }
-.page-section { display: none; animation: fadeUp .3s ease; }
-.page-section.active { display: block; }
-.section-head { margin-bottom: 16px; }
-.section-title { font-size: 18px; font-weight: 700; color: var(--text); letter-spacing: -.3px; }
-.section-sub { font-size: 12.5px; color: var(--text3); margin-top: 3px; }
-
-/* PLACEHOLDER */
-.placeholder {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  min-height: 50vh; gap: 12px; text-align: center;
-}
-.ph-icon { width: 56px; height: 56px; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--text4); }
-.ph-icon svg { width: 24px; height: 24px; }
-.ph-title { font-size: 16px; font-weight: 700; color: var(--text); }
-.ph-desc { font-size: 13px; color: var(--text3); max-width: 300px; line-height: 1.6; }
+/* ONBOARDING */
+.onboarding-panel { background:var(--surface);border:1px solid var(--border);border-radius:8px;margin-bottom:20px;overflow:hidden;box-shadow:var(--shadow); }
+.onboarding-grid { display:grid;grid-template-columns:240px 1fr 380px; }
+.onboarding-score { padding:24px;border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:flex-start;gap:12px; }
+.score-label { font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.06em; }
+.score-value { font-size:20px;font-weight:700;color:var(--text); }
+.score-ring { position:relative;width:90px;height:90px;margin:4px 0; }
+.score-ring svg { width:90px;height:90px;transform:rotate(-90deg); }
+.score-ring-track { fill:none;stroke:var(--border);stroke-width:6; }
+.score-ring-fill { fill:none;stroke:var(--teal);stroke-width:6;stroke-linecap:round;stroke-dasharray:220;stroke-dashoffset:44;transition:stroke-dashoffset 1s ease; }
+.score-pct { position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:700;color:var(--text);font-family:var(--mono); }
+.onboarding-steps { padding:20px 24px;display:flex;flex-direction:column;gap:8px;border-right:1px solid var(--border); }
+.ob-step { display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--radius);cursor:pointer;transition:background .15s; }
+.ob-step:hover { background:var(--bg); }
+.ob-step.active { background:var(--bg);border:1px solid var(--border); }
+.ob-icon { width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+.ob-icon.done { background:var(--green); }
+.ob-icon.active { background:var(--teal-light);border:2px solid var(--teal); }
+.ob-icon.pending { background:var(--bg);border:2px solid var(--border2); }
+.ob-icon svg { width:11px;height:11px; }
+.ob-icon.done svg { color:#fff; }
+.ob-icon.active svg { color:var(--teal); }
+.ob-icon.pending svg { color:var(--text4); }
+.ob-name { flex:1;font-size:13px;color:var(--text2); }
+.ob-step.active .ob-name { font-weight:600;color:var(--text); }
+.ob-count { font-size:11.5px;color:var(--text4);font-family:var(--mono); }
+.onboarding-detail { padding:20px 24px;display:flex;flex-direction:column;gap:12px; }
+.od-head { display:flex;align-items:center;justify-content:space-between; }
+.od-title { display:flex;align-items:center;gap:8px; }
+.od-title-icon { width:20px;height:20px;background:var(--teal-light);border-radius:50%;display:flex;align-items:center;justify-content:center; }
+.od-title-icon svg { width:11px;height:11px;color:var(--teal); }
+.od-title-text { font-size:14px;font-weight:700;color:var(--text); }
+.od-learn { display:flex;align-items:center;gap:4px;font-size:11.5px;color:var(--teal);cursor:pointer; }
+.od-learn svg { width:12px;height:12px; }
+.od-desc { font-size:13px;color:var(--text3);line-height:1.6; }
+.od-progress { font-size:11.5px;color:var(--text4);font-family:var(--mono); }
+.od-footer { display:flex;align-items:center;justify-content:space-between;padding-top:8px;border-top:1px solid var(--border); }
+.od-nav { display:flex;align-items:center;gap:10px;font-size:12px;color:var(--teal);cursor:pointer; }
+.od-nav span:hover { text-decoration:underline; }
+.od-nav-sep { color:var(--border2); }
+.btn-review { padding:7px 16px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius);font-size:12.5px;font-weight:600;cursor:pointer;font-family:var(--font);transition:background .15s; }
+.btn-review:hover { background:var(--teal-dark); }
 
 /* MODAL */
-.overlay { position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,.45); backdrop-filter: blur(2px); display: flex; align-items: center; justify-content: center; animation: fadeIn .2s ease; }
-.overlay.hidden { display: none; }
-.modal { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 28px; width: 460px; max-width: calc(100vw - 32px); box-shadow: var(--shadow-lg); animation: fadeUp .25s ease; position: relative; }
-.modal-close { position: absolute; top: 14px; right: 14px; width: 28px; height: 28px; border-radius: 6px; background: var(--bg); border: 1px solid var(--border); color: var(--text3); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .15s; font-size: 14px; }
-.modal-close:hover { background: var(--border); }
-.modal-title { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
-.modal-desc { font-size: 13px; color: var(--text3); margin-bottom: 22px; }
-.modal-form-group { margin-bottom: 16px; }
-.modal-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--text3); margin-bottom: 6px; display: block; }
-.modal-input { width: 100%; padding: 9px 12px; background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--radius); font-size: 13px; color: var(--text); font-family: var(--font); outline: none; transition: border-color .15s, box-shadow .15s; }
-.modal-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(26,127,90,.1); }
-.modal-select { width: 100%; padding: 9px 12px; background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--radius); font-size: 13px; color: var(--text); font-family: var(--font); outline: none; appearance: none; background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 7L11 1' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; }
-.modal-select:focus { border-color: var(--teal); }
-.modal-select option { background: var(--surface2); }
-.strategy-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.strategy-chip { padding: 6px 12px; border: 1px solid var(--border2); border-radius: 20px; font-size: 12px; color: var(--text3); cursor: pointer; transition: all .15s; background: var(--surface2); font-family: var(--font); }
-.strategy-chip:hover { border-color: var(--teal); color: var(--teal); }
-.strategy-chip.selected { background: var(--teal-light); border-color: var(--teal); color: var(--teal); font-weight: 600; }
-.modal-footer { display: flex; gap: 8px; margin-top: 20px; }
-.btn-cancel { flex: 1; padding: 9px; border: 1px solid var(--border2); border-radius: var(--radius); font-size: 13px; font-weight: 500; color: var(--text2); cursor: pointer; font-family: var(--font); background: transparent; transition: all .15s; }
-.btn-cancel:hover { background: var(--bg); }
-.btn-create { flex: 2; padding: 9px; background: var(--teal); color: #fff; border: none; border-radius: var(--radius); font-size: 13px; font-weight: 600; cursor: pointer; font-family: var(--font); transition: background .15s; display: flex; align-items: center; justify-content: center; gap: 6px; }
-.btn-create:hover { background: var(--teal-dark); }
+.overlay { position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);display:flex;align-items:center;justify-content:center;animation:fadeIn .2s ease; }
+.overlay.hidden { display:none; }
+.modal { background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:28px;width:460px;max-width:calc(100vw - 32px);box-shadow:var(--shadow-lg);animation:fadeUp .25s ease;position:relative; }
+.modal-close { position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:6px;background:var(--bg);border:1px solid var(--border);color:var(--text3);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;font-size:14px; }
+.modal-close:hover { background:var(--border); }
+.modal-title { font-size:17px;font-weight:700;color:var(--text);margin-bottom:4px; }
+.modal-desc { font-size:13px;color:var(--text3);margin-bottom:22px; }
+.modal-form-group { margin-bottom:16px; }
+.modal-label { font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin-bottom:6px;display:block; }
+.modal-input { width:100%;padding:9px 12px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius);font-size:13px;color:var(--text);font-family:var(--font);outline:none;transition:border-color .15s,box-shadow .15s; }
+.modal-input:focus { border-color:var(--teal);box-shadow:0 0 0 3px rgba(26,127,90,.1); }
+.modal-select { width:100%;padding:9px 12px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius);font-size:13px;color:var(--text);font-family:var(--font);outline:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 7L11 1' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center; }
+.modal-select:focus { border-color:var(--teal); }
+.strategy-chips { display:flex;flex-wrap:wrap;gap:6px; }
+.strategy-chip { padding:6px 12px;border:1px solid var(--border2);border-radius:20px;font-size:12px;color:var(--text3);cursor:pointer;transition:all .15s;background:var(--surface2);font-family:var(--font); }
+.strategy-chip:hover { border-color:var(--teal);color:var(--teal); }
+.strategy-chip.selected { background:var(--teal-light);border-color:var(--teal);color:var(--teal);font-weight:600; }
+.modal-footer { display:flex;gap:8px;margin-top:20px; }
+.btn-cancel { flex:1;padding:9px;border:1px solid var(--border2);border-radius:var(--radius);font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;font-family:var(--font);background:transparent;transition:all .15s; }
+.btn-cancel:hover { background:var(--bg); }
+.btn-create { flex:2;padding:9px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);transition:background .15s;display:flex;align-items:center;justify-content:center;gap:6px; }
+.btn-create:hover { background:var(--teal-dark); }
 
 /* TOAST */
-.toast { position: fixed; bottom: 24px; right: 24px; z-index: 600; background: var(--text); color: #fff; border-radius: 8px; padding: 12px 18px; display: flex; align-items: center; gap: 10px; box-shadow: var(--shadow-lg); animation: fadeUp .3s ease; min-width: 280px; font-size: 13px; }
-.toast.hidden { display: none; }
-.toast-dot { width: 7px; height: 7px; background: #4ade80; border-radius: 50%; flex-shrink: 0; }
-.toast-close { margin-left: auto; cursor: pointer; color: rgba(255,255,255,.6); font-size: 15px; }
+.toast { position:fixed;bottom:24px;right:24px;z-index:600;background:var(--text);color:#fff;border-radius:8px;padding:12px 18px;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow-lg);animation:fadeUp .3s ease;min-width:280px;font-size:13px; }
+.toast.hidden { display:none; }
+.toast-dot { width:7px;height:7px;background:#4ade80;border-radius:50%;flex-shrink:0; }
+.toast-close { margin-left:auto;cursor:pointer;color:rgba(255,255,255,.6);font-size:15px; }
 
-/* FILTER BAR */
-.filter-bar { display: flex; align-items: center; gap: 8px; padding: 8px 16px; background: var(--bg); border-bottom: 1px solid var(--border); }
-.filter-bar-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text4); }
+/* PLACEHOLDER */
+.placeholder { display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:50vh;gap:12px;text-align:center; }
+.ph-icon { width:56px;height:56px;background:var(--bg);border:1px solid var(--border);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--text4); }
+.ph-icon svg { width:24px;height:24px; }
+.ph-title { font-size:16px;font-weight:700;color:var(--text); }
+.ph-desc { font-size:13px;color:var(--text3);max-width:300px;line-height:1.6; }
 
-/* DISCLAIMER */
-.disclaimer { font-size: 11px; color: var(--text4); padding: 10px 16px; border-top: 1px solid var(--border); background: var(--bg); font-style: italic; }
+/* TRENDS PAGE */
+.trend-card { background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px;box-shadow:var(--shadow);transition:box-shadow .15s,transform .15s; }
+.trend-card:hover { box-shadow:var(--shadow-md);transform:translateY(-2px); }
+.trend-card-head { display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px; }
+.trend-tag { font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:3px 8px;border-radius:4px; }
+.trend-tag.hot { background:#1f1f1f;color:#fff; }
+.trend-tag.rising { background:#e8e8e8;color:#333; }
+.trend-tag.new { background:#333;color:#fff; }
+.trend-priority { font-size:11px;font-weight:600; }
+.trend-priority.high { color:#1f1f1f; }
+.trend-priority.medium { color:#666; }
+.trend-title { font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.3; }
+.trend-desc { font-size:12.5px;color:var(--text3);line-height:1.6;margin-bottom:12px; }
+.trend-stats { display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px; }
+.trend-stat { background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:11px; }
+.trend-stat-val { font-family:var(--mono);font-weight:700;color:var(--text); }
+.trend-stat-lbl { color:var(--text4);margin-left:3px; }
+.trend-action { width:100%;padding:7px;background:#111;color:#fff;border:none;border-radius:var(--radius);font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font);transition:background .15s; }
+.trend-action:hover { background:#333; }
 
-/* TREND CARDS */
-.trend-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 18px; box-shadow: var(--shadow); transition: box-shadow .15s, transform .15s; }
-.trend-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
-.trend-card-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
-.trend-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; padding: 3px 8px; border-radius: 4px; }
-.trend-tag.hot { background: #1f1f1f; color: #fff; }
-.trend-tag.rising { background: #e8e8e8; color: #333; }
-.trend-tag.new { background: #333; color: #fff; }
-.trend-priority { font-size: 11px; font-weight: 600; }
-.trend-priority.high { color: #1f1f1f; }
-.trend-priority.medium { color: #666; }
-.trend-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 6px; line-height: 1.3; }
-.trend-desc { font-size: 12.5px; color: var(--text3); line-height: 1.6; margin-bottom: 12px; }
-.trend-stats { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
-.trend-stat { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 5px 10px; font-size: 11px; }
-.trend-stat-val { font-family: var(--mono); font-weight: 700; color: var(--text); }
-.trend-stat-lbl { color: var(--text4); margin-left: 3px; }
-.trend-action { width: 100%; padding: 7px; background: #111; color: #fff; border: none; border-radius: var(--radius); font-size: 12px; font-weight: 600; cursor: pointer; font-family: var(--font); transition: background .15s; }
-.trend-action:hover { background: #333; }
+/* AI STREAMING */
+.ai-streaming-container { background:#0a0a0a;border-radius:10px;padding:24px 28px;margin-bottom:22px;position:relative;overflow:hidden; }
+.ai-streaming-container::before { content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#333,#777,#333,#555);background-size:300% 100%;animation:gradFlow 3s ease infinite; }
+.ai-brand { display:flex;align-items:center;gap:12px;margin-bottom:16px; }
+.ai-icon { width:38px;height:38px;background:#222;border:1px solid #444;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+.ai-icon svg { width:18px;height:18px;stroke:#ccc; }
+.ai-meta { font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#666; }
+.ai-headline { font-size:15px;font-weight:700;color:#fff;margin-bottom:8px;letter-spacing:-.2px;line-height:1.4; }
+.ai-body { font-size:13px;color:#999;line-height:1.75; }
+.ai-cursor { display:inline-block;width:2px;height:14px;background:#888;margin-left:2px;animation:blink .7s step-end infinite;vertical-align:middle; }
+.ai-section-title { font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:12px;display:flex;align-items:center;gap:6px; }
+.kw-row { display:flex;align-items:center;gap:10px;margin-bottom:10px; }
+.kw-label { font-size:12px;font-weight:500;color:var(--text2);width:140px;flex-shrink:0;font-family:var(--mono); }
+.kw-bar-track { flex:1;height:6px;background:var(--bg);border-radius:3px;overflow:hidden; }
+.kw-bar-fill { height:100%;border-radius:3px;background:#333; }
+.kw-pct { font-size:11px;font-family:var(--mono);color:var(--text3);width:36px;text-align:right; }
+.kw-trend { font-size:10.5px;font-weight:600; }
+.kw-trend.up { color:var(--green); }
+.kw-trend.down { color:var(--red); }
+.fmt-row { margin-bottom:12px; }
+.fmt-top { display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px; }
+.fmt-name { font-weight:500;color:var(--text2); }
+.fmt-val { font-family:var(--mono);color:var(--text3);font-size:11px; }
+.fmt-bar { height:7px;background:var(--bg);border-radius:4px;overflow:hidden; }
+.fmt-fill { height:100%;border-radius:4px;background:#1f1f1f; }
+.fmt-note { font-size:10.5px;color:var(--text4);margin-top:3px; }
+.season-card { background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px; }
+.season-date { font-size:10.5px;font-family:var(--mono);color:var(--text4);margin-bottom:5px; }
+.season-name { font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px; }
+.season-tip { font-size:11.5px;color:var(--text3);line-height:1.5; }
+.season-badge { display:inline-block;margin-top:6px;font-size:10px;font-weight:700;text-transform:uppercase;padding:2px 7px;border-radius:4px; }
+.season-badge.hot { background:#111;color:#fff; }
+.season-badge.warm { background:#444;color:#fff; }
+.season-badge.plan { background:var(--bg);color:var(--text3);border:1px solid var(--border); }
+.plat-card { background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px;box-shadow:var(--shadow); }
+.plat-card-icon { width:36px;height:36px;background:var(--bg);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:10px; }
+.plat-card-icon svg { width:18px;height:18px; }
+.plat-card-name { font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px; }
+.plat-card-share { font-size:22px;font-weight:700;font-family:var(--mono);color:var(--text);letter-spacing:-.5px; }
+.plat-card-sub { font-size:11.5px;color:var(--text3);margin-top:3px; }
+.plat-share-bar { height:4px;background:var(--bg);border-radius:2px;margin-top:10px;overflow:hidden; }
+.plat-share-fill { height:100%;border-radius:2px;background:#222; }
+.country-flag { font-size:18px; }
+.country-name-cell { font-weight:500;color:var(--text); }
+.country-region { font-size:11px;color:var(--text4); }
+.account-grid { display:grid;grid-template-columns:1fr 1fr;gap:16px; }
+.account-card { background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px;box-shadow:var(--shadow); }
+.account-card-title { font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin-bottom:16px;display:flex;align-items:center;gap:6px; }
+.account-card-title svg { width:14px;height:14px;color:var(--teal); }
+.account-field { margin-bottom:14px; }
+.account-field-label { font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--text4);margin-bottom:4px; }
+.account-field-val { font-size:13.5px;color:var(--text);font-weight:500; }
+.plan-badge { display:inline-flex;align-items:center;gap:5px;padding:3px 10px;background:var(--teal-light);border:1px solid var(--teal-mid);border-radius:20px;font-size:11.5px;color:var(--teal);font-weight:600; }
+.pref-row { display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border); }
+.pref-row:last-of-type { border-bottom:none; }
+.pref-label { font-size:13px;color:var(--text2); }
+.sign-out-btn { width:100%;padding:9px;margin-top:16px;border:1px solid var(--border2);border-radius:var(--radius);font-size:13px;color:var(--text3);cursor:pointer;font-family:var(--font);background:transparent;transition:all .15s; }
+.sign-out-btn:hover { background:var(--red-light);border-color:#fca5a5;color:var(--red); }
+.disclaimer { font-size:11px;color:var(--text4);padding:10px 16px;border-top:1px solid var(--border);background:var(--bg);font-style:italic; }
 
-/* KEYWORD BAR */
-.kw-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-.kw-label { font-size: 12px; font-weight: 500; color: var(--text2); width: 130px; flex-shrink: 0; font-family: var(--mono); }
-.kw-bar-track { flex: 1; height: 6px; background: var(--bg); border-radius: 3px; overflow: hidden; }
-.kw-bar-fill { height: 100%; border-radius: 3px; background: #333; }
-.kw-pct { font-size: 11px; font-family: var(--mono); color: var(--text3); width: 36px; text-align: right; }
-.kw-trend { font-size: 10.5px; font-weight: 600; }
-.kw-trend.up { color: var(--green); }
-.kw-trend.down { color: var(--red); }
+/* ADS PAGE */
+.ads-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px; }
+.ad-card { background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;box-shadow:var(--shadow);transition:box-shadow .15s,transform .15s;cursor:pointer; }
+.ad-card:hover { box-shadow:var(--shadow-md);transform:translateY(-2px); }
+.ad-card-thumb { height:120px;display:flex;align-items:center;justify-content:center;font-size:28px;letter-spacing:-2px; }
+.ad-card-body { padding:14px; }
+.ad-card-name { font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+.ad-card-meta { font-size:11px;color:var(--text4);margin-bottom:10px; }
+.ad-card-stats { display:flex;gap:12px; }
+.ad-card-stat { font-size:11px; }
+.ad-card-stat-val { font-family:var(--mono);font-weight:700;color:var(--text);display:block; }
+.ad-card-stat-lbl { color:var(--text4); }
+.ad-card-footer { padding:10px 14px;border-top:1px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:space-between; }
 
-/* FORMAT BARS */
-.fmt-row { margin-bottom: 12px; }
-.fmt-top { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px; }
-.fmt-name { font-weight: 500; color: var(--text2); }
-.fmt-val { font-family: var(--mono); color: var(--text3); font-size: 11px; }
-.fmt-bar { height: 7px; background: var(--bg); border-radius: 4px; overflow: hidden; }
-.fmt-fill { height: 100%; border-radius: 4px; background: #1f1f1f; }
-.fmt-note { font-size: 10.5px; color: var(--text4); margin-top: 3px; }
+/* INTEL PAGE */
+.intel-grid { display:grid;grid-template-columns:1fr 1fr;gap:16px; }
+.intel-card { background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px;box-shadow:var(--shadow); }
+.intel-card-title { font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin-bottom:14px; }
+.comp-row { display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border); }
+.comp-row:last-child { border-bottom:none; }
+.comp-name { flex:1;font-size:13px;font-weight:500;color:var(--text); }
+.comp-bar-wrap { width:100px; }
+.comp-bar { height:5px;background:var(--bg);border-radius:3px;overflow:hidden; }
+.comp-bar-fill { height:100%;border-radius:3px;background:#222; }
+.comp-val { font-size:11.5px;font-family:var(--mono);color:var(--text3);width:50px;text-align:right; }
+.comp-change { font-size:11px;font-weight:600;width:44px;text-align:right; }
+.comp-change.up { color:var(--red); }
+.comp-change.down { color:var(--green); }
 
-/* SEASONAL */
-.season-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
-.season-date { font-size: 10.5px; font-family: var(--mono); color: var(--text4); margin-bottom: 5px; }
-.season-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
-.season-tip { font-size: 11.5px; color: var(--text3); line-height: 1.5; }
-.season-badge { display: inline-block; margin-top: 6px; font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 2px 7px; border-radius: 4px; }
-.season-badge.hot { background: #111; color: #fff; }
-.season-badge.warm { background: #444; color: #fff; }
-.season-badge.plan { background: var(--bg); color: var(--text3); border: 1px solid var(--border); }
+/* Loading overlay for AI */
+.ai-loading { display:flex;align-items:center;gap:10px;padding:12px 0;font-size:13px;color:var(--text3); }
+.ai-loading .spinner-dark { width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--teal);border-radius:50%;animation:spin .6s linear infinite;flex-shrink:0; }
 
-/* PLATFORM METRIC CARDS */
-.plat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 18px; box-shadow: var(--shadow); }
-.plat-card-icon { width: 36px; height: 36px; background: var(--bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
-.plat-card-icon svg { width: 18px; height: 18px; }
-.plat-card-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
-.plat-card-share { font-size: 22px; font-weight: 700; font-family: var(--mono); color: var(--text); letter-spacing: -.5px; }
-.plat-card-sub { font-size: 11.5px; color: var(--text3); margin-top: 3px; }
-.plat-share-bar { height: 4px; background: var(--bg); border-radius: 2px; margin-top: 10px; overflow: hidden; }
-.plat-share-fill { height: 100%; border-radius: 2px; background: #222; }
+/* Refresh btn */
+.btn-refresh { display:flex;align-items:center;gap:6px;padding:7px 16px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius);font-size:12.5px;font-weight:600;cursor:pointer;font-family:var(--font);transition:background .15s; }
+.btn-refresh:hover { background:var(--teal-dark); }
+.btn-refresh:disabled { opacity:.6;cursor:not-allowed; }
+.btn-refresh svg { width:13px;height:13px; }
 
-/* COUNTRY FLAG EMOJI */
-.country-flag { font-size: 18px; }
-.country-name-cell { font-weight: 500; color: var(--text); }
-.country-region { font-size: 11px; color: var(--text4); }
-.account-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.account-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; box-shadow: var(--shadow); }
-.account-card-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text3); margin-bottom: 16px; display: flex; align-items: center; gap: 6px; }
-.account-card-title svg { width: 14px; height: 14px; color: var(--teal); }
-.account-field { margin-bottom: 14px; }
-.account-field-label { font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--text4); margin-bottom: 4px; }
-.account-field-val { font-size: 13.5px; color: var(--text); font-weight: 500; }
-.plan-badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; background: var(--teal-light); border: 1px solid var(--teal-mid); border-radius: 20px; font-size: 11.5px; color: var(--teal); font-weight: 600; }
-.pref-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); }
-.pref-row:last-of-type { border-bottom: none; }
-.pref-label { font-size: 13px; color: var(--text2); }
-.sign-out-btn { width: 100%; padding: 9px; margin-top: 16px; border: 1px solid var(--border2); border-radius: var(--radius); font-size: 13px; color: var(--text3); cursor: pointer; font-family: var(--font); background: transparent; transition: all .15s; }
-.sign-out-btn:hover { background: var(--red-light); border-color: #fca5a5; color: var(--red); }
+/* AD detail modal */
+.ad-detail-grid { display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px; }
+.ad-detail-stat { background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:12px 14px; }
+.ad-detail-stat-label { font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--text4);margin-bottom:4px; }
+.ad-detail-stat-val { font-size:20px;font-weight:700;font-family:var(--mono);color:var(--text); }
+
+/* Sites table specifics */
+.site-quality { display:inline-flex;align-items:center;gap:3px;font-size:11px;padding:2px 8px;border-radius:10px;font-weight:600; }
+.site-quality.high { background:#e6f4e6;color:#2a7a2a; }
+.site-quality.med { background:#ebebeb;color:#555; }
+.site-quality.low { background:#fcecea;color:#c0392b; }
 </style>
 </head>
 <body>
 
-<!-- ═══════ LOGIN ═══════ -->
+<!-- LOGIN -->
 <div id="loginPage">
   <div class="login-left">
     <div class="login-left-top">
       <div class="login-logo-mark">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
       </div>
-      <span class="login-brand">AdPro<span>+</span></span>
+      <span class="login-brand">AdPro+</span>
     </div>
-
     <div class="login-form-area">
       <div class="login-title">Sign in to your account</div>
       <div class="login-sub">Enter your credentials to access the dashboard.</div>
-
       <div class="login-hint">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         Demo: any email + password <strong>1234</strong>
       </div>
-
       <div class="form-group">
         <label class="form-label">Email address</label>
         <input class="form-input" type="email" id="loginEmail" placeholder="you@company.com" />
       </div>
-
       <div class="form-group">
         <label class="form-label">Password</label>
         <div class="password-row">
-          <input class="form-input" type="password" id="loginPassword" placeholder="••••••••" style="padding-right: 38px;" />
-          <button class="eye-toggle" id="eyeToggle" onclick="togglePwd()" tabindex="-1">
+          <input class="form-input" type="password" id="loginPassword" placeholder="••••••••" style="padding-right:38px;" />
+          <button class="eye-toggle" onclick="togglePwd()" tabindex="-1">
             <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           </button>
         </div>
         <div class="error-msg" id="loginError">Invalid credentials. Try password: 1234</div>
       </div>
-
       <button class="btn-login" id="loginBtn" onclick="doLogin()">
         <span id="loginBtnText">Sign In</span>
       </button>
-
       <div class="login-footer-note">Don't have an account? <a href="#">Request access</a></div>
     </div>
   </div>
-
   <div class="login-right">
     <div class="login-right-grid"></div>
     <div class="login-right-content">
-      <div class="login-right-badge">
-        <span class="login-right-badge-dot"></span>
-        Live Intelligence Platform
-      </div>
+      <div class="login-right-badge"><span class="login-right-badge-dot"></span>Live Intelligence Platform</div>
       <h2>Monitor every ad, every competitor, in real time.</h2>
-      <p>AdderScope gives you full visibility into your campaigns and the competitive landscape — so you can act faster and bid smarter.</p>
+      <p>AdPro+ gives you full visibility into your campaigns and the competitive landscape — so you can act faster and bid smarter.</p>
       <div class="feature-pills">
         <div class="feature-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Competitor Intelligence</div>
         <div class="feature-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>ROAS Benchmarking</div>
@@ -660,10 +455,8 @@ input[type="checkbox"] { accent-color: var(--teal); width: 13px; height: 13px; c
   </div>
 </div>
 
-<!-- ═══════ APP SHELL ═══════ -->
+<!-- APP SHELL -->
 <div id="appShell">
-
-  <!-- BREADCRUMB TOP NAV -->
   <div class="topnav">
     <div class="topnav-crumb">
       <div class="crumb-item">
@@ -673,7 +466,7 @@ input[type="checkbox"] { accent-color: var(--teal); width: 13px; height: 13px; c
       <div class="crumb-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
       <div class="crumb-item">
         <span class="crumb-label">Account</span>
-        <span class="crumb-sub" id="crumbAccount">€17.34K</span>
+        <span class="crumb-sub">€17.34K</span>
         <span class="crumb-dropdown"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span>
       </div>
       <div class="crumb-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
@@ -695,7 +488,7 @@ input[type="checkbox"] { accent-color: var(--teal); width: 13px; height: 13px; c
         May 5 – May 11, 2026
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
-      <div class="user-chip" onclick="showPage('account', document.querySelector('[data-page=account]'))">
+      <div class="user-chip" onclick="showPage('account',document.querySelector('[data-page=account]'))">
         <div class="user-avatar-sm" id="userInitials">JD</div>
         <span id="userLabel">My Account</span>
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
@@ -703,7 +496,6 @@ input[type="checkbox"] { accent-color: var(--teal); width: 13px; height: 13px; c
     </div>
   </div>
 
-  <!-- TOOLBAR ROW -->
   <div class="main-header">
     <div class="mh-tabs">
       <button class="mh-tab" onclick="setMhTab(this)">Day</button>
@@ -711,101 +503,60 @@ input[type="checkbox"] { accent-color: var(--teal); width: 13px; height: 13px; c
       <button class="mh-tab active" onclick="setMhTab(this)">Campaigns</button>
       <button class="mh-tab" onclick="setMhTab(this)">Ads</button>
       <button class="mh-tab" onclick="setMhTab(this)">Sites</button>
-      <button class="mh-tab" onclick="setMhTab(this)">More ▾</button>
     </div>
-    <div class="filter-active-chip">
-      Campaign Status: Recent
-      <button onclick="this.closest('.filter-active-chip').remove()">✕</button>
-    </div>
-    <button class="icon-btn" title="Add filter">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-    </button>
+    <div class="filter-active-chip">Campaign Status: Recent<button onclick="this.closest('.filter-active-chip').remove()">✕</button></div>
+    <button class="icon-btn" title="Add filter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
     <div class="mh-actions">
-      <button class="icon-btn" title="Refresh">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 101.185-3.725"/></svg>
-      </button>
-      <button class="icon-btn active" title="Bar chart">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-      </button>
-      <button class="icon-btn" title="Line chart">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
-      </button>
-      <button class="icon-btn" title="Search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      </button>
-      <button class="icon-btn active" title="Filter">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
-      </button>
-      <button class="icon-btn" title="Download">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      </button>
-      <div class="columns-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="21" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="21" y1="18" x2="3" y2="18"/></svg>
-        COLUMNS <span class="columns-sep">|</span> Default
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-      <div class="btn-new">
-        <span class="btn-new-main" onclick="openNewCampaignModal()">+ New</span>
-        <span class="btn-new-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
-      </div>
+      <button class="icon-btn" title="Refresh" onclick="showToast('Data refreshed')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 101.185-3.725"/></svg></button>
+      <button class="icon-btn active" title="Bar chart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></button>
+      <button class="icon-btn" title="Download" onclick="showToast('Exporting CSV...')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
+      <div class="columns-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="21" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="21" y1="18" x2="3" y2="18"/></svg>COLUMNS <span class="columns-sep">|</span> Default<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+      <div class="btn-new"><span class="btn-new-main" onclick="openNewCampaignModal()">+ New</span><span class="btn-new-arrow" onclick="openNewCampaignModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span></div>
     </div>
   </div>
 
-  <!-- APP BODY -->
   <div class="app-body">
-    <!-- SIDEBAR -->
     <nav class="sidebar">
       <div class="sidebar-section">
         <div class="sidebar-label">Overview</div>
-        <div class="sidebar-item active" data-page="campaigns" onclick="showPage('campaigns', this)">
+        <div class="sidebar-item active" data-page="campaigns" onclick="showPage('campaigns',this)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-          Campaigns
-          <span class="sidebar-badge" id="sbCampaigns">4</span>
+          Campaigns<span class="sidebar-badge" id="sbCampaigns">4</span>
         </div>
-        <div class="sidebar-item" data-page="ads" onclick="showPage('ads', this)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-          Ads
+        <div class="sidebar-item" data-page="ads" onclick="showPage('ads',this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Ads
         </div>
-        <div class="sidebar-item" data-page="sites" onclick="showPage('sites', this)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
-          Sites
+        <div class="sidebar-item" data-page="sites" onclick="showPage('sites',this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>Sites
         </div>
-        <div class="sidebar-item" data-page="countries" onclick="showPage('countries', this)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
-          Countries
+        <div class="sidebar-item" data-page="countries" onclick="showPage('countries',this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Countries
         </div>
-        <div class="sidebar-item" data-page="platforms" onclick="showPage('platforms', this)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/></svg>
-          Platforms
+        <div class="sidebar-item" data-page="platforms" onclick="showPage('platforms',this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/></svg>Platforms
         </div>
       </div>
       <div class="sidebar-section">
         <div class="sidebar-label">Intelligence</div>
-        <div class="sidebar-item" data-page="intel" onclick="showPage('intel', this)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-          Competitor Intel
+        <div class="sidebar-item" data-page="intel" onclick="showPage('intel',this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>Competitor Intel
         </div>
-        <div class="sidebar-item" data-page="trends" onclick="showPage('trends', this)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
-          Market Trends
+        <div class="sidebar-item" data-page="trends" onclick="showPage('trends',this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>Market Trends
         </div>
       </div>
       <div class="sidebar-section">
         <div class="sidebar-label">Settings</div>
-        <div class="sidebar-item" data-page="account" onclick="showPage('account', this)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          Account
+        <div class="sidebar-item" data-page="account" onclick="showPage('account',this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Account
         </div>
       </div>
     </nav>
 
-    <!-- MAIN CONTENT -->
     <div class="content">
 
-      <!-- ── CAMPAIGNS ── -->
+      <!-- CAMPAIGNS -->
       <div class="page-section active" id="page-campaigns">
-
-        <!-- ONBOARDING PANEL -->
         <div class="onboarding-panel">
           <div class="onboarding-grid">
             <div class="onboarding-score">
@@ -816,40 +567,17 @@ input[type="checkbox"] { accent-color: var(--teal); width: 13px; height: 13px; c
                 <div class="score-pct">80%</div>
               </div>
             </div>
-
             <div class="onboarding-steps">
-              <div class="ob-step">
-                <div class="ob-icon done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
-                <span class="ob-name">Create Campaign</span>
-                <span class="ob-count">2/2</span>
-              </div>
-              <div class="ob-step">
-                <div class="ob-icon done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
-                <span class="ob-name">Complete Account Setup</span>
-                <span class="ob-count">2/2</span>
-              </div>
-              <div class="ob-step">
-                <div class="ob-icon done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
-                <span class="ob-name">Add Payment Method</span>
-              </div>
-              <div class="ob-step active">
-                <div class="ob-icon active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-                <span class="ob-name">Launch Your Campaign</span>
-                <span class="ob-count">1/2</span>
-              </div>
-              <div class="ob-step">
-                <div class="ob-icon pending"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-                <span class="ob-name">Review Campaign Performance</span>
-              </div>
+              <div class="ob-step"><div class="ob-icon done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="ob-name">Create Campaign</span><span class="ob-count">2/2</span></div>
+              <div class="ob-step"><div class="ob-icon done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="ob-name">Complete Account Setup</span><span class="ob-count">2/2</span></div>
+              <div class="ob-step"><div class="ob-icon done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="ob-name">Add Payment Method</span></div>
+              <div class="ob-step active"><div class="ob-icon active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><span class="ob-name">Launch Your Campaign</span><span class="ob-count">1/2</span></div>
+              <div class="ob-step"><div class="ob-icon pending"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><span class="ob-name">Review Campaign Performance</span></div>
             </div>
-
             <div class="onboarding-detail">
               <div class="od-head">
-                <div class="od-title">
-                  <div class="od-title-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-                  <span class="od-title-text">Launch Your Campaign</span>
-                </div>
-                <div class="od-learn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Learn More</div>
+                <div class="od-title"><div class="od-title-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><span class="od-title-text">Launch Your Campaign</span></div>
+                <div class="od-learn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Learn More</div>
               </div>
               <div class="od-desc">Your campaigns do not have enough Running ads. Make sure your campaigns have 4–9 ads in Running status.</div>
               <div class="od-progress">1/2</div>
@@ -861,20 +589,16 @@ input[type="checkbox"] { accent-color: var(--teal); width: 13px; height: 13px; c
           </div>
         </div>
 
-        <!-- SECTION TITLE + DATE -->
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
           <div class="section-title">All Campaign Groups</div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text3);">
-            Last 7 Days
+          <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text3);">Last 7 Days
             <div class="topnav-date" style="font-size:12px;">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
               May 5 – May 11, 2026
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
             </div>
           </div>
         </div>
 
-        <!-- TABLE -->
         <div class="table-panel">
           <div class="table-scroll">
             <table>
@@ -882,10 +606,10 @@ input[type="checkbox"] { accent-color: var(--teal); width: 13px; height: 13px; c
                 <tr>
                   <th class="td-check"><input type="checkbox" id="checkAll" onclick="toggleAll(this)" /></th>
                   <th class="td-toggle"></th>
-                  <th>Campaign Name <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 5 5 12"/></svg></th>
+                  <th>Campaign Name</th>
                   <th>Delivery Status</th>
                   <th>Type</th>
-                  <th class="sorted">Camp. ID <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 5 5 12"/></svg></th>
+                  <th class="sorted">Camp. ID</th>
                   <th>Camp. Group ID</th>
                   <th>Camp. Group Name</th>
                   <th class="text-right">Spent</th>
@@ -897,53 +621,73 @@ input[type="checkbox"] { accent-color: var(--teal); width: 13px; height: 13px; c
               <tbody id="campaignTableBody"></tbody>
             </table>
           </div>
-          <div class="disclaimer">* All the amounts above are estimates that can be readjusted according to monthly data verification we conduct.</div>
+          <div class="disclaimer">* All amounts above are estimates that can be readjusted according to monthly data verification.</div>
           <div class="table-footer">
-            <div>
-              <span style="font-size:11px;color:var(--text4);">–</span>
-              &nbsp;&nbsp;
-              <span class="table-footer-sum" id="tableTotal">€2,161.03</span>
-            </div>
-            <div class="pagination">
-              <div class="page-btn">‹</div>
-              <span class="page-info" id="pageInfo">1–4 of 4</span>
-              <div class="page-btn">›</div>
-            </div>
+            <div><span style="font-size:11px;color:var(--text4);">–</span>&nbsp;&nbsp;<span class="table-footer-sum" id="tableTotal">€2,161.03</span></div>
+            <div class="pagination"><div class="page-btn">‹</div><span class="page-info" id="pageInfo">1–4 of 4</span><div class="page-btn">›</div></div>
           </div>
         </div>
+      </div>
 
-      </div><!-- /campaigns -->
-
-      <!-- ── ADS ── -->
+      <!-- ADS -->
       <div class="page-section" id="page-ads">
-        <div class="section-head"><div class="section-title">Ads</div><div class="section-sub">All ad creatives across your campaigns</div></div>
-        <div class="placeholder"><div class="ph-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="ph-title">Ad Creatives</div><div class="ph-desc">Browse and manage all your ad creatives. Click New to create your first ad.</div><button class="btn-review" style="margin-top:8px;" onclick="openNewCampaignModal()">+ Create New Ad</button></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+          <div><div class="section-title">Ad Creatives</div><div class="section-sub">All ad creatives across your active campaigns</div></div>
+          <button class="btn-review" onclick="openNewCampaignModal()">+ Create New Ad</button>
+        </div>
+        <div class="metrics-row">
+          <div class="metric-card"><div class="mc-top"><span class="mc-label">Total Ads</span><div class="mc-icon teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div></div><div class="mc-value">12</div><span class="mc-change up">↑ +3 this week</span></div>
+          <div class="metric-card"><div class="mc-top"><span class="mc-label">Running</span><div class="mc-icon teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div><div class="mc-value">7</div><span class="mc-change up">↑ Active</span></div>
+          <div class="metric-card"><div class="mc-top"><span class="mc-label">Avg. CTR</span><div class="mc-icon teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg></div></div><div class="mc-value">3.9%</div><span class="mc-change up">↑ +0.4%</span></div>
+          <div class="metric-card"><div class="mc-top"><span class="mc-label">Top ROAS</span><div class="mc-icon teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div></div><div class="mc-value">4.2×</div><span class="mc-change up">↑ Best performer</span></div>
+        </div>
+        <div class="ads-grid" id="adsGrid"></div>
       </div>
 
-      <!-- ── SITES ── -->
+      <!-- SITES -->
       <div class="page-section" id="page-sites">
-        <div class="section-head"><div class="section-title">Sites</div><div class="section-sub">Publisher sites and placements</div></div>
-        <div class="placeholder"><div class="ph-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg></div><div class="ph-title">Publisher Sites</div><div class="ph-desc">View performance data broken down by publisher sites where your ads are displayed.</div></div>
-      </div>
-
-      <!-- ── COUNTRIES ── -->
-      <div class="page-section" id="page-countries">
-        <div class="section-head" style="margin-bottom:18px;"><div class="section-title">Countries</div><div class="section-sub">Geographic performance breakdown across all active campaigns</div></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+          <div><div class="section-title">Publisher Sites</div><div class="section-sub">Performance breakdown by publisher sites where your ads are displayed</div></div>
+        </div>
         <div class="table-panel">
           <div class="table-scroll">
             <table>
               <thead>
                 <tr>
-                  <th>Flag</th>
-                  <th>Country</th>
-                  <th>Code</th>
+                  <th>Site / Domain</th>
+                  <th>Category</th>
                   <th class="text-right">Campaigns</th>
-                  <th class="text-right">Spent</th>
                   <th class="text-right">Impressions</th>
+                  <th class="text-right">Clicks</th>
                   <th class="text-right">CTR</th>
                   <th class="text-right">CPC</th>
-                  <th class="text-right">Conversions</th>
+                  <th class="text-right">Spend</th>
+                  <th>Quality</th>
                   <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="sitesBody"></tbody>
+            </table>
+          </div>
+          <div class="table-footer">
+            <span style="font-size:12px;color:var(--text3);">Showing top 12 publisher sites by spend</span>
+            <div class="pagination"><div class="page-btn">‹</div><span class="page-info">1–12 of 12</span><div class="page-btn">›</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COUNTRIES -->
+      <div class="page-section" id="page-countries">
+        <div style="margin-bottom:18px;"><div class="section-title">Countries</div><div class="section-sub">Geographic performance breakdown across all active campaigns</div></div>
+        <div class="table-panel">
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Flag</th><th>Country</th><th>Code</th>
+                  <th class="text-right">Campaigns</th><th class="text-right">Spent</th>
+                  <th class="text-right">Impressions</th><th class="text-right">CTR</th>
+                  <th class="text-right">CPC</th><th class="text-right">Conversions</th><th>Status</th>
                 </tr>
               </thead>
               <tbody id="countriesBody"></tbody>
@@ -956,81 +700,100 @@ input[type="checkbox"] { accent-color: var(--teal); width: 13px; height: 13px; c
         </div>
       </div>
 
-      <!-- ── PLATFORMS ── -->
+      <!-- PLATFORMS -->
       <div class="page-section" id="page-platforms">
-        <div class="section-head" style="margin-bottom:18px;"><div class="section-title">Platforms</div><div class="section-sub">Device and platform performance across all campaigns</div></div>
+        <div style="margin-bottom:18px;"><div class="section-title">Platforms</div><div class="section-sub">Device and platform performance across all campaigns</div></div>
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px;" id="platformCards"></div>
         <div class="table-panel">
           <div class="table-scroll">
             <table>
               <thead>
                 <tr>
-                  <th>Platform</th>
-                  <th>Device Type</th>
-                  <th>OS / Version</th>
-                  <th class="text-right">Spend Share</th>
-                  <th class="text-right">Impressions</th>
-                  <th class="text-right">CTR</th>
-                  <th class="text-right">Conv. Rate</th>
-                  <th class="text-right">CPC</th>
-                  <th>Trend</th>
+                  <th>Platform</th><th>Device Type</th><th>OS / Version</th>
+                  <th class="text-right">Spend Share</th><th class="text-right">Impressions</th>
+                  <th class="text-right">CTR</th><th class="text-right">Conv. Rate</th><th class="text-right">CPC</th><th>Trend</th>
                 </tr>
               </thead>
               <tbody id="platformsBody"></tbody>
             </table>
           </div>
-          <div class="table-footer">
-            <span style="font-size:12px;color:var(--text3);">Data from last 7 days across all active campaigns</span>
+          <div class="table-footer"><span style="font-size:12px;color:var(--text3);">Data from last 7 days across all active campaigns</span></div>
+        </div>
+      </div>
+
+      <!-- INTEL -->
+      <div class="page-section" id="page-intel">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+          <div><div class="section-title">Competitor Intelligence</div><div class="section-sub">Live competitive analysis · Benchmarked against top 8 advertisers in your category</div></div>
+        </div>
+        <div class="metrics-row">
+          <div class="metric-card"><div class="mc-top"><span class="mc-label">Your Rank</span><div class="mc-icon teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg></div></div><div class="mc-value">#3</div><span class="mc-change up">↑ +1 this week</span></div>
+          <div class="metric-card"><div class="mc-top"><span class="mc-label">Avg. Comp. CPC</span><div class="mc-icon teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div></div><div class="mc-value">€0.84</div><span class="mc-change down">↓ You: €0.71</span></div>
+          <div class="metric-card"><div class="mc-top"><span class="mc-label">Share of Voice</span><div class="mc-icon teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div></div><div class="mc-value">18%</div><span class="mc-change up">↑ +3% vs last week</span></div>
+          <div class="metric-card"><div class="mc-top"><span class="mc-label">New Competitors</span><div class="mc-icon teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div></div><div class="mc-value">2</div><span class="mc-change neutral">→ Detected</span></div>
+        </div>
+        <div class="intel-grid">
+          <div class="intel-card">
+            <div class="intel-card-title">Top Competitor Spend Estimates (Weekly)</div>
+            <div id="compSpendList"></div>
+          </div>
+          <div class="intel-card">
+            <div class="intel-card-title">Competitor Ad Format Mix</div>
+            <div id="compFormatList"></div>
+          </div>
+          <div class="intel-card">
+            <div class="intel-card-title">Keyword Overlap Analysis</div>
+            <div id="kwOverlapList"></div>
+          </div>
+          <div class="intel-card">
+            <div class="intel-card-title">Peak Activity Hours (Competitors)</div>
+            <div id="peakHoursList"></div>
           </div>
         </div>
       </div>
 
-      <!-- ── INTEL ── -->
-      <div class="page-section" id="page-intel">
-        <div class="section-head"><div class="section-title">Competitor Intelligence</div><div class="section-sub">Deep-dive competitor analysis and benchmarking</div></div>
-        <div class="placeholder"><div class="ph-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg></div><div class="ph-title">Competitor Intelligence Hub</div><div class="ph-desc">Track competitor spend, ad formats, keywords, and timing strategies in real time.</div></div>
-      </div>
-
-      <!-- ── TRENDS ── -->
+      <!-- TRENDS (AI-POWERED) -->
       <div class="page-section" id="page-trends">
         <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
-          <div><div class="section-title">Market Trends</div><div class="section-sub">AI-powered creative suggestions and industry-wide performance signals · Updated May 12, 2026</div></div>
-          <button class="btn-review" id="refreshTrendsBtn" onclick="loadTrends()" style="display:flex;align-items:center;gap:6px;">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+          <div><div class="section-title">Market Trends</div><div class="section-sub" id="trendsSubtitle">AI-powered creative suggestions and industry-wide performance signals · May 2026</div></div>
+          <button class="btn-refresh" id="refreshTrendsBtn" onclick="loadAITrends()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
             Refresh AI Analysis
           </button>
         </div>
 
-        <!-- AI BANNER -->
-        <div style="background:#111;border-radius:10px;padding:22px 26px;margin-bottom:22px;display:flex;align-items:flex-start;gap:16px;position:relative;overflow:hidden;">
-          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#555,#999,#555);background-size:200% 100%;animation:shimmer 2s linear infinite;"></div>
-          <div style="width:42px;height:42px;background:#333;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <!-- AI STREAMING BANNER -->
+        <div class="ai-streaming-container" id="aiBanner">
+          <div class="ai-brand">
+            <div class="ai-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+            <div class="ai-meta">AdPro+ AI Analysis · May 2026</div>
           </div>
-          <div style="flex:1;">
-            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#888;margin-bottom:6px;">AdPro+ AI Analysis · May 2026</div>
-            <div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:8px;letter-spacing:-.2px;">Your creatives are underperforming vs. market benchmarks. Here's what top advertisers are doing differently right now.</div>
-            <div style="font-size:13px;color:#aaa;line-height:1.7;">Based on 4.2M impressions analyzed across 38 active markets this week. Native mobile campaigns show the sharpest divergence — video and carousel formats are outperforming static by 2.3× on CTR.</div>
-          </div>
+          <div class="ai-headline" id="aiHeadline">Loading live market intelligence…</div>
+          <div class="ai-body" id="aiBody"><div class="ai-loading"><div class="spinner-dark"></div>Analyzing 4.2M impressions across 38 active markets…</div></div>
         </div>
 
-        <!-- AI CREATIVE SUGGESTIONS -->
-        <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:12px;">AI Creative Upgrade Suggestions</div>
+        <!-- AI CREATIVE CARDS -->
+        <div class="ai-section-title" style="margin-bottom:12px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          AI Creative Upgrade Suggestions
+        </div>
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px;" id="trendCardsContainer">
-          <!-- injected by JS -->
+          <div style="grid-column:1/-1;padding:40px;text-align:center;color:var(--text4);font-size:13px;">
+            <div class="ai-loading" style="justify-content:center;"><div class="spinner-dark"></div>Generating personalized recommendations…</div>
+          </div>
         </div>
 
-        <!-- TRENDING KEYWORDS -->
+        <!-- KEYWORDS + FORMATS -->
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
           <div class="table-panel" style="padding:20px;">
-            <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:14px;display:flex;align-items:center;gap:6px;">
+            <div class="ai-section-title">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
               Rising Keywords This Week
             </div>
             <div id="trendKeywords"></div>
           </div>
           <div class="table-panel" style="padding:20px;">
-            <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:14px;display:flex;align-items:center;gap:6px;">
+            <div class="ai-section-title">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
               Format Performance Index
             </div>
@@ -1038,20 +801,19 @@ input[type="checkbox"] { accent-color: var(--teal); width: 13px; height: 13px; c
           </div>
         </div>
 
-        <!-- SEASONAL SIGNALS -->
+        <!-- SEASONAL -->
         <div class="table-panel" style="padding:20px;margin-bottom:20px;">
-          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:14px;display:flex;align-items:center;gap:6px;">
+          <div class="ai-section-title">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
             Seasonal Opportunity Calendar — Next 30 Days
           </div>
           <div id="seasonalSignals" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;"></div>
         </div>
-
       </div>
 
-      <!-- ── ACCOUNT ── -->
+      <!-- ACCOUNT -->
       <div class="page-section" id="page-account">
-        <div class="section-head" style="margin-bottom:20px;"><div class="section-title">Account Settings</div><div class="section-sub">Manage your profile and preferences</div></div>
+        <div style="margin-bottom:20px;"><div class="section-title">Account Settings</div><div class="section-sub">Manage your profile and preferences</div></div>
         <div class="account-grid">
           <div class="account-card">
             <div class="account-card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profile</div>
@@ -1071,11 +833,11 @@ input[type="checkbox"] { accent-color: var(--teal); width: 13px; height: 13px; c
         </div>
       </div>
 
-    </div><!-- /content -->
-  </div><!-- /app-body -->
-</div><!-- /appShell -->
+    </div>
+  </div>
+</div>
 
-<!-- ═══════ MODAL ═══════ -->
+<!-- MODAL -->
 <div class="overlay hidden" id="modalOverlay" onclick="if(event.target===this)closeModal()">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">✕</button>
@@ -1118,6 +880,14 @@ input[type="checkbox"] { accent-color: var(--teal); width: 13px; height: 13px; c
   </div>
 </div>
 
+<!-- AD DETAIL MODAL -->
+<div class="overlay hidden" id="adModalOverlay" onclick="if(event.target===this)closeAdModal()">
+  <div class="modal" style="width:520px;">
+    <button class="modal-close" onclick="closeAdModal()">✕</button>
+    <div id="adModalContent"></div>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div class="toast hidden" id="toast">
   <div class="toast-dot"></div>
@@ -1126,7 +896,7 @@ input[type="checkbox"] { accent-color: var(--teal); width: 13px; height: 13px; c
 </div>
 
 <script>
-// ── DATA ──
+// ─── DATA ───
 let campaigns = [
   { id:'49037104', name:'NL /BE / CONV Mobile IOS/ Steelstofzuiger Pro', status:'Running', active:true, type:'Native', groupId:'96051', groupName:'NL / BE conv / S', spent:'€654.34', budget:'€50.00 Daily', cap:'€50.00' },
   { id:'48964532', name:'DE/ CONV / mobile Android', status:'Paused', active:false, type:'Native', groupId:'214624', groupName:'DE / TCAP 40 c', spent:'€115.51', budget:'€100.00 Daily', cap:'€0.00' },
@@ -1134,190 +904,31 @@ let campaigns = [
   { id:'48788335', name:'NL /BE / CONV DESKTOP / Steelstofzuiger Pro', status:'Running', active:true, type:'Native', groupId:'96051', groupName:'NL / BE conv / S', spent:'€572.33', budget:'€50.00 Daily', cap:'€50.00' }
 ];
 let selectedStrat = '';
-let userEmail = '';
 
-// ── LOGIN ──
-function togglePwd() {
-  const inp = document.getElementById('loginPassword');
-  const icon = document.getElementById('eyeIcon');
-  if (inp.type === 'password') {
-    inp.type = 'text';
-    icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
-  } else {
-    inp.type = 'password';
-    icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
-  }
-}
+const adsData = [
+  { name:'Mobile iOS Banner — Summer', campaign:'NL/BE CONV iOS', format:'Banner 300×250', status:'Running', ctr:'4.8%', impressions:'412K', spend:'€234.10', roas:'3.8×', emoji:'📱', bg:'#e8f4fd' },
+  { name:'Android Native Story Ad', campaign:'NL/BE CONV Android', format:'Native Story', status:'Running', ctr:'3.9%', impressions:'318K', spend:'€189.50', roas:'4.2×', emoji:'🎯', bg:'#f0f9f0' },
+  { name:'Desktop Banner — Product Shot', campaign:'NL/BE CONV Desktop', format:'Leaderboard 728×90', status:'Running', ctr:'2.1%', impressions:'195K', spend:'€141.20', roas:'2.9×', emoji:'💻', bg:'#faf0f8' },
+  { name:'Video Pre-roll 15s', campaign:'NL/BE CONV iOS', format:'Video 15s', status:'Running', ctr:'5.2%', impressions:'289K', spend:'€178.30', roas:'4.7×', emoji:'🎬', bg:'#fffbf0' },
+  { name:'Carousel — 4 Products', campaign:'NL/BE CONV Android', format:'Carousel', status:'Paused', ctr:'3.3%', impressions:'142K', spend:'€88.90', roas:'3.1×', emoji:'🎠', bg:'#f5f0ff' },
+  { name:'DE Android Awareness', campaign:'DE CONV Android', format:'Native Banner', status:'Paused', ctr:'2.8%', impressions:'98K', spend:'€62.40', roas:'1.8×', emoji:'🇩🇪', bg:'#fff0f0' },
+];
 
-document.getElementById('loginPassword').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
-document.getElementById('loginEmail').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('loginPassword').focus(); });
+const sitesData = [
+  { domain:'nieuws.nl', category:'News', campaigns:3, impressions:'420K', clicks:'16.8K', ctr:'4.0%', cpc:'€0.61', spend:'€525.40', quality:'high' },
+  { domain:'rtl.nl', category:'Entertainment', campaigns:2, impressions:'380K', clicks:'13.3K', ctr:'3.5%', cpc:'€0.68', spend:'€312.20', quality:'high' },
+  { domain:'marktplaats.nl', category:'E-commerce', campaigns:3, impressions:'310K', clicks:'11.2K', ctr:'3.6%', cpc:'€0.72', spend:'€274.80', quality:'high' },
+  { domain:'telegraaf.nl', category:'News', campaigns:2, impressions:'285K', clicks:'9.1K', ctr:'3.2%', cpc:'€0.65', spend:'€198.60', quality:'med' },
+  { domain:'nu.nl', category:'News', campaigns:2, impressions:'260K', clicks:'8.3K', ctr:'3.2%', cpc:'€0.70', spend:'€184.10', quality:'high' },
+  { domain:'ad.nl', category:'News', campaigns:1, impressions:'195K', clicks:'5.9K', ctr:'3.0%', cpc:'€0.63', spend:'€141.20', quality:'med' },
+  { domain:'bol.com', category:'E-commerce', campaigns:2, impressions:'172K', clicks:'6.9K', ctr:'4.0%', cpc:'€0.58', spend:'€136.80', quality:'high' },
+  { domain:'volkskrant.nl', category:'News', campaigns:1, impressions:'148K', clicks:'4.0K', ctr:'2.7%', cpc:'€0.77', spend:'€98.40', quality:'med' },
+  { domain:'zilverstad.com', category:'Lifestyle', campaigns:1, impressions:'98K', clicks:'2.5K', ctr:'2.6%', cpc:'€0.52', spend:'€62.10', quality:'low' },
+  { domain:'geenstijl.nl', category:'Blog', campaigns:1, impressions:'82K', clicks:'1.6K', ctr:'2.0%', cpc:'€0.48', spend:'€44.30', quality:'low' },
+  { domain:'tweakers.net', category:'Tech', campaigns:2, impressions:'210K', clicks:'7.4K', ctr:'3.5%', cpc:'€0.74', spend:'€155.80', quality:'high' },
+  { domain:'parool.nl', category:'News', campaigns:1, impressions:'124K', clicks:'3.2K', ctr:'2.6%', cpc:'€0.69', spend:'€82.50', quality:'med' },
+];
 
-function doLogin() {
-  const email = document.getElementById('loginEmail').value.trim();
-  const pwd = document.getElementById('loginPassword').value;
-  const errEl = document.getElementById('loginError');
-  errEl.classList.remove('show');
-
-  if (!email || !email.includes('@')) {
-    document.getElementById('loginEmail').classList.add('error');
-    setTimeout(() => document.getElementById('loginEmail').classList.remove('error'), 1500);
-    return;
-  }
-  if (pwd !== '1234') {
-    document.getElementById('loginPassword').classList.add('error');
-    errEl.classList.add('show');
-    setTimeout(() => {
-      document.getElementById('loginPassword').classList.remove('error');
-      errEl.classList.remove('show');
-    }, 3000);
-    return;
-  }
-
-  userEmail = email;
-  const btn = document.getElementById('loginBtn');
-  btn.innerHTML = '<div class="spinner"></div>';
-  btn.style.pointerEvents = 'none';
-
-  setTimeout(() => {
-    const parts = email.split('@')[0].split(/[._-]/);
-    const initials = parts.length >= 2 ? (parts[0][0]+parts[1][0]).toUpperCase() : email.slice(0,2).toUpperCase();
-    const name = parts.map(p => p.charAt(0).toUpperCase()+p.slice(1)).join(' ');
-    document.getElementById('userInitials').textContent = initials;
-    document.getElementById('userLabel').textContent = name;
-    document.getElementById('acName').textContent = name;
-    document.getElementById('acEmail').textContent = email;
-
-    document.getElementById('loginPage').style.display = 'none';
-    document.getElementById('appShell').style.display = 'block';
-    document.getElementById('appShell').style.animation = 'fadeIn .3s ease';
-    renderTable();
-  }, 1000);
-}
-
-// ── TABLE ──
-function renderTable() {
-  const body = document.getElementById('campaignTableBody');
-  body.innerHTML = campaigns.map((c, i) => `
-    <tr>
-      <td class="td-check"><input type="checkbox" /></td>
-      <td class="td-toggle"><div class="toggle ${c.active?'on':'off'}" onclick="toggleCamp(${i},this)"></div></td>
-      <td class="campaign-name-cell"><span class="campaign-name-link" title="${c.name}">${c.name}</span></td>
-      <td><span class="status-badge ${c.status.toLowerCase()}">${c.status}</span></td>
-      <td><span class="type-badge">${c.type}</span></td>
-      <td class="mono-val">${c.id}</td>
-      <td class="mono-val">${c.groupId}</td>
-      <td style="max-width:140px;overflow:hidden;text-overflow:ellipsis;">${c.groupName}</td>
-      <td class="text-right mono-val">${c.spent}</td>
-      <td class="text-right" style="font-size:12px;color:var(--text3);">${c.budget}</td>
-      <td class="text-right mono-val">${c.cap}</td>
-      <td>
-        <div class="row-actions">
-          <button class="ra-btn" title="Edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
-          <button class="ra-btn" title="Duplicate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>
-          <button class="ra-btn" title="Boost" style="color:var(--teal)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></button>
-          <button class="ra-btn" title="Pause"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="10" y1="15" x2="10" y2="9"/><line x1="14" y1="15" x2="14" y2="9"/></svg></button>
-          <button class="ra-btn danger" title="Delete" onclick="deleteCamp(${i})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg></button>
-        </div>
-      </td>
-    </tr>
-  `).join('');
-  document.getElementById('pageInfo').textContent = `1–${campaigns.length} of ${campaigns.length}`;
-  document.getElementById('sbCampaigns').textContent = campaigns.length;
-  document.getElementById('crumbCampaign').textContent = `All Campaigns (${campaigns.length})`;
-}
-
-function toggleCamp(i, el) {
-  campaigns[i].active = !campaigns[i].active;
-  campaigns[i].status = campaigns[i].active ? 'Running' : 'Paused';
-  el.classList.toggle('on'); el.classList.toggle('off');
-  const row = el.closest('tr');
-  const badge = row.querySelector('.status-badge');
-  badge.className = 'status-badge ' + campaigns[i].status.toLowerCase();
-  badge.textContent = campaigns[i].status;
-  showToast(campaigns[i].name + ' is now ' + campaigns[i].status);
-}
-
-function deleteCamp(i) {
-  const name = campaigns[i].name;
-  campaigns.splice(i, 1);
-  renderTable();
-  showToast('"' + name.substring(0, 30) + '…" removed.');
-}
-
-function toggleAll(el) {
-  document.querySelectorAll('#campaignTableBody input[type=checkbox]').forEach(cb => cb.checked = el.checked);
-}
-
-// ── NAVIGATION ──
-function showPage(page, el) {
-  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
-  document.getElementById('page-' + page).classList.add('active');
-  document.querySelectorAll('.sidebar-item').forEach(s => s.classList.remove('active'));
-  if (el) el.classList.add('active');
-}
-
-function setMhTab(el) {
-  el.closest('.mh-tabs').querySelectorAll('.mh-tab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-}
-
-// ── MODAL ──
-function openNewCampaignModal() {
-  document.getElementById('modalOverlay').classList.remove('hidden');
-  document.getElementById('newName').focus();
-  selectedStrat = '';
-  document.querySelectorAll('.strategy-chip').forEach(c => c.classList.remove('selected'));
-}
-function closeModal() {
-  document.getElementById('modalOverlay').classList.add('hidden');
-  ['newName','newBudget'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('newGoal').value = '';
-  selectedStrat = '';
-  document.querySelectorAll('.strategy-chip').forEach(c => c.classList.remove('selected'));
-}
-function selectStrat(el) {
-  document.querySelectorAll('.strategy-chip').forEach(c => c.classList.remove('selected'));
-  el.classList.add('selected'); selectedStrat = el.textContent;
-}
-function createCampaign() {
-  const name = document.getElementById('newName').value.trim();
-  const goal = document.getElementById('newGoal').value;
-  const budget = document.getElementById('newBudget').value;
-  const ni = document.getElementById('newName');
-  if (!name) { ni.style.borderColor='var(--red)'; ni.focus(); setTimeout(()=>ni.style.borderColor='',1500); return; }
-  if (!goal) { const gi=document.getElementById('newGoal'); gi.style.borderColor='var(--red)'; setTimeout(()=>gi.style.borderColor='',1500); return; }
-
-  const id = String(49000000 + Math.floor(Math.random()*99999));
-  const bud = budget ? `€${parseFloat(budget).toFixed(2)} Daily` : '€50.00 Daily';
-  const cap = budget ? `€${parseFloat(budget).toFixed(2)}` : '€50.00';
-  campaigns.push({ id, name, status:'Running', active:true, type:'Native', groupId:'96051', groupName:'NL / BE conv / S', spent:'€0.00', budget:bud, cap });
-  renderTable();
-  closeModal();
-  showToast('"' + name + '" created successfully!');
-  showPage('campaigns', document.querySelector('[data-page=campaigns]'));
-}
-
-// ── SIGN OUT ──
-function signOut() {
-  document.getElementById('appShell').style.display = 'none';
-  document.getElementById('loginPage').style.display = 'flex';
-  document.getElementById('loginEmail').value = '';
-  document.getElementById('loginPassword').value = '';
-  const btn = document.getElementById('loginBtn');
-  btn.innerHTML = '<span id="loginBtnText">Sign In</span>';
-  btn.style.pointerEvents = '';
-}
-
-// ── TOAST ──
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  document.getElementById('toastText').textContent = msg;
-  t.classList.remove('hidden');
-  setTimeout(() => t.classList.add('hidden'), 3500);
-}
-
-
-// ── COUNTRIES DATA ──
 const countriesData = [
   {flag:'🇺🇸',name:'United States',code:'US',region:'Americas',campaigns:8,spent:'€4,210.50',impressions:'2.1M',ctr:'3.8%',cpc:'€0.72',conv:412,status:'Running'},
   {flag:'🇳🇱',name:'Netherlands',code:'NL',region:'Europe',campaigns:4,spent:'€1,473.18',impressions:'820K',ctr:'4.1%',cpc:'€0.65',conv:198,status:'Running'},
@@ -1334,33 +945,236 @@ const countriesData = [
   {flag:'🇳🇴',name:'Norway',code:'NO',region:'Europe',campaigns:1,spent:'€215.60',impressions:'180K',ctr:'3.6%',cpc:'€0.82',conv:54,status:'Running'},
   {flag:'🇩🇰',name:'Denmark',code:'DK',region:'Europe',campaigns:1,spent:'€198.20',impressions:'160K',ctr:'3.7%',cpc:'€0.79',conv:49,status:'Running'},
   {flag:'🇵🇱',name:'Poland',code:'PL',region:'Europe',campaigns:2,spent:'€175.30',impressions:'290K',ctr:'2.8%',cpc:'€0.42',conv:58,status:'Running'},
-  {flag:'🇨🇭',name:'Switzerland',code:'CH',region:'Europe',campaigns:1,spent:'€245.00',impressions:'140K',ctr:'4.0%',cpc:'€0.94',conv:42,status:'Running'},
-  {flag:'🇦🇹',name:'Austria',code:'AT',region:'Europe',campaigns:1,spent:'€188.50',impressions:'155K',ctr:'3.5%',cpc:'€0.77',conv:38,status:'Running'},
-  {flag:'🇵🇹',name:'Portugal',code:'PT',region:'Europe',campaigns:1,spent:'€142.00',impressions:'130K',ctr:'2.9%',cpc:'€0.58',conv:31,status:'Paused'},
   {flag:'🇸🇬',name:'Singapore',code:'SG',region:'Asia',campaigns:2,spent:'€310.20',impressions:'220K',ctr:'4.2%',cpc:'€0.85',conv:67,status:'Running'},
   {flag:'🇯🇵',name:'Japan',code:'JP',region:'Asia',campaigns:2,spent:'€380.70',impressions:'450K',ctr:'2.4%',cpc:'€0.52',conv:78,status:'Running'},
-  {flag:'🇰🇷',name:'South Korea',code:'KR',region:'Asia',campaigns:1,spent:'€260.40',impressions:'380K',ctr:'2.6%',cpc:'€0.46',conv:61,status:'Running'},
   {flag:'🇧🇷',name:'Brazil',code:'BR',region:'Americas',campaigns:2,spent:'€195.30',impressions:'680K',ctr:'2.2%',cpc:'€0.21',conv:88,status:'Running'},
-  {flag:'🇲🇽',name:'Mexico',code:'MX',region:'Americas',campaigns:1,spent:'€148.60',impressions:'520K',ctr:'2.0%',cpc:'€0.18',conv:65,status:'Running'},
   {flag:'🇦🇪',name:'UAE',code:'AE',region:'Middle East',campaigns:2,spent:'€325.00',impressions:'240K',ctr:'3.9%',cpc:'€0.90',conv:72,status:'Running'},
-  {flag:'🇸🇦',name:'Saudi Arabia',code:'SA',region:'Middle East',campaigns:1,spent:'€215.80',impressions:'190K',ctr:'3.5%',cpc:'€0.81',conv:48,status:'Running'},
   {flag:'🇿🇦',name:'South Africa',code:'ZA',region:'Africa',campaigns:1,spent:'€98.40',impressions:'310K',ctr:'2.1%',cpc:'€0.22',conv:42,status:'Running'},
-  {flag:'🇳🇬',name:'Nigeria',code:'NG',region:'Africa',campaigns:1,spent:'€72.10',impressions:'420K',ctr:'1.8%',cpc:'€0.12',conv:38,status:'Running'},
   {flag:'🇵🇭',name:'Philippines',code:'PH',region:'Asia',campaigns:1,spent:'€88.30',impressions:'490K',ctr:'1.9%',cpc:'€0.13',conv:44,status:'Running'},
   {flag:'🇹🇭',name:'Thailand',code:'TH',region:'Asia',campaigns:1,spent:'€94.20',impressions:'370K',ctr:'2.2%',cpc:'€0.17',conv:52,status:'Running'},
+  {flag:'🇳🇿',name:'New Zealand',code:'NZ',region:'Oceania',campaigns:1,spent:'€162.40',impressions:'120K',ctr:'3.4%',cpc:'€0.82',conv:32,status:'Running'},
+  {flag:'🇨🇭',name:'Switzerland',code:'CH',region:'Europe',campaigns:1,spent:'€245.00',impressions:'140K',ctr:'4.0%',cpc:'€0.94',conv:42,status:'Running'},
+  {flag:'🇦🇹',name:'Austria',code:'AT',region:'Europe',campaigns:1,spent:'€188.50',impressions:'155K',ctr:'3.5%',cpc:'€0.77',conv:38,status:'Running'},
+  {flag:'🇫🇮',name:'Finland',code:'FI',region:'Europe',campaigns:1,spent:'€168.50',impressions:'140K',ctr:'3.6%',cpc:'€0.80',conv:40,status:'Running'},
+  {flag:'🇮🇪',name:'Ireland',code:'IE',region:'Europe',campaigns:1,spent:'€178.20',impressions:'130K',ctr:'3.8%',cpc:'€0.83',conv:41,status:'Running'},
+  {flag:'🇰🇷',name:'South Korea',code:'KR',region:'Asia',campaigns:1,spent:'€260.40',impressions:'380K',ctr:'2.6%',cpc:'€0.46',conv:61,status:'Running'},
+  {flag:'🇲🇽',name:'Mexico',code:'MX',region:'Americas',campaigns:1,spent:'€148.60',impressions:'520K',ctr:'2.0%',cpc:'€0.18',conv:65,status:'Running'},
+  {flag:'🇸🇦',name:'Saudi Arabia',code:'SA',region:'Middle East',campaigns:1,spent:'€215.80',impressions:'190K',ctr:'3.5%',cpc:'€0.81',conv:48,status:'Running'},
+  {flag:'🇳🇬',name:'Nigeria',code:'NG',region:'Africa',campaigns:1,spent:'€72.10',impressions:'420K',ctr:'1.8%',cpc:'€0.12',conv:38,status:'Running'},
   {flag:'🇮🇩',name:'Indonesia',code:'ID',region:'Asia',campaigns:1,spent:'€79.50',impressions:'560K',ctr:'1.7%',cpc:'€0.11',conv:47,status:'Running'},
   {flag:'🇲🇾',name:'Malaysia',code:'MY',region:'Asia',campaigns:1,spent:'€105.80',impressions:'290K',ctr:'2.5%',cpc:'€0.24',conv:51,status:'Running'},
-  {flag:'🇳🇿',name:'New Zealand',code:'NZ',region:'Oceania',campaigns:1,spent:'€162.40',impressions:'120K',ctr:'3.4%',cpc:'€0.82',conv:32,status:'Running'},
   {flag:'🇦🇷',name:'Argentina',code:'AR',region:'Americas',campaigns:1,spent:'€68.90',impressions:'280K',ctr:'1.8%',cpc:'€0.16',conv:28,status:'Paused'},
   {flag:'🇨🇱',name:'Chile',code:'CL',region:'Americas',campaigns:1,spent:'€78.20',impressions:'220K',ctr:'2.0%',cpc:'€0.20',conv:30,status:'Running'},
   {flag:'🇷🇴',name:'Romania',code:'RO',region:'Europe',campaigns:1,spent:'€88.60',impressions:'200K',ctr:'2.7%',cpc:'€0.31',conv:34,status:'Running'},
   {flag:'🇨🇿',name:'Czech Republic',code:'CZ',region:'Europe',campaigns:1,spent:'€95.40',impressions:'170K',ctr:'2.9%',cpc:'€0.36',conv:36,status:'Running'},
   {flag:'🇭🇺',name:'Hungary',code:'HU',region:'Europe',campaigns:1,spent:'€82.10',impressions:'150K',ctr:'2.6%',cpc:'€0.34',conv:29,status:'Running'},
   {flag:'🇬🇷',name:'Greece',code:'GR',region:'Europe',campaigns:1,spent:'€91.30',impressions:'165K',ctr:'2.8%',cpc:'€0.37',conv:33,status:'Running'},
-  {flag:'🇫🇮',name:'Finland',code:'FI',region:'Europe',campaigns:1,spent:'€168.50',impressions:'140K',ctr:'3.6%',cpc:'€0.80',conv:40,status:'Running'},
-  {flag:'🇮🇪',name:'Ireland',code:'IE',region:'Europe',campaigns:1,spent:'€178.20',impressions:'130K',ctr:'3.8%',cpc:'€0.83',conv:41,status:'Running'},
+  {flag:'🇵🇹',name:'Portugal',code:'PT',region:'Europe',campaigns:1,spent:'€142.00',impressions:'130K',ctr:'2.9%',cpc:'€0.58',conv:31,status:'Paused'},
 ];
 
+const platformsData = [
+  {name:'Mobile iOS',device:'Mobile',os:'iOS 17 / 18',share:38,impressions:'1.82M',ctr:'4.4%',cvr:'1.2%',cpc:'€0.64',trend:'↑ +12%',trendUp:true},
+  {name:'Mobile Android',device:'Mobile',os:'Android 13/14',share:32,impressions:'1.54M',ctr:'3.8%',cvr:'1.0%',cpc:'€0.58',trend:'↑ +8%',trendUp:true},
+  {name:'Desktop Windows',device:'Desktop',os:'Windows 10/11',share:16,impressions:'770K',ctr:'3.2%',cvr:'0.9%',cpc:'€0.78',trend:'↓ -4%',trendUp:false},
+  {name:'Desktop macOS',device:'Desktop',os:'macOS 14/15',share:8,impressions:'385K',ctr:'3.6%',cvr:'1.1%',cpc:'€0.82',trend:'→ 0%',trendUp:null},
+  {name:'Tablet iPad',device:'Tablet',os:'iPadOS 17',share:4,impressions:'192K',ctr:'3.0%',cvr:'0.8%',cpc:'€0.71',trend:'↓ -2%',trendUp:false},
+  {name:'Tablet Android',device:'Tablet',os:'Android 13',share:2,impressions:'96K',ctr:'2.6%',cvr:'0.7%',cpc:'€0.60',trend:'→ 0%',trendUp:null},
+];
+
+const staticKeywords = [
+  {kw:'limited offer',pct:88,change:'+14%',up:true},
+  {kw:'video walkthrough',pct:82,change:'+31%',up:true},
+  {kw:'handcrafted',pct:76,change:'+8%',up:true},
+  {kw:'sustainable',pct:71,change:'+12%',up:true},
+  {kw:'sale ends soon',pct:68,change:'+22%',up:true},
+  {kw:'free shipping',pct:65,change:'+5%',up:true},
+  {kw:'coupon code',pct:48,change:'-9%',up:false},
+  {kw:'buy now',pct:42,change:'-14%',up:false},
+];
+
+const staticFormats = [
+  {name:'Short Video (15–20s)',pct:64,note:'+2.3× CTR vs static'},
+  {name:'Carousel (4–6 slides)',pct:52,note:'+35% engagement time'},
+  {name:'Static Image',pct:38,note:'Declining — update recommended'},
+  {name:'Animated GIF',pct:28,note:'Stable, mobile only'},
+  {name:'Long Video (30s+)',pct:18,note:'High completion on desktop'},
+];
+
+const seasonalData = [
+  {date:'May 15–20',name:'Pre-Summer Sales',tip:'Launch discount-led creatives targeting warm-weather products.',badge:'hot'},
+  {date:'May 25',name:'Memorial Day (US)',tip:'High purchase intent in US. Boost spend 30% from May 22.',badge:'hot'},
+  {date:'Jun 1',name:'Pride Month Start',tip:'Inclusive messaging and diverse visuals drive engagement.',badge:'warm'},
+  {date:'Jun 9',name:"Father's Day Prep",tip:'Gift-guide style carousels convert well 2 weeks before date.',badge:'warm'},
+  {date:'Jun 15',name:'Mid-Year Review',tip:'B2B and SaaS campaigns see 18% CTR lift in this window.',badge:'plan'},
+  {date:'Jun 21',name:'Summer Solstice',tip:'Seasonal creative refresh. Update imagery and headlines.',badge:'plan'},
+  {date:'Jul 4',name:'Independence Day (US)',tip:'Largest US e-comm event outside Q4. Plan budgets now.',badge:'hot'},
+  {date:'Jul 15',name:'Amazon Prime Day',tip:'Competitor noise is high — focus on brand differentiation.',badge:'warm'},
+];
+
+// ─── LOGIN ───
+function togglePwd() {
+  const inp = document.getElementById('loginPassword');
+  const icon = document.getElementById('eyeIcon');
+  if (inp.type === 'password') {
+    inp.type = 'text';
+    icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+  } else {
+    inp.type = 'password';
+    icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+  }
+}
+document.getElementById('loginPassword').addEventListener('keydown', e => { if (e.key==='Enter') doLogin(); });
+document.getElementById('loginEmail').addEventListener('keydown', e => { if (e.key==='Enter') document.getElementById('loginPassword').focus(); });
+
+function doLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pwd = document.getElementById('loginPassword').value;
+  const errEl = document.getElementById('loginError');
+  errEl.classList.remove('show');
+  if (!email || !email.includes('@')) { document.getElementById('loginEmail').classList.add('error'); setTimeout(()=>document.getElementById('loginEmail').classList.remove('error'),1500); return; }
+  if (pwd !== '1234') { document.getElementById('loginPassword').classList.add('error'); errEl.classList.add('show'); setTimeout(()=>{document.getElementById('loginPassword').classList.remove('error');errEl.classList.remove('show');},3000); return; }
+  const btn = document.getElementById('loginBtn');
+  btn.innerHTML = '<div class="spinner"></div>';
+  btn.style.pointerEvents = 'none';
+  setTimeout(() => {
+    const parts = email.split('@')[0].split(/[._-]/);
+    const initials = parts.length>=2 ? (parts[0][0]+parts[1][0]).toUpperCase() : email.slice(0,2).toUpperCase();
+    const name = parts.map(p=>p.charAt(0).toUpperCase()+p.slice(1)).join(' ');
+    document.getElementById('userInitials').textContent = initials;
+    document.getElementById('userLabel').textContent = name;
+    document.getElementById('acName').textContent = name;
+    document.getElementById('acEmail').textContent = email;
+    document.getElementById('loginPage').style.display = 'none';
+    document.getElementById('appShell').style.display = 'block';
+    renderTable();
+    renderAds();
+    renderSites();
+    renderStaticTrends();
+    loadAITrends();
+  }, 1000);
+}
+
+// ─── CAMPAIGNS TABLE ───
+function renderTable() {
+  const body = document.getElementById('campaignTableBody');
+  body.innerHTML = campaigns.map((c,i) => `
+    <tr>
+      <td class="td-check"><input type="checkbox" /></td>
+      <td class="td-toggle"><div class="toggle ${c.active?'on':'off'}" onclick="toggleCamp(${i},this)"></div></td>
+      <td class="campaign-name-cell"><span class="campaign-name-link" title="${c.name}">${c.name}</span></td>
+      <td><span class="status-badge ${c.status.toLowerCase()}">${c.status}</span></td>
+      <td><span class="type-badge">${c.type}</span></td>
+      <td class="mono-val">${c.id}</td>
+      <td class="mono-val">${c.groupId}</td>
+      <td style="max-width:140px;overflow:hidden;text-overflow:ellipsis;">${c.groupName}</td>
+      <td class="text-right mono-val">${c.spent}</td>
+      <td class="text-right" style="font-size:12px;color:var(--text3);">${c.budget}</td>
+      <td class="text-right mono-val">${c.cap}</td>
+      <td>
+        <div class="row-actions">
+          <button class="ra-btn" title="Edit" onclick="showToast('Editing ${c.name.slice(0,20)}...')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+          <button class="ra-btn" title="Duplicate" onclick="duplicateCamp(${i})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>
+          <button class="ra-btn danger" title="Delete" onclick="deleteCamp(${i})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg></button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+  document.getElementById('pageInfo').textContent = `1–${campaigns.length} of ${campaigns.length}`;
+  document.getElementById('sbCampaigns').textContent = campaigns.length;
+  document.getElementById('crumbCampaign').textContent = `All Campaigns (${campaigns.length})`;
+}
+
+function toggleCamp(i,el) {
+  campaigns[i].active = !campaigns[i].active;
+  campaigns[i].status = campaigns[i].active ? 'Running' : 'Paused';
+  el.classList.toggle('on'); el.classList.toggle('off');
+  const badge = el.closest('tr').querySelector('.status-badge');
+  badge.className = 'status-badge ' + campaigns[i].status.toLowerCase();
+  badge.textContent = campaigns[i].status;
+  showToast(campaigns[i].name.slice(0,30) + '… is now ' + campaigns[i].status);
+}
+function deleteCamp(i) {
+  const name = campaigns[i].name;
+  campaigns.splice(i,1);
+  renderTable();
+  showToast('"' + name.slice(0,30) + '…" removed.');
+}
+function duplicateCamp(i) {
+  const c = {...campaigns[i], id: String(49000000+Math.floor(Math.random()*99999)), name: campaigns[i].name + ' (Copy)', spent:'€0.00' };
+  campaigns.splice(i+1,0,c);
+  renderTable();
+  showToast('Campaign duplicated.');
+}
+function toggleAll(el) {
+  document.querySelectorAll('#campaignTableBody input[type=checkbox]').forEach(cb => cb.checked = el.checked);
+}
+
+// ─── ADS ───
+function renderAds() {
+  const grid = document.getElementById('adsGrid');
+  if (!grid) return;
+  grid.innerHTML = adsData.map((a,i) => `
+    <div class="ad-card" onclick="openAdDetail(${i})">
+      <div class="ad-card-thumb" style="background:${a.bg};font-size:42px;">${a.emoji}</div>
+      <div class="ad-card-body">
+        <div class="ad-card-name">${a.name}</div>
+        <div class="ad-card-meta">${a.campaign} · ${a.format}</div>
+        <div class="ad-card-stats">
+          <div class="ad-card-stat"><span class="ad-card-stat-val">${a.ctr}</span><span class="ad-card-stat-lbl">CTR</span></div>
+          <div class="ad-card-stat"><span class="ad-card-stat-val">${a.impressions}</span><span class="ad-card-stat-lbl">Impressions</span></div>
+          <div class="ad-card-stat"><span class="ad-card-stat-val">${a.roas}</span><span class="ad-card-stat-lbl">ROAS</span></div>
+        </div>
+      </div>
+      <div class="ad-card-footer">
+        <span class="status-badge ${a.status.toLowerCase()}">${a.status}</span>
+        <span style="font-family:var(--mono);font-size:12px;color:var(--text3);">${a.spend}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openAdDetail(i) {
+  const a = adsData[i];
+  document.getElementById('adModalContent').innerHTML = `
+    <div style="font-size:36px;margin-bottom:12px;">${a.emoji}</div>
+    <div class="modal-title">${a.name}</div>
+    <div class="modal-desc">${a.campaign} · ${a.format}</div>
+    <div class="ad-detail-grid">
+      <div class="ad-detail-stat"><div class="ad-detail-stat-label">CTR</div><div class="ad-detail-stat-val">${a.ctr}</div></div>
+      <div class="ad-detail-stat"><div class="ad-detail-stat-label">Impressions</div><div class="ad-detail-stat-val">${a.impressions}</div></div>
+      <div class="ad-detail-stat"><div class="ad-detail-stat-label">Spend</div><div class="ad-detail-stat-val">${a.spend}</div></div>
+      <div class="ad-detail-stat"><div class="ad-detail-stat-label">ROAS</div><div class="ad-detail-stat-val">${a.roas}</div></div>
+    </div>
+    <div style="margin-top:16px;display:flex;gap:8px;">
+      <button class="btn-review" style="flex:1" onclick="showToast('Opening ad editor...');closeAdModal()">Edit Ad</button>
+      <button class="btn-cancel" style="flex:1;padding:9px;" onclick="showToast('Ad duplicated.');closeAdModal()">Duplicate</button>
+    </div>
+  `;
+  document.getElementById('adModalOverlay').classList.remove('hidden');
+}
+function closeAdModal() { document.getElementById('adModalOverlay').classList.add('hidden'); }
+
+// ─── SITES ───
+function renderSites() {
+  const body = document.getElementById('sitesBody');
+  if (!body) return;
+  body.innerHTML = sitesData.map(s => `
+    <tr>
+      <td><strong style="color:var(--text);font-family:var(--mono);font-size:12px;">${s.domain}</strong></td>
+      <td><span class="type-badge">${s.category}</span></td>
+      <td class="text-right mono-val">${s.campaigns}</td>
+      <td class="text-right mono-val">${s.impressions}</td>
+      <td class="text-right mono-val">${s.clicks}</td>
+      <td class="text-right mono-val">${s.ctr}</td>
+      <td class="text-right mono-val">${s.cpc}</td>
+      <td class="text-right mono-val">${s.spend}</td>
+      <td><span class="site-quality ${s.quality}">${s.quality==='high'?'High':'med'===s.quality?'Medium':'Low'}</span></td>
+      <td><span class="status-badge running">Active</span></td>
+    </tr>
+  `).join('');
+}
+
+// ─── COUNTRIES ───
 function renderCountries() {
   const b = document.getElementById('countriesBody');
   if (!b) return;
@@ -1380,36 +1194,26 @@ function renderCountries() {
   `).join('');
 }
 
-// ── PLATFORMS DATA ──
-const platformsData = [
-  {name:'Mobile iOS',device:'Mobile',os:'iOS 17 / 18',share:38,impressions:'1.82M',ctr:'4.4%',cvr:'1.2%',cpc:'€0.64',trend:'↑ +12%',trendUp:true},
-  {name:'Mobile Android',device:'Mobile',os:'Android 13/14',share:32,impressions:'1.54M',ctr:'3.8%',cvr:'1.0%',cpc:'€0.58',trend:'↑ +8%',trendUp:true},
-  {name:'Desktop Windows',device:'Desktop',os:'Windows 10/11',share:16,impressions:'770K',ctr:'3.2%',cvr:'0.9%',cpc:'€0.78',trend:'↓ -4%',trendUp:false},
-  {name:'Desktop macOS',device:'Desktop',os:'macOS 14/15',share:8,impressions:'385K',ctr:'3.6%',cvr:'1.1%',cpc:'€0.82',trend:'→ 0%',trendUp:null},
-  {name:'Tablet iPad',device:'Tablet',os:'iPadOS 17',share:4,impressions:'192K',ctr:'3.0%',cvr:'0.8%',cpc:'€0.71',trend:'↓ -2%',trendUp:false},
-  {name:'Tablet Android',device:'Tablet',os:'Android 13',share:2,impressions:'96K',ctr:'2.6%',cvr:'0.7%',cpc:'€0.60',trend:'→ 0%',trendUp:null},
-];
-
-const platformIcons = {
-  Mobile:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>`,
-  Desktop:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,
-  Tablet:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>`,
-};
-
+// ─── PLATFORMS ───
 function renderPlatforms() {
   const cards = document.getElementById('platformCards');
   const body = document.getElementById('platformsBody');
-  if (!cards || !body) return;
-  cards.innerHTML = platformsData.map(p => `
+  if (!cards||!body) return;
+  const icons = {
+    Mobile:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>`,
+    Desktop:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,
+    Tablet:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>`,
+  };
+  cards.innerHTML = platformsData.map(p=>`
     <div class="plat-card">
-      <div class="plat-card-icon">${platformIcons[p.device]}</div>
+      <div class="plat-card-icon">${icons[p.device]}</div>
       <div class="plat-card-name">${p.name}</div>
       <div class="plat-card-share">${p.share}%</div>
       <div class="plat-card-sub">of total spend · ${p.impressions} impressions</div>
       <div class="plat-share-bar"><div class="plat-share-fill" style="width:${p.share}%"></div></div>
     </div>
   `).join('');
-  body.innerHTML = platformsData.map(p => `
+  body.innerHTML = platformsData.map(p=>`
     <tr>
       <td style="font-weight:600;color:var(--text);">${p.name}</td>
       <td><span class="type-badge">${p.device}</span></td>
@@ -1424,154 +1228,280 @@ function renderPlatforms() {
   `).join('');
 }
 
-// ── TRENDS DATA ──
-const trendCards = [
-  {
-    tag:'hot', priority:'high', priorityLabel:'🔥 High Priority',
-    title:'Switch Static Ads to Short-Form Video (15–20s)',
-    desc:'Video ads are outperforming static by 2.3× on CTR across mobile placements this week. Advertisers running video are seeing 72% completion rates and 40% lower CPC.',
-    stats:[{val:'2.3×',lbl:'CTR lift'},{val:'-40%',lbl:'CPC drop'},{val:'72%',lbl:'Completion'}],
-    action:'Generate Video Brief →'
-  },
-  {
-    tag:'rising', priority:'high', priorityLabel:'↑ Trending',
-    title:'Add Urgency + Countdown Language to Headlines',
-    desc:'Creatives using phrases like "Limited offer", "Ends tonight", and "Only X left" are showing 45% higher conversion rates vs standard benefit-led copy in May 2026.',
-    stats:[{val:'+45%',lbl:'Conv. rate'},{val:'+31%',lbl:'CTR'},{val:'-22%',lbl:'CPA'}],
-    action:'See Headline Templates →'
-  },
-  {
-    tag:'new', priority:'medium', priorityLabel:'✦ New Signal',
-    title:'Test Carousel Format for Product Discovery',
-    desc:'Carousel ads now dominate 45% of top-performing native placements. Cultural storytelling with 4–6 slides drives 35% higher engagement time vs single-image creatives.',
-    stats:[{val:'+35%',lbl:'Engage time'},{val:'45%',lbl:'Market share'},{val:'+28%',lbl:'ROAS'}],
-    action:'Apply Carousel Strategy →'
-  },
-  {
-    tag:'hot', priority:'high', priorityLabel:'🔥 High Priority',
-    title:'Shift Budget to 8–10 PM Evening Slots',
-    desc:'Evening time slots (8–10 PM local) are converting 35% better than daytime across your target geos. Mobile users browsing during leisure convert at a significantly higher rate.',
-    stats:[{val:'+35%',lbl:'Conv. rate'},{val:'8–10 PM',lbl:'Peak window'},{val:'Mobile',lbl:'Best device'}],
-    action:'Update Bid Schedule →'
-  },
-  {
-    tag:'rising', priority:'medium', priorityLabel:'↑ Trending',
-    title:'Lead With Social Proof in Ad Copy',
-    desc:'"Trusted by 50K+ customers" and "4.8★ rated" style copy is generating 28% more clicks across awareness campaigns. Especially effective in DE and NL markets this week.',
-    stats:[{val:'+28%',lbl:'CTR lift'},{val:'DE/NL',lbl:'Best markets'},{val:'+19%',lbl:'CVR'}],
-    action:'Browse Copy Formulas →'
-  },
-  {
-    tag:'new', priority:'medium', priorityLabel:'✦ New Signal',
-    title:'Introduce Mobile-First Vertical Creatives (9:16)',
-    desc:'Vertical 9:16 format now accounts for 38% of all native mobile impressions. Advertisers who switched from landscape saw a 25% improvement in viewability scores.',
-    stats:[{val:'38%',lbl:'Impression share'},{val:'+25%',lbl:'Viewability'},{val:'iOS',lbl:'Top platform'}],
-    action:'Resize Creative Assets →'
-  },
-];
+// ─── INTEL ───
+function renderIntel() {
+  const compSpend = [
+    {name:'VacuumPro NL',spend:'€3,200',share:22,chg:'+8%',up:true},
+    {name:'StofzuigerShop',spend:'€2,850',share:19,chg:'+3%',up:true},
+    {name:'You (Achaté)',spend:'€2,161',share:15,chg:'+12%',up:true},
+    {name:'CleanTech DE',spend:'€1,940',share:13,chg:'-5%',up:false},
+    {name:'EuroVacuum',spend:'€1,680',share:11,chg:'+1%',up:true},
+    {name:'HomeApply.eu',spend:'€1,200',share:8,chg:'-11%',up:false},
+  ];
+  document.getElementById('compSpendList').innerHTML = compSpend.map(c=>`
+    <div class="comp-row">
+      <div class="comp-name">${c.name}</div>
+      <div class="comp-bar-wrap"><div class="comp-bar"><div class="comp-bar-fill" style="width:${c.share*4}%"></div></div></div>
+      <div class="comp-val">${c.spend}</div>
+      <div class="comp-change ${c.up?'up':'down'}">${c.chg}</div>
+    </div>
+  `).join('');
 
-const trendKeywords = [
-  {kw:'limited offer',pct:88,change:'+14%',up:true},
-  {kw:'video walkthrough',pct:82,change:'+31%',up:true},
-  {kw:'handcrafted',pct:76,change:'+8%',up:true},
-  {kw:'sustainable',pct:71,change:'+12%',up:true},
-  {kw:'sale ends soon',pct:68,change:'+22%',up:true},
-  {kw:'free shipping',pct:65,change:'+5%',up:true},
-  {kw:'coupon code',pct:48,change:'-9%',up:false},
-  {kw:'buy now',pct:42,change:'-14%',up:false},
-];
+  const formats = [
+    {name:'Native (standard)',pct:45,chg:'+2%'},{name:'Short Video 15s',pct:28,chg:'+18%'},
+    {name:'Static Banner',pct:15,chg:'-8%'},{name:'Carousel',pct:8,chg:'+22%'},{name:'Other',pct:4,chg:'-1%'}
+  ];
+  document.getElementById('compFormatList').innerHTML = formats.map(f=>`
+    <div class="fmt-row">
+      <div class="fmt-top"><span class="fmt-name">${f.name}</span><span class="fmt-val">${f.pct}% <span style="font-size:10px;color:${f.chg.startsWith('+')?'var(--green)':'var(--red)'};">${f.chg}</span></span></div>
+      <div class="fmt-bar"><div class="fmt-fill" style="width:${f.pct}%"></div></div>
+    </div>
+  `).join('');
 
-const trendFormats = [
-  {name:'Short Video (15–20s)',pct:64,note:'+2.3× CTR vs static'},
-  {name:'Carousel (4–6 slides)',pct:52,note:'+35% engagement time'},
-  {name:'Static Image',pct:38,note:'Declining — update recommended'},
-  {name:'Animated GIF',pct:28,note:'Stable, mobile only'},
-  {name:'Long Video (30s+)',pct:18,note:'High completion on desktop'},
-];
+  const kw = [
+    {kw:'stofzuiger kopen',overlap:72,chg:'+5%'},{kw:'steelstofzuiger',overlap:68,chg:'+9%'},
+    {kw:'draadloze stofzuiger',overlap:61,chg:'+18%'},{kw:'vacuum cleaner deal',overlap:44,chg:'+3%'},
+    {kw:'stofzuiger aanbieding',overlap:38,chg:'-4%'},
+  ];
+  document.getElementById('kwOverlapList').innerHTML = kw.map(k=>`
+    <div class="kw-row">
+      <div class="kw-label">${k.kw}</div>
+      <div class="kw-bar-track"><div class="kw-bar-fill" style="width:${k.overlap}%"></div></div>
+      <div class="kw-pct">${k.overlap}%</div>
+      <div class="kw-trend ${k.chg.startsWith('+')?'up':'down'}">${k.chg}</div>
+    </div>
+  `).join('');
 
-const seasonalData = [
-  {date:'May 15–20',name:'Pre-Summer Sales',tip:'Launch discount-led creatives targeting warm-weather products.',badge:'hot'},
-  {date:'May 25',name:'Memorial Day (US)',tip:'High purchase intent in US. Boost spend 30% from May 22.',badge:'hot'},
-  {date:'Jun 1',name:'Pride Month Start',tip:'Inclusive messaging and diverse visuals drive engagement.',badge:'warm'},
-  {date:'Jun 9',name:'Father\'s Day Prep',tip:'Gift-guide style carousels convert well 2 weeks before date.',badge:'warm'},
-  {date:'Jun 15',name:'Mid-Year Review',tip:'B2B and SaaS campaigns see 18% CTR lift in this window.',badge:'plan'},
-  {date:'Jun 21',name:'Summer Solstice',tip:'Seasonal creative refresh. Update imagery and headlines.',badge:'plan'},
-  {date:'Jul 4',name:'Independence Day (US)',tip:'Largest US e-comm event outside Q4. Plan budgets now.',badge:'hot'},
-  {date:'Jul 15',name:'Amazon Prime Day',tip:'Competitor noise is high — focus on brand differentiation.',badge:'warm'},
-];
+  const hours = [
+    {h:'06–08',activity:22},{h:'08–10',activity:45},{h:'10–12',activity:61},
+    {h:'12–14',activity:55},{h:'14–16',activity:50},{h:'16–18',activity:63},
+    {h:'18–20',activity:78},{h:'20–22',activity:92},{h:'22–00',activity:68},
+  ];
+  document.getElementById('peakHoursList').innerHTML = hours.map(h=>`
+    <div class="kw-row">
+      <div class="kw-label" style="width:60px;">${h.h}</div>
+      <div class="kw-bar-track"><div class="kw-bar-fill" style="width:${h.activity}%;background:${h.activity>=80?'#1f1f1f':h.activity>=60?'#555':'#bbb'}"></div></div>
+      <div class="kw-pct">${h.activity}%</div>
+    </div>
+  `).join('');
+}
 
-function renderTrends() {
-  const container = document.getElementById('trendCardsContainer');
-  if (container) {
-    container.innerHTML = trendCards.map(t => `
-      <div class="trend-card">
-        <div class="trend-card-head">
-          <span class="trend-tag ${t.tag}">${t.tag.toUpperCase()}</span>
-          <span class="trend-priority ${t.priority}">${t.priorityLabel}</span>
+// ─── STATIC TRENDS (keywords, formats, seasonal) ───
+function renderStaticTrends() {
+  const kw = document.getElementById('trendKeywords');
+  if (kw) kw.innerHTML = staticKeywords.map(k=>`
+    <div class="kw-row">
+      <div class="kw-label">${k.kw}</div>
+      <div class="kw-bar-track"><div class="kw-bar-fill" style="width:${k.pct}%"></div></div>
+      <div class="kw-pct">${k.pct}%</div>
+      <div class="kw-trend ${k.up?'up':'down'}">${k.change}</div>
+    </div>
+  `).join('');
+
+  const fmt = document.getElementById('trendFormats');
+  if (fmt) fmt.innerHTML = staticFormats.map(f=>`
+    <div class="fmt-row">
+      <div class="fmt-top"><span class="fmt-name">${f.name}</span><span class="fmt-val">${f.pct}%</span></div>
+      <div class="fmt-bar"><div class="fmt-fill" style="width:${f.pct}%"></div></div>
+      <div class="fmt-note">${f.note}</div>
+    </div>
+  `).join('');
+
+  const seas = document.getElementById('seasonalSignals');
+  if (seas) seas.innerHTML = seasonalData.map(s=>`
+    <div class="season-card">
+      <div class="season-date">${s.date}</div>
+      <div class="season-name">${s.name}</div>
+      <div class="season-tip">${s.tip}</div>
+      <span class="season-badge ${s.badge}">${s.badge==='hot'?'🔥 Act Now':s.badge==='warm'?'Plan Soon':'Upcoming'}</span>
+    </div>
+  `).join('');
+}
+
+// ─── AI TRENDS (Anthropic API) ───
+let trendsLoaded = false;
+
+async function loadAITrends() {
+  const btn = document.getElementById('refreshTrendsBtn');
+  if (btn) { btn.disabled = true; btn.textContent = '⟳ Analyzing…'; }
+
+  // Show loading state
+  document.getElementById('aiHeadline').textContent = 'Analyzing live market intelligence…';
+  document.getElementById('aiBody').innerHTML = '<div class="ai-loading"><div class="spinner-dark"></div>Scanning 4.2M impressions across 38 active markets…</div>';
+  document.getElementById('trendCardsContainer').innerHTML = `<div style="grid-column:1/-1;padding:40px;text-align:center;"><div class="ai-loading" style="justify-content:center;"><div class="spinner-dark"></div>Generating personalized creative recommendations…</div></div>`;
+
+  const prompt = `You are an expert ad intelligence AI for AdPro+, an advertising platform. The user runs native display campaigns for "Steelstofzuiger Pro" (a premium cordless vacuum cleaner) targeting Netherlands, Belgium, and Germany markets. Their current campaigns: NL/BE iOS Mobile (€654 spent, Running), DE Android Mobile (€115, Paused), NL/BE Android Mobile (€818, Running), NL/BE Desktop (€572, Running). Current date: May 2026.
+
+Generate a market trends analysis report. Return ONLY valid JSON (no markdown, no explanation):
+
+{
+  "headline": "2-sentence punchy AI insight headline about what top advertisers are doing right now",
+  "summary": "3-4 sentence detailed analysis of current market conditions, what's working, specific to their category",
+  "cards": [
+    {
+      "tag": "hot|rising|new",
+      "priority": "high|medium",
+      "priorityLabel": "emoji + label text",
+      "title": "Specific actionable creative upgrade title",
+      "desc": "2-3 sentences with specific numbers and tactics relevant to vacuum/home appliance category in NL/BE/DE",
+      "stats": [{"val": "metric", "lbl": "label"}, {"val": "metric", "lbl": "label"}, {"val": "metric", "lbl": "label"}],
+      "action": "CTA button text →"
+    }
+  ]
+}
+
+Generate exactly 6 cards with very specific, practical advice for their vacuum cleaner ad campaigns in May/June 2026. Make stats realistic and specific. Focus on: mobile video, seasonal angles (summer cleaning), competitor tactics in NL/BE market, creative formats, bidding strategies, copy angles that work now.`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    const data = await response.json();
+    const text = data.content?.[0]?.text || '';
+    
+    let parsed;
+    try {
+      const clean = text.replace(/```json|```/g,'').trim();
+      parsed = JSON.parse(clean);
+    } catch(e) {
+      throw new Error('JSON parse failed');
+    }
+
+    // Update banner
+    document.getElementById('aiHeadline').textContent = parsed.headline || '';
+    document.getElementById('aiBody').innerHTML = (parsed.summary || '') + '<span class="ai-cursor"></span>';
+
+    // Update cards
+    const container = document.getElementById('trendCardsContainer');
+    if (parsed.cards && parsed.cards.length) {
+      container.innerHTML = parsed.cards.map(t => `
+        <div class="trend-card">
+          <div class="trend-card-head">
+            <span class="trend-tag ${t.tag || 'new'}">${(t.tag||'new').toUpperCase()}</span>
+            <span class="trend-priority ${t.priority||'medium'}">${t.priorityLabel||''}</span>
+          </div>
+          <div class="trend-title">${t.title||''}</div>
+          <div class="trend-desc">${t.desc||''}</div>
+          <div class="trend-stats">${(t.stats||[]).map(s=>`<div class="trend-stat"><span class="trend-stat-val">${s.val}</span><span class="trend-stat-lbl"> ${s.lbl}</span></div>`).join('')}</div>
+          <button class="trend-action" onclick="showToast('Opening strategy guide...')">${t.action||'Learn More →'}</button>
         </div>
+      `).join('');
+    }
+
+    trendsLoaded = true;
+    showToast('AI analysis refreshed — live data loaded.');
+    document.getElementById('trendsSubtitle').textContent = 'AI-powered creative suggestions · Updated just now · May 2026';
+
+  } catch(err) {
+    // Fallback to static cards if API fails
+    const fallback = [
+      { tag:'hot', priority:'high', priorityLabel:'🔥 High Priority', title:'Switch Static Ads to Short-Form Video (15–20s)', desc:'Video ads are outperforming static by 2.3× on CTR across mobile placements this week in NL/BE. Advertisers running 15s product demos see 72% completion rates and 40% lower CPC vs static banners.', stats:[{val:'2.3×',lbl:'CTR lift'},{val:'-40%',lbl:'CPC drop'},{val:'72%',lbl:'Completion'}], action:'Generate Video Brief →' },
+      { tag:'rising', priority:'high', priorityLabel:'↑ Trending', title:'Add Urgency + Countdown Language to Headlines', desc:'Creatives using "Limited offer", "Ends tonight", and "Only X left" are showing 45% higher conversion rates vs standard copy in May 2026. Especially effective for appliances in NL market.', stats:[{val:'+45%',lbl:'Conv. rate'},{val:'+31%',lbl:'CTR'},{val:'-22%',lbl:'CPA'}], action:'See Headline Templates →' },
+      { tag:'new', priority:'medium', priorityLabel:'✦ New Signal', title:'Test Carousel Format for Product Discovery', desc:'Carousel ads now dominate 45% of top-performing native placements for home appliances. Cultural storytelling with 4–6 slides drives 35% higher engagement time vs single-image.', stats:[{val:'+35%',lbl:'Engage time'},{val:'45%',lbl:'Market share'},{val:'+28%',lbl:'ROAS'}], action:'Apply Carousel Strategy →' },
+      { tag:'hot', priority:'high', priorityLabel:'🔥 High Priority', title:'Shift Budget to 8–10 PM Evening Slots', desc:'Evening time slots (8–10 PM) convert 35% better across NL/BE/DE geos. Mobile users in leisure mode convert at a significantly higher rate for home appliance purchases.', stats:[{val:'+35%',lbl:'Conv. rate'},{val:'8–10 PM',lbl:'Peak window'},{val:'Mobile',lbl:'Best device'}], action:'Update Bid Schedule →' },
+      { tag:'rising', priority:'medium', priorityLabel:'↑ Trending', title:'Lead With Social Proof in Ad Copy', desc:'"Trusted by 50K+ customers" and "4.8★ rated" copy is generating 28% more clicks across NL awareness campaigns. Effective in DE market when combined with third-party review logos.', stats:[{val:'+28%',lbl:'CTR lift'},{val:'DE/NL',lbl:'Best markets'},{val:'+19%',lbl:'CVR'}], action:'Browse Copy Formulas →' },
+      { tag:'new', priority:'medium', priorityLabel:'✦ New Signal', title:'Introduce Mobile-First Vertical Creatives (9:16)', desc:'Vertical 9:16 format accounts for 38% of all native mobile impressions in your target markets. Advertisers who switched from landscape saw 25% improvement in viewability scores on iOS.', stats:[{val:'38%',lbl:'Impression share'},{val:'+25%',lbl:'Viewability'},{val:'iOS',lbl:'Top platform'}], action:'Resize Creative Assets →' },
+    ];
+    document.getElementById('aiHeadline').textContent = 'Your creatives are underperforming vs. market benchmarks — here\'s what top advertisers in NL/BE/DE are doing differently right now.';
+    document.getElementById('aiBody').innerHTML = 'Based on 4.2M impressions analyzed across 38 active markets this week. Native mobile campaigns show the sharpest divergence — video and carousel formats are outperforming static by 2.3× on CTR. Your DE campaign is paused while competitors in that market increased spend by 8%. <span class="ai-cursor"></span>';
+    document.getElementById('trendCardsContainer').innerHTML = fallback.map(t=>`
+      <div class="trend-card">
+        <div class="trend-card-head"><span class="trend-tag ${t.tag}">${t.tag.toUpperCase()}</span><span class="trend-priority ${t.priority}">${t.priorityLabel}</span></div>
         <div class="trend-title">${t.title}</div>
         <div class="trend-desc">${t.desc}</div>
-        <div class="trend-stats">${t.stats.map(s=>`<div class="trend-stat"><span class="trend-stat-val">${s.val}</span><span class="trend-stat-lbl">${s.lbl}</span></div>`).join('')}</div>
-        <button class="trend-action">${t.action}</button>
+        <div class="trend-stats">${t.stats.map(s=>`<div class="trend-stat"><span class="trend-stat-val">${s.val}</span><span class="trend-stat-lbl"> ${s.lbl}</span></div>`).join('')}</div>
+        <button class="trend-action" onclick="showToast('Opening strategy guide...')">${t.action}</button>
       </div>
     `).join('');
+    showToast('AI analysis complete.');
   }
 
-  const kwEl = document.getElementById('trendKeywords');
-  if (kwEl) {
-    kwEl.innerHTML = trendKeywords.map(k => `
-      <div class="kw-row">
-        <div class="kw-label">${k.kw}</div>
-        <div class="kw-bar-track"><div class="kw-bar-fill" style="width:${k.pct}%"></div></div>
-        <div class="kw-pct">${k.pct}%</div>
-        <div class="kw-trend ${k.up?'up':'down'}">${k.change}</div>
-      </div>
-    `).join('');
-  }
-
-  const fmtEl = document.getElementById('trendFormats');
-  if (fmtEl) {
-    fmtEl.innerHTML = trendFormats.map(f => `
-      <div class="fmt-row">
-        <div class="fmt-top"><span class="fmt-name">${f.name}</span><span class="fmt-val">${f.pct}%</span></div>
-        <div class="fmt-bar"><div class="fmt-fill" style="width:${f.pct}%"></div></div>
-        <div class="fmt-note">${f.note}</div>
-      </div>
-    `).join('');
-  }
-
-  const seasEl = document.getElementById('seasonalSignals');
-  if (seasEl) {
-    seasEl.innerHTML = seasonalData.map(s => `
-      <div class="season-card">
-        <div class="season-date">${s.date}</div>
-        <div class="season-name">${s.name}</div>
-        <div class="season-tip">${s.tip}</div>
-        <span class="season-badge ${s.badge}">${s.badge==='hot'?'🔥 Act Now':s.badge==='warm'?'Plan Soon':'Upcoming'}</span>
-      </div>
-    `).join('');
+  if (btn) {
+    btn.disabled = false;
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> Refresh AI Analysis';
   }
 }
 
-function loadTrends() {
-  const btn = document.getElementById('refreshTrendsBtn');
-  if (btn) { btn.textContent = '⟳ Refreshing…'; btn.disabled = true; }
-  setTimeout(() => {
-    renderTrends();
-    if (btn) { btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> Refresh AI Analysis'; btn.disabled = false; }
-    showToast('Trends refreshed — AI analysis updated.');
-  }, 800);
-}
-
-// Call render on appropriate page show
-const _origShowPage = showPage;
+// ─── NAVIGATION ───
 function showPage(page, el) {
-  _origShowPage(page, el);
-  if (page === 'countries') renderCountries();
-  if (page === 'platforms') renderPlatforms();
-  if (page === 'trends') renderTrends();
+  document.querySelectorAll('.page-section').forEach(s=>s.classList.remove('active'));
+  const pg = document.getElementById('page-'+page);
+  if (pg) pg.classList.add('active');
+  document.querySelectorAll('.sidebar-item').forEach(s=>s.classList.remove('active'));
+  if (el && el.classList) el.classList.add('active');
+  // Lazy render
+  if (page==='countries') renderCountries();
+  if (page==='platforms') renderPlatforms();
+  if (page==='intel') renderIntel();
+  if (page==='trends' && !trendsLoaded) { renderStaticTrends(); }
 }
 
+function setMhTab(el) {
+  el.closest('.mh-tabs').querySelectorAll('.mh-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ─── MODAL ───
+function openNewCampaignModal() {
+  document.getElementById('modalOverlay').classList.remove('hidden');
+  setTimeout(()=>document.getElementById('newName').focus(),100);
+  selectedStrat='';
+  document.querySelectorAll('.strategy-chip').forEach(c=>c.classList.remove('selected'));
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.add('hidden');
+  ['newName','newBudget'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('newGoal').value='';
+  selectedStrat='';
+  document.querySelectorAll('.strategy-chip').forEach(c=>c.classList.remove('selected'));
+}
+function selectStrat(el) {
+  document.querySelectorAll('.strategy-chip').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected'); selectedStrat=el.textContent;
+}
+function createCampaign() {
+  const name=document.getElementById('newName').value.trim();
+  const goal=document.getElementById('newGoal').value;
+  const budget=document.getElementById('newBudget').value;
+  if (!name) { const ni=document.getElementById('newName'); ni.style.borderColor='var(--red)'; ni.focus(); setTimeout(()=>ni.style.borderColor='',1500); return; }
+  if (!goal) { const gi=document.getElementById('newGoal'); gi.style.borderColor='var(--red)'; setTimeout(()=>gi.style.borderColor='',1500); return; }
+  const id=String(49000000+Math.floor(Math.random()*99999));
+  const bud=budget?`€${parseFloat(budget).toFixed(2)} Daily`:'€50.00 Daily';
+  const cap=budget?`€${parseFloat(budget).toFixed(2)}`:'€50.00';
+  campaigns.push({id,name,status:'Running',active:true,type:'Native',groupId:'96051',groupName:'NL / BE conv / S',spent:'€0.00',budget:bud,cap});
+  renderTable();
+  closeModal();
+  showToast('"'+name+'" created successfully!');
+  showPage('campaigns',document.querySelector('[data-page=campaigns]'));
+}
+
+// ─── SIGN OUT ───
+function signOut() {
+  document.getElementById('appShell').style.display='none';
+  document.getElementById('loginPage').style.display='flex';
+  document.getElementById('loginEmail').value='';
+  document.getElementById('loginPassword').value='';
+  const btn=document.getElementById('loginBtn');
+  btn.innerHTML='<span id="loginBtnText">Sign In</span>';
+  btn.style.pointerEvents='';
+  trendsLoaded=false;
+}
+
+// ─── TOAST ───
+function showToast(msg) {
+  const t=document.getElementById('toast');
+  document.getElementById('toastText').textContent=msg;
+  t.classList.remove('hidden');
+  clearTimeout(window._toastTimer);
+  window._toastTimer=setTimeout(()=>t.classList.add('hidden'),3500);
+}
 </script>
 </body>
 </html>
